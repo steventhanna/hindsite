@@ -33,7 +33,7 @@ var jsFilesToInject = [
 
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
-  'js/**/*.js'
+  // 'js/**/*.js'
 ];
 
 
@@ -81,7 +81,5 @@ module.exports.templateFilesToInject = templateFilesToInject.map(function(tplPat
   if (tplPath[0] === '!') {
     return require('path').join('!assets/', tplPath.substr(1));
   }
-  return require('path').join('assets/',tplPath);
+  return require('path').join('assets/', tplPath);
 });
-
-
