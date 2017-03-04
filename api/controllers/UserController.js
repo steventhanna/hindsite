@@ -81,4 +81,20 @@ module.exports = {
     });
   },
 
+  delete: function(req, res) {
+    User.destroy({
+      id: req.user.id
+    }).exec(function(err) {
+      if (err) {
+        console.log("There was an error deleting the user.");
+        console.log("Error = " + err);
+        res.serverError();
+      } else {
+        res.send({
+          success: true
+        });
+      }
+    });
+  },
+
 };
