@@ -11,7 +11,8 @@ module.exports = function(req, res, next) {
       console.log("The dashboard has not been setup yet");
       // Set up the dashboard here
       var dashObj = {
-        endpoints: []
+        endpoints: [],
+        signupkey: 'hindsite'
       };
       Dash.create(dashObj).exec(function(err, dash) {
         if (err || dash == undefined) {

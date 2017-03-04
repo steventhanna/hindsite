@@ -39,9 +39,8 @@ module.exports.policies = {
   },
 
   'setup': {
-    'create': ['exposeSetUp', 'isAuthenticated'],
-    'createView': ['exposeSetUp', 'isAuthenticated'],
-    'firstUser': 'noUsers'
+    'create': 'exposeSetUp',
+    'createView': 'exposeSetUp',
   }
 
   'dash': {

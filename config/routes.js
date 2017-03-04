@@ -51,9 +51,25 @@ module.exports.routes = {
     action: 'signup'
   },
 
-  // 'GET /login': {
-  //   controller: 'login'
-  // }
+  'GET /setup': {
+    controller: 'setup',
+    action: 'createView',
+  },
+
+  'GET /dashboard': {
+    controller: 'dash',
+    action: 'dashboard'
+  },
+
+  'GET /login': {
+    controller: 'setup',
+    action: 'loginView'
+  },
+
+  'GET /signup': {
+    controller: 'setup',
+    action: 'signupView'
+  },
 
   /***************************************************************************
    *                                                                          *

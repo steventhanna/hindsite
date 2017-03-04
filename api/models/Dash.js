@@ -27,6 +27,13 @@ module.exports = {
 
     postmarkAPIKey: {
       type: 'string'
-    }
+    },
+
+    signupkey: {
+      type: 'string',
+      defaultsTo: 'hindsite'
+      required: true
+    },
+
   }
 };

@@ -53,4 +53,24 @@ module.exports = {
     });
   },
 
+  signupView: function(req, res) {
+    if (req.user.id != undefined) {
+      res.redirect('/dashboard');
+    } else {
+      res.view('setup/signup', {
+        title: 'Hindsite | Signup'
+      });
+    }
+  },
+
+  loginView: function(req, res) {
+    if (req.user.id != undefined) {
+      res.redirect('/dashboard');
+    } else {
+      res.view('setup/login', {
+        title: 'Hindsite | Login'
+      });
+    }
+  },
+
 };
