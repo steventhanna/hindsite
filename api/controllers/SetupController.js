@@ -36,6 +36,7 @@ module.exports = {
     });
   },
 
+  // Render the view for create
   createView: function(req, res) {
     User.findOne({
       id: req.user.id
@@ -53,8 +54,9 @@ module.exports = {
     });
   },
 
+  // Render the view so users can signup
   signupView: function(req, res) {
-    if (req.user.id != undefined) {
+    if (req.user != undefined) {
       res.redirect('/dashboard');
     } else {
       res.view('setup/signup', {
@@ -63,8 +65,9 @@ module.exports = {
     }
   },
 
+  // Render the view so users can login
   loginView: function(req, res) {
-    if (req.user.id != undefined) {
+    if (req.user != undefined) {
       res.redirect('/dashboard');
     } else {
       res.view('setup/login', {

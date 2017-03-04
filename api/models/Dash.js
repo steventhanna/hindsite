@@ -31,9 +31,8 @@ module.exports = {
 
     signupkey: {
       type: 'string',
-      defaultsTo: 'hindsite'
+      defaultsTo: 'hindsite',
       required: true
     },
-
   }
 };

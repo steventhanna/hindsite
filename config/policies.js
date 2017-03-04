@@ -41,7 +41,7 @@ module.exports.policies = {
   'setup': {
     'create': 'exposeSetUp',
     'createView': 'exposeSetUp',
-  }
+  },
 
   'dash': {
     '*': 'isAuthenticated',

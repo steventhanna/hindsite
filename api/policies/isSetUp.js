@@ -2,7 +2,7 @@
 
 module.exports = function(req, res, next) {
 
-  Dash.findOne().exec(function(err, dash) {
+  Dash.find().limit(1).exec(function(err, dash) {
     if (err) {
       console.log("There was an error finding the dash.");
       console.log("Error = " + err);
