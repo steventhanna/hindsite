@@ -49,7 +49,7 @@ module.exports.routes = {
   'POST /user/signup': {
     controller: 'auth',
     action: 'signup'
-  }
+  },
 
   // 'GET /login': {
   //   controller: 'login'

@@ -7,4 +7,8 @@
 
 module.exports = {
 
+  // Create the dash element
+  create: function(req, res) {
+
+  },
 };

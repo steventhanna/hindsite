@@ -28,6 +28,8 @@ module.exports.policies = {
 
   // '*': true,
 
+  '*': 'isSetUp',
+
   'auth': {
     '*': true
   },
@@ -36,8 +38,14 @@ module.exports.policies = {
     '*': 'isAuthenticated'
   },
 
+  'setup': {
+    'create': ['exposeSetUp', 'isAuthenticated'],
+    'createView': ['exposeSetUp', 'isAuthenticated'],
+    'firstUser': 'noUsers'
+  }
+
   'dash': {
-    '*': 'isAuthenticated'
+    '*': 'isAuthenticated',
   },
 
   /***************************************************************************
