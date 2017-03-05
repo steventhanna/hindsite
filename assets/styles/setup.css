@@ -1,0 +1,44 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.login-box {
+  width: 70%;
+  text-align: left;
+}
+
+.login-title {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.login-title h1 {
+  font-size: 38px;
+}
+
+.login-title h3 {
+  font-size: 22px;
+  color: var(--oc-gray-6);
+  font-weight: 300;
+  margin-top: 0px;
+}
+
+.input-group-addon {
+  background: #fff;
+}
+
+label {
+  margin-top: 10px;
+}
+
+.btn {
+  border-radius: 15px;
+}
+
+.btn-success {
+  background-color: var(--oc-green-8);
+}
+
+.help-block {
+  margin-bottom: 0px;
+}

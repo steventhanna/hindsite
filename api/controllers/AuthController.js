@@ -71,7 +71,10 @@ module.exports = {
       // Verify the signup key
       function(callback) {
         if (post.signupkey != signupkey) {
-          res.forbidden();
+          res.send({
+            success: false,
+            message: "Incorrect Key"
+          });
         } else {
           callback();
         }
@@ -81,8 +84,12 @@ module.exports = {
         User.findOne({
           username: userData.username
         }).exec(function(err, u) {
-          if (error || u != undefined) {
-            res.serverError();
+          if (err || u != undefined) {
+            console.log(err);
+            res.send({
+              success: false,
+              message: "That email address is already in use."
+            });
           } else {
             callback();
           }
@@ -90,7 +97,7 @@ module.exports = {
       },
       function(callback) {
         User.create(userData).exec(function(err, newUser) {
-          if (err || newUser = undefined) {
+          if (err || newUser == undefined) {
             console.log("There was an error creating the new user.");
             console.log("Error = " + err);
             res.serverError();
@@ -99,11 +106,12 @@ module.exports = {
             user = newUser;
             callback();
           }
-        })
+        });
       }
     ], function(callback) {
       req.logIn(user, function(err) {
         if (err) {
+          console.log(err);
           res.serverError();
         } else {
           // Client side redirect

@@ -61,11 +61,14 @@ module.exports = {
     if (req.user != undefined) {
       res.redirect('/dashboard');
     } else {
-      DashService.title("Signup", function(title) {
-        res.view('setup/signup', {
-          title: title
+      DashService.getDashElement(function(elem) {
+        DashService.title("Signup", function(title) {
+          res.view('setup/signup', {
+            dash: elem,
+            title: title
+          });
         });
-      });
+      })
     }
   },
 
@@ -74,9 +77,12 @@ module.exports = {
     if (req.user != undefined) {
       res.redirect('/dashboard');
     } else {
-      DashService.title("Login", function(title) {
-        res.view('setup/login', {
-          title: title
+      DashService.getDashElement(function(elem) {
+        DashService.title("Login", function(title) {
+          res.view('setup/login', {
+            title: title,
+            dash: elem
+          });
         });
       });
     }

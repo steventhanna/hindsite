@@ -28,6 +28,11 @@ function findByUsername(username, fn) {
 // serialize users into and deserialize users out of the session. Typeically,
 // this will be as simple as storing the user ID when serializing, and finding
 // the user by ID when deserializing
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
 passport.deserializeUser(function(id, done) {
   User.findOne({
     id: id
