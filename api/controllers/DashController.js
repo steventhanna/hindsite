@@ -41,6 +41,7 @@ module.exports = {
 
   // Edit the dash object
   edit: function(req, res) {
+    var post = req.body;
     User.findOne({
       id: req.user.id
     }).populateAll().exec(function(err, user) {
@@ -80,6 +81,7 @@ module.exports = {
               dash.postmarkAPIKey = post.postmarkAPIKey;
               changes = true;
             }
+            callback();
           },
           function(callback) {
             if (changes) {
@@ -101,6 +103,37 @@ module.exports = {
           res.send({
             success: true,
             message: message
+          });
+        });
+      }
+    });
+  },
+
+  settings: function(req, res) {
+    User.findOne({
+      id: req.user.id
+    }).populateAll().exec(function(err, user) {
+      if (err || user == undefined) {
+        console.log("There was an error finding the user.");
+        console.log("Error = " + error);
+        res.serverError();
+      } else {
+        var dash;
+        async.series([
+          function(callback) {
+            DashService.getDashElement(function(elem) {
+              dash = elem;
+              callback();
+            });
+          },
+        ], function(callback) {
+          DashService.title("Settings", function(title) {
+            res.view('dash/settings', {
+              currentPage: 'settings',
+              title: title,
+              user: user,
+              dash: dash
+            });
           });
         });
       }

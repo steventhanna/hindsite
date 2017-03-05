@@ -143,14 +143,14 @@ body {
 
 @media (min-width: 992px) {
   .main-content {
-    padding-left: 27%;
+    padding-left: 30%;
   }
 }
 
 @media (min-width: 1200px) {
   .main-content {
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 50px;
+    padding-right: 50px;
   }
 }
 
@@ -175,4 +175,79 @@ body {
 
 .navbar-default .navbar-nav>li>a>i {
   color: var(--oc-teal-7);
+}
+
+.main-content h2 {
+  color: var(--oc-teal-8);
+  font-weight: 300;
+  margin-top: 30px;
+}
+
+.input-group-addon {
+  background: #fff;
+}
+
+label {
+  margin-top: 10px;
+}
+
+.btn-success {
+  background-color: var(--oc-teal-7);
+}
+
+.btn-success:hover {
+  background-color: var(--oc-teal-9);
+  border-color: var(--oc-teal-9);
+}
+
+.btn-success:active, .btn-success:active:hover {
+  background-color: var(--oc-teal-5);
+  border-color: var(--oc-teal-5);
+}
+
+.btn-success:focus {
+  background-color: var(--oc-teal-6);
+  border-color: var(--oc-teal-6);
+}
+
+.btn-danger {
+  background-color: var(--oc-red-7);
+}
+
+.help-block {
+  margin-bottom: 0px;
+}
+
+.has-success .form-control {
+  border-color: var(--oc-teal-7);
+}
+
+.has-error .form-control {
+  border-color: var(--oc-red-7);
+}
+
+.has-error .form-control:focus {
+  border-color: var(--oc-red-7);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px var(--oc-red-7);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px var(--oc-red-7);
+}
+
+
+
+.has-success .form-control:focus {
+  border-color: var(--oc-teal-7);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px var(--oc-teal-7);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px var(--oc-teal-7);
+}
+
+.has-success .input-group-addon {
+  color: var(--oc-teal-7) !important;
+  background-color: var(--oc-teal-0);
+  border-color: var(--oc-teal-7);
+}
+
+.has-error .input-group-addon {
+  color: var(--oc-red-7) !important;
+  background-color: var(--oc-red-0);
+  border-color: var(--oc-red-7);
 }

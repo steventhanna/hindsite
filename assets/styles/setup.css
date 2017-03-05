@@ -36,8 +36,24 @@ label {
 }
 
 .btn-success {
-  background-color: var(--oc-green-8);
+  background-color: var(--oc-teal-7);
 }
+
+.btn-success:hover {
+  background-color: var(--oc-teal-9);
+  border-color: var(--oc-teal-9);
+}
+
+.btn-success:active, .btn-success:active:hover {
+  background-color: var(--oc-teal-5);
+  border-color: var(--oc-teal-5);
+}
+
+.btn-success:focus {
+  background-color: var(--oc-teal-6);
+  border-color: var(--oc-teal-6);
+}
+
 
 .help-block {
   margin-bottom: 0px;

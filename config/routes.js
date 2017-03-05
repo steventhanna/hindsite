@@ -56,6 +56,11 @@ module.exports.routes = {
     action: 'login'
   },
 
+  'POST /dash/edit': {
+    controller: 'dash',
+    action: 'edit'
+  },
+
   'GET /setup': {
     controller: 'setup',
     action: 'createView',
@@ -79,6 +84,11 @@ module.exports.routes = {
   '/logout': {
     controller: 'auth',
     action: 'logout'
+  },
+
+  '/settings': {
+    controller: 'dash',
+    action: 'settings'
   },
 
   /***************************************************************************
