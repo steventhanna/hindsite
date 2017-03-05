@@ -28,5 +28,11 @@ module.exports = {
     DashService.getDashElement(function(elem) {
       callback(elem.name + " | " + titleString);
     });
+  },
+
+  getSignupKey: function(callback) {
+    DashService.getDashElement(function(elem) {
+      callback(elem.signupkey);
+    });
   }
 }

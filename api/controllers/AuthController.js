@@ -58,35 +58,61 @@ module.exports = {
       fullName: post.firstName + " " + post.lastName,
     };
 
-    // Check if that user already exists
-    User.findOne({
-      username: userData.username
-    }).exec(function(err, user) {
-      if (user != undefined) {
-        res.serverError();
-      } else {
+    var signupkey;
+    var user;
+    async.series([
+      // Get the signup key
+      function(callback) {
+        DashService.getSignupKey(function(key) {
+          signupkey = key;
+          callback();
+        });
+      },
+      // Verify the signup key
+      function(callback) {
+        if (post.signupkey != signupkey) {
+          res.forbidden();
+        } else {
+          callback();
+        }
+      },
+      // Check if the user already exists
+      function(callback) {
+        User.findOne({
+          username: userData.username
+        }).exec(function(err, u) {
+          if (error || u != undefined) {
+            res.serverError();
+          } else {
+            callback();
+          }
+        });
+      },
+      function(callback) {
         User.create(userData).exec(function(err, newUser) {
-          if (err || newUser == undefined) {
+          if (err || newUser = undefined) {
             console.log("There was an error creating the new user.");
             console.log("Error = " + err);
             res.serverError();
           } else {
             // Log the user in
-            req.logIn(user, function(err) {
-              if (err) {
-                res.serverError();
-                return;
-              } else {
-                // Client side redirect
-                res.send({
-                  success: true,
-                  user: user
-                });
-              }
-            });
+            user = newUser;
+            callback();
           }
-        });
+        })
       }
+    ], function(callback) {
+      req.logIn(user, function(err) {
+        if (err) {
+          res.serverError();
+        } else {
+          // Client side redirect
+          res.send({
+            success: true,
+            user: user
+          });
+        }
+      });
     });
   },
 
