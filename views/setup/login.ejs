@@ -1,1 +1,43 @@
-<h1>Hello World | Login</h1>
+<% include depend.ejs %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 login-header">
+      <center>
+        <h1><%= dash.name %></h1>
+      </center>
+    </div>
+  </div>
+  <center>
+    <div class="login-title">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1>Welcome Back</h1>
+          <h3>Login to your account here.</h3>
+        </div>
+      </div>
+    </div>
+    <div class="login-box">
+      <div class="row">
+        <div class="col-lg-12">
+          <form>
+            <label for="email">Email</label>
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope"></i></span>
+              <input id="email" type="email" class="form-control" placeholder="example@example.com" aria-describedby="basic-addon1" />
+            </div>
+            <label for="password">Password</label>
+            <div id="passwordGroup" class="input-group">
+              <span class="input-group-addon" id="password-addon"><i class="fa fa-lock"></i></span>
+              <input id="password" type="password" class="form-control" placeholder="*********" aria-describedby="password-addon" />
+            </div>
+          </form>
+          <br />
+          <button id="loginButton" class="btn btn-success btn-lg btn-block">Login</button>
+        </div>
+      </div>
+    </div>
+  </center>
+</div>
+
+<script src="/js/pages/login.js"></script>

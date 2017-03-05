@@ -95,6 +95,7 @@ module.exports = {
           }
         });
       },
+      // Create the user
       function(callback) {
         User.create(userData).exec(function(err, newUser) {
           if (err || newUser == undefined) {
@@ -109,6 +110,7 @@ module.exports = {
         });
       }
     ], function(callback) {
+      // Log the user in
       req.logIn(user, function(err) {
         if (err) {
           console.log(err);
@@ -123,5 +125,4 @@ module.exports = {
       });
     });
   },
-
 };

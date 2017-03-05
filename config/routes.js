@@ -51,6 +51,11 @@ module.exports.routes = {
     action: 'signup'
   },
 
+  'POST /user/login': {
+    controller: 'auth',
+    action: 'login'
+  },
+
   'GET /setup': {
     controller: 'setup',
     action: 'createView',
@@ -69,6 +74,11 @@ module.exports.routes = {
   'GET /signup': {
     controller: 'setup',
     action: 'signupView'
+  },
+
+  '/logout': {
+    controller: 'auth',
+    action: 'logout'
   },
 
   /***************************************************************************

@@ -20,22 +20,18 @@ module.exports = {
         var dash;
         async.series([
           function(callback) {
-            Dash.find().limit(1).exec(function(err, d) {
-              if (err || d == undefined) {
-                console.log("There was an error finding the dashboard.");
-                console.log("Error = " + err);
-                res.serverError();
-              } else {
-                dash = d;
-                callback();
-              }
+            DashService.getDashElement(function(elem) {
+              dash = elem;
+              callback();
             });
           }
         ], function(callback) {
-          res.view('dash/dashboard', {
-            user: user,
-            dash: dash,
-            title: "Hindsite | Dashboard"
+          DashService.title("Dashboard", function(title) {
+            res.view('dash/dashboard', {
+              user: user,
+              dash: dash,
+              title: title
+            });
           });
         });
       }
