@@ -1,0 +1,145 @@
+/**
+  * Dashboard Style
+  *
+  * @author Steven T Hanna (http://www.github.com/steventhanna)
+  * @description The style for the backend dashboard.  Utilizes dashboard and some magic
+*/
+
+/* For testing grid bugs */
+/** {
+  border-style: solid;
+  border-color: red;
+  border-width: 1px;
+}*/
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: var(--oc-gray-2);
+  padding-right: 20px;
+  width: 100%;
+}
+
+/* Handle body padding for navbar-fixed-top */
+@media (max-width: 768px) {
+  body {
+    padding-top: 40px;
+    width: 94%;
+    padding-right: 0px;
+  }
+
+  .navbar-header {
+    padding-top: 5px;
+  }
+}
+
+.sidebar {
+  position: fixed;
+  z-index: 10;
+  height: 100%;
+  overflow-y: auto;
+  background-color: #fff;
+  padding-left: 40px;
+  padding-right: 20px;
+  border-right-style: solid;
+  border-right-color: #eaf1f5;
+  border-right-width: 1px;
+  width: 25%;
+}
+
+.sidebar .title {
+  color: #000;
+}
+
+.sidebar .title a {
+  color: #000;
+  text-decoration: none;
+}
+
+.sidebar .title h1 {
+  font-weight: 300;
+}
+
+.sidebar .title p {
+  font-size: 16px;
+}
+
+.sidebar .sections i {
+  margin-right: 10px;
+}
+
+.nav > li > a {
+  /* TODO :: Pick a color for here */
+  color: #000;
+  font-size: 15px;
+}
+
+.nav-pills > li .active > a {
+  color: #fff;
+  /* TODO :: Pick a color for here */
+  background-color: #000;
+  border-width: 1px;
+  border-style: solid;
+  /* TODO :: Pick a color for here **SAME** */
+  border-color: #000;
+}
+
+.nav-pills > li .active > a:focus, .nav-pills > li .active > a:hover {
+  /* TODO :: Pick a color for here **SAME** */
+  color: #000;
+  background-color: #fff;
+  /* TODO :: Pick a color for here **SAME** */
+  border-color: #000;
+  border-width: 1px;
+}
+
+.nav-stacked > li + li {
+  margin-top: 20px;
+}
+
+/* DON'T TOUCH ... THIS IS MAGICAL */
+@media (max-width: 768px) {
+  .main-content {
+    padding-left: 25px;
+    padding-right: 0px;
+    padding-bottom: 25px;
+  }
+  .row {
+    margin-right: -5%;
+    padding-right: 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  .main-content {
+    padding-left: 35%;
+    padding-bottom: 25px;
+  }
+  body {
+    padding-top: 0px;
+  }
+}
+
+@media (min-width: 992px) {
+  .main-content {
+    padding-left: 27%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .main-content {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+}
+
+.navbar-default .navbar-brand {
+  margin-left: 10px;
+  color: #34495e;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 24px;
+}
+
+.navbar-default .navbar-nav > .active > a {
+  color: #fff;
+  background-color: #9b59b6;
+}

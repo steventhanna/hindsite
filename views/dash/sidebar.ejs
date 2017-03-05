@@ -1,0 +1,42 @@
+<div class="hidden" id="id">
+  <%= user.id %>
+</div>
+
+<div class="col-lg-3 sidebar hidden-xs">
+  <div class="title">
+    <a id="heading" href="/dashboard">
+      <h1><%= dash.name %></h1>
+    </a>
+    <p>
+      Uptime and Statistics
+    </p>
+  </div>
+  <div class="sections">
+    <ul class="nav nav-pills nav-stacked">
+      <li <% if (currentPage == "dashboard") { %> class="active" <% } %>>
+        <a id="dashboard" href="/dashboard">
+          <i class="fa fa-tachometer"></i>
+          Dashboard</a>
+      </li>
+      <li <% if (currentPage == "settings") { %> class="active" <% } %>>
+        <a id="settings" href="/settings">
+          <i class="fa fa-gear"></i>
+          Settings</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<nav class="nvbar navbar-default navbar-fixed-top visible-xs">
+  <div class="container">
+    <div class="navbar-hedaer">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <a class="navbar-brand" href="/dashboard"><%= dash.name %></a>
+  </div>
+</nav>

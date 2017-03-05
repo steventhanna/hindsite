@@ -30,7 +30,8 @@ module.exports = {
             res.view('dash/dashboard', {
               user: user,
               dash: dash,
-              title: title
+              title: title,
+              currentPage: "dashboard"
             });
           });
         });
