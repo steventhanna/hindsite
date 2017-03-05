@@ -14,7 +14,12 @@ module.exports = {
     endpoints: {
       type: 'array',
       defaultsTo: [],
-      required: true
+    },
+
+    name: {
+      type: 'string',
+      required: true,
+      defaultsTo: 'Hindsite'
     },
 
     twitterAPIKey: {

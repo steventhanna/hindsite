@@ -1,18 +1,18 @@
 // Determine if the system has been set up yet
 
 module.exports = function(req, res, next) {
-
   Dash.find().limit(1).exec(function(err, dash) {
     if (err) {
       console.log("There was an error finding the dash.");
       console.log("Error = " + err);
       res.serverError();
-    } else if (dash == undefined) {
+    } else if (dash.length == 0) {
       console.log("The dashboard has not been setup yet");
       // Set up the dashboard here
       var dashObj = {
         endpoints: [],
-        signupkey: 'hindsite'
+        signupkey: 'hindsite',
+        name: 'Hindsite'
       };
       Dash.create(dashObj).exec(function(err, dash) {
         if (err || dash == undefined) {

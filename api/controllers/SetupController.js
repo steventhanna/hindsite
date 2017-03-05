@@ -46,10 +46,12 @@ module.exports = {
         console.log("Error = " + err);
         res.serverError();
       } else {
-        res.view('setup/create', {
-          user: user,
-          title: 'Hindsite | Setup'
-        });
+        DashService.title("Create", function(title) {
+          res.view('setup/create', {
+            user: user,
+            title: title
+          });
+        })
       }
     });
   },
@@ -59,8 +61,10 @@ module.exports = {
     if (req.user != undefined) {
       res.redirect('/dashboard');
     } else {
-      res.view('setup/signup', {
-        title: 'Hindsite | Signup'
+      DashService.title("Signup", function(title) {
+        res.view('setup/signup', {
+          title: title
+        });
       });
     }
   },
@@ -70,10 +74,11 @@ module.exports = {
     if (req.user != undefined) {
       res.redirect('/dashboard');
     } else {
-      res.view('setup/login', {
-        title: 'Hindsite | Login'
+      DashService.title("Login", function(title) {
+        res.view('setup/login', {
+          title: title
+        });
       });
     }
   },
-
 };
