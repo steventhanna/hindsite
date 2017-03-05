@@ -11,6 +11,8 @@
       Uptime and Statistics
     </p>
   </div>
+  <br />
+  <br />
   <div class="sections">
     <ul class="nav nav-pills nav-stacked">
       <li <% if (currentPage == "dashboard") { %> class="active" <% } %>>
@@ -18,25 +20,53 @@
           <i class="fa fa-tachometer"></i>
           Dashboard</a>
       </li>
+      <li <% if (currentPage == "endpoints") { %> class="active" <% } %>>
+        <a id="endpoints" href="/endpoints">
+          <i class="fa fa-feed"></i>
+          Endpoints</a>
+      </li>
       <li <% if (currentPage == "settings") { %> class="active" <% } %>>
         <a id="settings" href="/settings">
           <i class="fa fa-gear"></i>
           Settings</a>
       </li>
+      <li>
+        <a id="logout" href="/logout">
+          <i class="fa fa-power-off"></i>
+          Logout</a>
+        </li>
     </ul>
   </div>
 </div>
 
 <nav class="nvbar navbar-default navbar-fixed-top visible-xs">
   <div class="container">
-    <div class="navbar-hedaer">
+    <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+      <a class="navbar-brand" href="/dashboard"><%= dash.name  %></a>
     </div>
-    <a class="navbar-brand" href="/dashboard"><%= dash.name %></a>
+    <div class="container">
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li id="dashboard" <% if (currentPage == "dashboard") { %>class="active" <% } %>>
+            <a href="/dashboard"><i class="fa fa-tachometer"></i> Dashboard</a>
+          </li>
+          <li id="endpoints" <% if (currentPage == "endpoints") { %>class="active" <% } %>>
+            <a href="/endpoints"><i class="fa fa-feed"></i> Endpoints</a>
+          </li>
+          <li id="settings" <% if (currentPage == "settings") { %>class="active" <% } %>>
+            <a href="/settings"><i class="fa fa-gear"></i> Endpoints</a>
+          </li>
+          <li id="logout">
+            <a href="/logout"><i class="fa fa-power-off"></i> Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </nav>

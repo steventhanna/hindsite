@@ -14,7 +14,7 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color: var(--oc-gray-2);
+  background-color: #fff;
   padding-right: 20px;
   width: 100%;
 }
@@ -37,7 +37,7 @@ body {
   z-index: 10;
   height: 100%;
   overflow-y: auto;
-  background-color: #fff;
+  background-color: var(--oc-gray-2);
   padding-left: 40px;
   padding-right: 20px;
   border-right-style: solid;
@@ -73,14 +73,18 @@ body {
   font-size: 15px;
 }
 
+.sections i {
+  color: var(--oc-teal-7);
+}
+
 .nav-pills > li .active > a {
-  color: #fff;
+  color: #000;
   /* TODO :: Pick a color for here */
-  background-color: #000;
+  background-color: #fff;
   border-width: 1px;
   border-style: solid;
   /* TODO :: Pick a color for here **SAME** */
-  border-color: #000;
+  border-color: var(--oc-gray-5);
 }
 
 .nav-pills > li .active > a:focus, .nav-pills > li .active > a:hover {
@@ -88,12 +92,30 @@ body {
   color: #000;
   background-color: #fff;
   /* TODO :: Pick a color for here **SAME** */
-  border-color: #000;
+  border-color: var(--oc-gray-5);
   border-width: 1px;
 }
 
 .nav-stacked > li + li {
   margin-top: 20px;
+}
+
+.nav-pills>li.active>a {
+  background-color: #fff;
+  color: #000;
+  border-color: var(--oc-gray-5);
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.19);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.19);
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.19);
+}
+
+.nav-pills>li.active>a:hover {
+  background-color: var(--oc-teal-7);
+  color: #fff;
+}
+
+.nav-pills>li.active>a:hover i {
+  color: #fff !important;
 }
 
 /* DON'T TOUCH ... THIS IS MAGICAL */
@@ -134,12 +156,23 @@ body {
 
 .navbar-default .navbar-brand {
   margin-left: 10px;
-  color: #34495e;
+  color: #000;
   font-family: 'Open Sans', sans-serif;
   font-size: 24px;
 }
 
 .navbar-default .navbar-nav > .active > a {
-  color: #fff;
-  background-color: #9b59b6;
+  color: #000;
+  background-color: #fff;
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.19);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.19);
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.19);
+}
+
+.navbar-default .navbar-nav > .active > a i {
+  color: var(--oc-teal-7);
+}
+
+.navbar-default .navbar-nav>li>a>i {
+  color: var(--oc-teal-7);
 }
