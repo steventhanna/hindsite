@@ -20,10 +20,10 @@
           <i class="fa fa-tachometer"></i>
           Dashboard</a>
       </li>
-      <li <% if (currentPage == "endpoints") { %> class="active" <% } %>>
-        <a id="endpoints" href="/endpoints">
+      <li <% if (currentPage == "monitors") { %> class="active" <% } %>>
+        <a id="monitors" href="/monitors">
           <i class="fa fa-feed"></i>
-          Endpoints</a>
+          Monitors</a>
       </li>
       <br /><br />
       <li <% if (currentPage == "integrations") { %> class="active" <% } %>>
@@ -61,8 +61,8 @@
           <li id="dashboard" <% if (currentPage == "dashboard") { %>class="active" <% } %>>
             <a href="/dashboard"><i class="fa fa-tachometer"></i> Dashboard</a>
           </li>
-          <li id="endpoints" <% if (currentPage == "endpoints") { %>class="active" <% } %>>
-            <a href="/endpoints"><i class="fa fa-feed"></i> Endpoints</a>
+          <li id="monitors" <% if (currentPage == "monitors") { %>class="active" <% } %>>
+            <a href="/monitors"><i class="fa fa-feed"></i> Monitors</a>
           </li>
           <li id="integrations" <% if (currentPage == "integrations") { %>class="active" <% } %>>
             <a href="/integrations"><i class="fa fa-code-fork"></i> Integrations</a>
