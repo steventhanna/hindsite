@@ -11,9 +11,21 @@ var cron = require('node-schedule');
 module.exports = {
 
   schedulePing: function(monitorObj) {
-    var scheduled = cron.scheduleJob(monitorObj.cronID, monitorObj.frequency, function() {
+    console.log("Scheduling a ping");
+    // var scheduled = cron.scheduleJob({}, function() {
+    //   console.log("CRON EXECUTE");
+    // })
+    console.log(monitorObj.frequency);
+    // var scheduled = cron.scheduleJob(monitorObj.cronID, monitorObj.frequency, function() {
+    //   console.log(scheduled);
+    //   PingService.sendPing(monitorObj, function() {
+    //     console.log("Inner schedule");
+    //   });
+    // });
+    var scheduled = cron.scheduleJob(monitorObj.frequency, function() {
+      console.log(scheduled);
       PingService.sendPing(monitorObj, function() {
-
+        console.log("Inner schedule");
       });
     });
   },
@@ -24,7 +36,11 @@ module.exports = {
    */
   removePing: function(monitorObj) {
     var scheduled = cron.scheduledJobs[monitorObj.cronID];
-    scheduled.cancel();
+    if (scheduled != undefined) {
+      scheduled.cancel();
+    } else {
+      console.log("Failed to cancel");
+    }
   },
 
   /**
@@ -41,23 +57,27 @@ module.exports = {
     var bound10 = (tempResponseTime + (tempResponseTime / 10));
     var bound20 = (tempResponseTime + (tempResponseTime / 20));
     var bound30 = (tempResponseTime + (tempResponseTime / 30));
-    if (pingObj.elapsedTime < tempResponseTime || pingObj.elaspedTime < bound10) {
-      monitorObj.currentHealth = "Healthy";
-    }
-    // Else if within 20% of bound,
-    else if (pingObj.elapsedTime < bound20) {
-      monitorObj.currentHealth = "Rocky";
+    if (monitorObj.averageResponseTime > 0) {
+      if (pingObj.elapsedTime < tempResponseTime || pingObj.elaspedTime < bound10) {
+        monitorObj.currentHealth = "Healthy";
+      }
+      // Else if within 20% of bound,
+      else if (pingObj.elapsedTime < bound20) {
+        monitorObj.currentHealth = "Rocky";
+      } else {
+        monitorObj.currentHealth = "Sick";
+      }
+
+      if (pingObj.status != "200" || pingObj.status != "302") {
+        monitorObj.currentHealth = "Sick";
+      }
+      var old = monitorObj.averageResponseTime * (monitorObj.numberOfRequestsSent - 1);
+      monitorObj.numberOfRequestsSent += 1;
+      var newNum = (old + pingObj.elapsedTime) / monitorObj.numberOfRequestsSent;
+      monitorObj.averageResponseTime = newNum;
     } else {
-      monitorObj.currentHealth = "Sick";
+      monitorObj.averageResponseTime = pingObj.elaspedTime;
     }
-
-    if (pingObj.status != "200" || pingObj.status != "302") {
-      monitorObj.currentHealth = "Sick";
-    }
-
-    var old = monitorObj.averageResponseTime * (numberOfRequestsSent - 1);
-    monitorObj.numberOfRequestsSent += 1;
-    var newNum = (old + pingObj.elapsedTime) / monitorObj.numberOfRequestsSent;
 
     monitorObj.save(function(err) {
       if (err) {

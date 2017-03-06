@@ -11,7 +11,9 @@ var request = require('request');
 module.exports = {
 
   new: function(obj, callback) {
-    Ping.create(obj).exec(funtion(err, ping) {
+    console.log("Creating a new ping");
+    console.log(obj);
+    Ping.create(obj).exec(function(err, ping) {
       if (err || ping == undefined) {
         console.log("There was an error creating the ping.");
         console.log("Error = " + err);
@@ -23,6 +25,7 @@ module.exports = {
   },
 
   sendPing: function(monitor, cb) {
+    console.log("Sending a ping");
     var pingObj = {};
     async.series([
       function(callback) {
@@ -37,6 +40,7 @@ module.exports = {
             pingObj.elapsedTime = response.elapsedTime;
             pingObj.status = response.statusCode;
             pingObj.targetURL = monitor.targetURL;
+            pingObj.monitorID = monitor.id;
             callback();
           }
         });

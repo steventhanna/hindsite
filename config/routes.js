@@ -101,6 +101,11 @@ module.exports.routes = {
     action: 'new'
   },
 
+  'POST /monitor/edit': {
+    controller: 'monitor',
+    action: 'edit'
+  },
+
   'GET /monitors/view/:monitorID': {
     controller: 'dash',
     action: 'viewMonitor'

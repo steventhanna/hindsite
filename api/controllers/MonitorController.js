@@ -105,13 +105,18 @@ module.exports = {
               monitor.targetURL = post.targetURL;
               changes = true;
             } else {
-              res.send({
-                success: false,
-                message: "Not a valid URL"
-              });
+              if (post.targetURL != monitor.targetURL) {
+                res.send({
+                  success: false,
+                  message: "Not a valid URL"
+                });
+                return;
+              }
             }
             if (post.frequency != undefined && post.frequency != monitor.frequency) {
+              MonitorService.removePing(monitor);
               monitor.frequency = post.frequency;
+              MonitorService.schedulePing(monitor);
               changes = true;
             }
             if (post.canPing != undefined) {
@@ -141,6 +146,7 @@ module.exports = {
                 success: false,
                 message: "No changes made."
               });
+              return;
             }
           }
         ], function(callback) {

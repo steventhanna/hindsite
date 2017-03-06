@@ -53,7 +53,7 @@ module.exports = {
     canPing: {
       type: 'boolean',
       defaultsTo: true
-    }
+    },
 
     // Generate a random ID for the cronID
     beforeCreate: function(monitor, cb) {
