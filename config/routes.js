@@ -32,7 +32,7 @@ module.exports.routes = {
    *                                                                          *
    ***************************************************************************/
 
-  '/': {
+  'GET /': {
     view: 'homepage'
   },
 
@@ -81,19 +81,24 @@ module.exports.routes = {
     action: 'signupView'
   },
 
-  '/logout': {
+  'GET /logout': {
     controller: 'auth',
     action: 'logout'
   },
 
-  '/settings': {
+  'GET /settings': {
     controller: 'dash',
     action: 'settings'
   },
 
-  '/monitors': {
+  'GET /monitors': {
     controller: 'dash',
     action: 'monitors'
+  },
+
+  'POST /monitor/new': {
+    controller: 'monitor',
+    action: 'new'
   },
 
   /***************************************************************************

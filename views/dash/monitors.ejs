@@ -2,10 +2,12 @@
 
 <% include sidebar %>
 
+<link rel="stylesheet" href="/styles/jquery-cron.css">
+
 <div class="col-lg-offset-3 col-lg-9 main-content">
   <div class="row">
     <div class="col-lg-12">
-      <h1>Monitors<a href="#" class="btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Add Monitor</a></h1>
+      <h1>Monitors<a href="#" data-toggle="modal" data-target="#addMonitorModal" class="btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Add Monitor</a></h1>
     </div>
   </div>
   <% if (monitors.length == 0) { %>
@@ -17,7 +19,7 @@
             <p>
               Create your first monitor to begin recieving updates.
             </p>
-            <a href="#" class="btn btn-primary"><i class="fa fa-plus"></i> Add Monitor</a>
+            <a href="#" data-toggle="modal" data-target="#addMonitorModal" class="btn btn-primary"><i class="fa fa-plus"></i> Add Monitor</a>
           </div>
         </center>
       </div>
@@ -25,3 +27,40 @@
   <% } else { %>
   <% } %>
 </div>
+
+<!-- Add Monitor Modal -->
+<div class="modal fade" id="addMonitorModal" tabindex="-1" role="dialog" aria-labbeledby="addMonitorModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addMonitorModalLabel">Add Monitor</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <label for="name">Monitor Name</label>
+          <div class="input-group">
+            <span class="input-group-addon" id="name-addon"><i class="fa fa-id-badge"></i></span>
+            <input id="name" type="text" class="form-control" placeholder="API Monitor" aria-describedby="name-addon" />
+          </div>
+          <label for="targetURL">Target URL</label>
+          <div id="targertULRGroup" class="input-group">
+            <span class="input-group-addon" id="url-addon"><i class="fa fa-bullseye"></i></span>
+            <input id="targetURL" type="text" class="form-control" placeholder="http://hindsite.io" aria-descibredby="url-addon" />
+          </div>
+          <span id="helpBox" class="help-block"></span>
+          <label for="cron">Frequency</label>
+          <div id="cron">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i>Cancel</button>
+        <a href="#" id="addMonitorButton" type="button" class="btn btn-success"><i class="fa fa-save"></i>Add Monitor</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/other/jquery-cron-min.js"></script>
+<script src="/js/pages/monitors.js"></script>

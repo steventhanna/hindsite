@@ -270,3 +270,7 @@ label {
   color: var(--oc-gra-7);
   margin-bottom: 20px;
 }
+
+.modal-footer i {
+  margin-right: 5px;
+}
