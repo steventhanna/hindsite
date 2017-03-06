@@ -251,3 +251,22 @@ label {
   background-color: var(--oc-red-0);
   border-color: var(--oc-red-7);
 }
+
+.empty {
+  margin-top: 100px;
+  text-align: center;
+  width: 75%;
+}
+
+.empty h1 {
+  color: var(--oc-teal-7);
+  font-weight: 300;
+  font-size: 48px;
+}
+
+.empty p {
+  margin-top: 0px;
+  font-size: 16px;
+  color: var(--oc-gra-7);
+  margin-bottom: 20px;
+}

@@ -150,6 +150,7 @@ module.exports = {
         res.serverError();
       } else {
         var dash;
+        var monitors = [];
         async.series([
           function(callback) {
             DashService.getDashElement(function(elem) {
@@ -157,13 +158,28 @@ module.exports = {
               callback();
             });
           },
+          function(callback) {
+            Monitor.find({
+              id: dash.monitors
+            }).exec(function(err, mons) {
+              if (err || mons == undefined) {
+                console.log("There was an error finding the monitors.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                monitors = mons;
+                callback();
+              }
+            })
+          }
         ], function(callback) {
           DashService.title("Monitors", function(title) {
             res.view('dash/monitors', {
               currentPage: 'monitors',
               title: title,
               user: user,
-              dash: dash
+              dash: dash,
+              monitors: monitors
             });
           });
         });

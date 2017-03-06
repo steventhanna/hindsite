@@ -19,6 +19,7 @@ module.exports = {
       required: true
     },
 
+    // Frequency is in the form of a CRON job
     frequency: {
       type: 'string',
       required: true

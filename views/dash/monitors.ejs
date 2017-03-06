@@ -3,5 +3,25 @@
 <% include sidebar %>
 
 <div class="col-lg-offset-3 col-lg-9 main-content">
-
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Monitors<a href="#" class="btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Add Monitor</a></h1>
+    </div>
+  </div>
+  <% if (monitors.length == 0) { %>
+    <div class="row">
+      <div class="col-lg-12">
+        <center>
+          <div class="empty">
+            <h1>No Monitors</h1>
+            <p>
+              Create your first monitor to begin recieving updates.
+            </p>
+            <a href="#" class="btn btn-primary"><i class="fa fa-plus"></i> Add Monitor</a>
+          </div>
+        </center>
+      </div>
+    </div>
+  <% } else { %>
+  <% } %>
 </div>
