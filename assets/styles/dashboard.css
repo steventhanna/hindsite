@@ -232,8 +232,6 @@ label {
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px var(--oc-red-7);
 }
 
-
-
 .has-success .form-control:focus {
   border-color: var(--oc-teal-7);
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px var(--oc-teal-7);
@@ -250,6 +248,18 @@ label {
   color: var(--oc-red-7) !important;
   background-color: var(--oc-red-0);
   border-color: var(--oc-red-7);
+}
+
+.has-success {
+  color: var(--oc-teal-7);
+}
+
+.has-error {
+  color: var(--oc-red-7);
+}
+
+.has-danger {
+  color: var(--oc-yellow-7);
 }
 
 .empty {
@@ -273,4 +283,22 @@ label {
 
 .modal-footer i {
   margin-right: 5px;
+}
+
+.monitor h2 {
+  margin-top: 15px;
+}
+
+.monitor h2 a {
+  text-decoration: none;
+  color: var(--oc-teal-7);
+}
+
+.monitor h4 {
+  font-size: 22px;
+  margin-top: 20px;
+}
+
+.black {
+  color: #000 !important;
 }

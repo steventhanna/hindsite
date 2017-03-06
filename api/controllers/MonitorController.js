@@ -22,8 +22,12 @@ module.exports = {
           name: post.name,
           targetURL: post.targetURL,
           frequency: post.frequency,
-          notificationSettings: []
+          notificationSettings: [],
+          currentHealth: "Healthy",
+          averageResponseTime: 0,
+          numberOfRequestsSent: 0
         };
+
         async.series([
           // Verify url
           function(callback) {

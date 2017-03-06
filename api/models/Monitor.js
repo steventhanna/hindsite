@@ -28,6 +28,18 @@ module.exports = {
     notificationSettings: {
       type: 'array',
       defaultsTo: '[]'
+    },
+
+    currentHealth: {
+      type: 'string'
+    },
+
+    averageResponseTime: {
+      type: 'string'
+    },
+
+    numberOfRequestsSent: {
+      type: 'float'
     }
 
   }
