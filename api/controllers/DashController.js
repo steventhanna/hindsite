@@ -139,4 +139,35 @@ module.exports = {
       }
     });
   },
+
+  monitors: function(req, res) {
+    User.findOne({
+      id: req.user.id
+    }).populateAll().exec(function(err, user) {
+      if (err || user == undefined) {
+        console.log("There was an error finding the user.");
+        console.log("Error = " + error);
+        res.serverError();
+      } else {
+        var dash;
+        async.series([
+          function(callback) {
+            DashService.getDashElement(function(elem) {
+              dash = elem;
+              callback();
+            });
+          },
+        ], function(callback) {
+          DashService.title("Monitors", function(title) {
+            res.view('dash/monitors', {
+              currentPage: 'monitors',
+              title: title,
+              user: user,
+              dash: dash
+            });
+          });
+        });
+      }
+    });
+  },
 };

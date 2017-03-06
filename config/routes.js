@@ -91,6 +91,11 @@ module.exports.routes = {
     action: 'settings'
   },
 
+  '/monitors': {
+    controller: 'dash',
+    action: 'monitors'
+  },
+
   /***************************************************************************
    *                                                                          *
    * Custom routes here...                                                    *
