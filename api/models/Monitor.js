@@ -35,7 +35,7 @@ module.exports = {
     },
 
     averageResponseTime: {
-      type: 'string'
+      type: 'float'
     },
 
     numberOfRequestsSent: {

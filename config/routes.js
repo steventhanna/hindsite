@@ -101,6 +101,11 @@ module.exports.routes = {
     action: 'new'
   },
 
+  'GET /monitors/view/:monitorID': {
+    controller: 'dash',
+    action: 'viewMonitor'
+  }
+
   /***************************************************************************
    *                                                                          *
    * Custom routes here...                                                    *

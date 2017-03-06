@@ -52,7 +52,7 @@ $(document).ready(function() {
           swal("Uh-Oh!", "There was an error creating the monitor: " + data.message, "error");
           document.getElementById('addMonitorButton').classList.remove('disabled');
         }
-      })
+      });
     }
   });
 
