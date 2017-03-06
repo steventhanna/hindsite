@@ -11,7 +11,7 @@ module.exports = {
 
     // The list of endpoints to test
     // This is a list of ID's
-    endpoints: {
+    monitors: {
       type: 'array',
       defaultsTo: [],
     },
@@ -39,5 +39,6 @@ module.exports = {
       defaultsTo: 'hindsite',
       required: true
     },
+
   }
 };

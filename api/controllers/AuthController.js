@@ -79,6 +79,17 @@ module.exports = {
           callback();
         }
       },
+      // Verify that the email address is realish
+      function(callback) {
+        if (UtilityService.verifyEmail(userData.username) == false) {
+          res.send({
+            success: false,
+            message: "Not a valid email address"
+          });
+        } else {
+          callback();
+        }
+      },
       // Check if the user already exists
       function(callback) {
         User.findOne({
