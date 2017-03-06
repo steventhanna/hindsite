@@ -22,24 +22,9 @@ module.exports = {
     });
   },
 
-  sendPing: function(monitorID, cb) {
-    var monitor;
+  sendPing: function(monitor, cb) {
     var pingObj = {};
     async.series([
-      function(callback) {
-        Monitor.findOne({
-          id: monitorID
-        }).exec(function(err, mon) {
-          if (err || mon == undefined) {
-            console.log("There was an error finding the monitor.");
-            console.log("Error = " + err);
-            res.serverError();
-          } else {
-            monitor = mon;
-            callback();
-          }
-        });
-      },
       function(callback) {
         request.get({
           url: monitor.targetURL,

@@ -10,8 +10,21 @@ var cron = require('node-schedule');
 
 module.exports = {
 
-  schedule: function() {
+  schedulePing: function(monitorObj) {
+    var scheduled = cron.scheduleJob(monitorObj.cronID, monitorObj.frequency, function() {
+      PingService.sendPing(monitorObj, function() {
 
+      });
+    });
+  },
+
+  /**
+   * Removes the cron job sending pings
+   * @param :: monitorObj - the monitor object associated
+   */
+  removePing: function(monitorObj) {
+    var scheduled = cron.scheduledJobs[monitorObj.cronID];
+    scheduled.cancel();
   },
 
   /**

@@ -25,7 +25,8 @@ module.exports = {
           notificationSettings: [],
           currentHealth: "Healthy",
           averageResponseTime: 0,
-          numberOfRequestsSent: 0
+          numberOfRequestsSent: 0,
+          canPing: true
         };
 
         async.series([
@@ -48,6 +49,8 @@ module.exports = {
                 res.serverError();
               } else {
                 monitor = mon;
+                // Start the monitor
+                MonitorService.schedulePing(monitor);
                 callback();
               }
             });
@@ -109,6 +112,15 @@ module.exports = {
             }
             if (post.frequency != undefined && post.frequency != monitor.frequency) {
               monitor.frequency = post.frequency;
+              changes = true;
+            }
+            if (post.canPing != undefined) {
+              monitor.canPing = post.canPing;
+              if (monitor.canPing) {
+                MonitorService.schedulePing(monitor);
+              } else {
+                MonitorService.removePing(monitor);
+              }
               changes = true;
             }
             callback();

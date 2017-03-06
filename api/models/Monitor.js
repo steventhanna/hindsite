@@ -49,6 +49,12 @@ module.exports = {
       type: 'float'
     },
 
+    // Essentially if the monitor is on or off
+    canPing: {
+      type: 'boolean',
+      defaultsTo: true
+    }
+
     // Generate a random ID for the cronID
     beforeCreate: function(monitor, cb) {
       monitor.cronID = uuid.v1();
