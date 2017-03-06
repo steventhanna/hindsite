@@ -5,6 +5,8 @@
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
+var uuid = require('node-uuid');
+
 module.exports = {
 
   attributes: {
@@ -25,6 +27,11 @@ module.exports = {
       required: true
     },
 
+    // The id associated with the CRON job
+    cronID: {
+      type: 'string'
+    },
+
     notificationSettings: {
       type: 'array',
       defaultsTo: '[]'
@@ -40,7 +47,12 @@ module.exports = {
 
     numberOfRequestsSent: {
       type: 'float'
-    }
+    },
 
+    // Generate a random ID for the cronID
+    beforeCreate: function(monitor, cb) {
+      monitor.cronID = uuid.v1();
+      cb(null, monitor);
+    }
   }
 };

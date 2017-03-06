@@ -21,10 +21,13 @@
     "grunt-sync": "0.5.2",
     "include-all": "^1.0.0",
     "mongo": "^0.1.0",
+    "node-schedule": "^1.2.0",
+    "node-uuid": "^1.4.7",
     "open-color": "^1.4.2",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "rc": "1.0.1",
+    "request": "^2.80.0",
     "sails": "~0.12.11",
     "sails-disk": "~0.10.9",
     "sails-mongo": "^0.12.2"
