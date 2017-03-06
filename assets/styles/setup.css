@@ -37,6 +37,7 @@ label {
 
 .btn-success {
   background-color: var(--oc-teal-7);
+  border-color: var(--oc-teal-7);
 }
 
 .btn-success:hover {

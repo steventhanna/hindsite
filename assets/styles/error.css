@@ -1,0 +1,67 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  padding-top: 10%;
+}
+
+.btn-success {
+  background-color: var(--oc-teal-7);
+  border-color: var(--oc-teal-7);
+}
+
+.btn-success:hover {
+  background-color: var(--oc-teal-9);
+  border-color: var(--oc-teal-9);
+}
+
+.btn-success:active, .btn-success:active:hover {
+  background-color: var(--oc-teal-5);
+  border-color: var(--oc-teal-5);
+}
+
+.btn-success:focus {
+  background-color: var(--oc-teal-6);
+  border-color: var(--oc-teal-6);
+}
+
+.btn-primary {
+  background-color: var(--oc-blue-7);
+  border-color: var(--oc-blue-7);
+}
+
+.btn-primary:hover {
+  background-color: var(--oc-blue-9);
+  border-color: var(--oc-blue-9);
+}
+
+.btn-primary:active, .btn-primary:active:hover {
+  background-color: var(--oc-blue-5);
+  border-color: var(--oc-blue-5);
+}
+
+.btn-primary:focus {
+  background-color: var(--oc-blue-6);
+  border-color: var(--oc-blue-6);
+}
+
+.error {
+  /*margin-bottom: 50px;*/
+}
+
+.error h1 {
+  color: var(--oc-teal-8);
+  font-size: 200px;
+  font-weight: 300;
+}
+
+.title h1 {
+  text-align: center;
+  font-size: 32px;
+  color: 000;
+}
+
+.title p {
+  text-align: center;
+  font-size: 18px;
+  color: var(--oc-gray-7);
+  margin-top: 10px;
+}
