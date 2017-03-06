@@ -81,7 +81,7 @@ module.exports = {
       },
       // Verify that the email address is realish
       function(callback) {
-        if (UtilityService.verifyEmail(userData.username) == false) {
+        if (UtilityService.validateEmail(userData.username) == false) {
           res.send({
             success: false,
             message: "Not a valid email address"

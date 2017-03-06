@@ -55,6 +55,25 @@ label {
   border-color: var(--oc-teal-6);
 }
 
+.btn-primary {
+  background-color: var(--oc-blue-7);
+  border-color: var(--oc-blue-7);
+}
+
+.btn-primary:hover {
+  background-color: var(--oc-blue-9);
+  border-color: var(--oc-blue-9);
+}
+
+.btn-primary:active, .btn-primary:active:hover {
+  background-color: var(--oc-blue-5);
+  border-color: var(--oc-blue-5);
+}
+
+.btn-primary:focus {
+  background-color: var(--oc-blue-6);
+  border-color: var(--oc-blue-6);
+}
 
 .help-block {
   margin-bottom: 0px;

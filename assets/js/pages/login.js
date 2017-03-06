@@ -25,6 +25,11 @@ $(document).ready(function() {
           } else {
             swal("Uh-Oh!", "There was an error loggin in: " + data.message, "error");
           }
+        },
+        error: function(data) {
+          swal("Uh-Oh!", "There was an error logging in", "error");
+          document.getElementById('loginButton').classList.remove('disabled');
+          // $(this).classList.remove('disabled');
         }
       })
     }

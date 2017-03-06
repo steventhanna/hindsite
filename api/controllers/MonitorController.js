@@ -26,7 +26,7 @@ module.exports = {
         async.series([
           // Verify url
           function(callback) {
-            if (UtilityService.verifyURL(monitorObject.targetURL) == false) {
+            if (UtilityService.validateURL(monitorObject.targetURL) == false) {
               res.send({
                 success: false,
                 message: "Not a valid target URL"
