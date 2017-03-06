@@ -186,4 +186,54 @@ module.exports = {
       }
     });
   },
+
+  viewMonitor: function(req, res) {
+    req.validate({
+      monitorID: 'string'
+    });
+    User.findOne({
+      id: req.user.id
+    }).populateAll().exec(function(err, user) {
+      if (err || user == undefined) {
+        console.log("There was an error finding the user.");
+        console.log("Error = " + error);
+        res.serverError();
+      } else {
+        var monitor;
+        var dash;
+        async.series([
+          function(callback) {
+            Monitor.findOne({
+              id: req.param('monitorID')
+            }).exec(function(err, mon) {
+              if (err || mon == undefined) {
+                console.log("There was an error finding the monitor.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                monitor = mon;
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            DashService.getDashElement(function(elem) {
+              dash = elem;
+              callback();
+            });
+          },
+        ], function(callback) {
+          DashService.title(monitor.name, function(title) {
+            res.view('dash/viewMonitor', {
+              user: user,
+              title: title,
+              currentPage: "monitors",
+              dash: dash,
+              monitor: monitor
+            });
+          });
+        });
+      }
+    });
+  },
 };

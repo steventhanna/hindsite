@@ -302,3 +302,7 @@ label {
 .black {
   color: #000 !important;
 }
+
+.main-content .title h3 {
+  margin-top: 0px;
+}
