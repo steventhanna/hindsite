@@ -25,11 +25,16 @@
           <i class="fa fa-feed"></i>
           Endpoints</a>
       </li>
+      <br /><br />
+      <li <% if (currentPage == "integrations") { %> class="active" <% } %>>
+        <a id="integrations" href="/integrations"><i class="fa fa-code-fork"></i> Integrations</a>
+      </li>
       <li <% if (currentPage == "settings") { %> class="active" <% } %>>
         <a id="settings" href="/settings">
           <i class="fa fa-gear"></i>
           Settings</a>
       </li>
+      <br /><br />
       <li>
         <a id="logout" href="/logout">
           <i class="fa fa-power-off"></i>
@@ -59,8 +64,11 @@
           <li id="endpoints" <% if (currentPage == "endpoints") { %>class="active" <% } %>>
             <a href="/endpoints"><i class="fa fa-feed"></i> Endpoints</a>
           </li>
+          <li id="integrations" <% if (currentPage == "integrations") { %>class="active" <% } %>>
+            <a href="/integrations"><i class="fa fa-code-fork"></i> Integrations</a>
+          </li>
           <li id="settings" <% if (currentPage == "settings") { %>class="active" <% } %>>
-            <a href="/settings"><i class="fa fa-gear"></i> Endpoints</a>
+            <a href="/settings"><i class="fa fa-gear"></i> Settings</a>
           </li>
           <li id="logout">
             <a href="/logout"><i class="fa fa-power-off"></i> Logout</a>
