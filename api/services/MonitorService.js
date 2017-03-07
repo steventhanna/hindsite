@@ -96,6 +96,8 @@ module.exports = {
       } else {
         console.log("Should have saved the monitor");
         console.log(monitorObj);
+        // Send data to all subscribing sockets
+        sails.sockets.broadcast(monitorObj.id, monitorObj);
         callback();
       }
     });
@@ -112,23 +114,9 @@ module.exports = {
     async.series([
       function(callback) {
         // Get the latest amount of pings
-        Ping.find({
-          where: {
-            monitorID: monitor.id
-          },
-          limit: monitor.movingAverageWindow,
-          sort: {
-            createdAt: 1
-          }
-        }).exec(function(err, pi) {
-          if (err || pi == undefined) {
-            console.log("There was an error finding the pings.");
-            console.log("Error = " + err);
-            res.serverError();
-          } else {
-            pings = pi;
-            callback();
-          }
+        PingService.getMonitoredPings(monitor, function(elem) {
+          pings = elem;
+          callback();
         });
       },
       function(callback) {
@@ -158,6 +146,8 @@ module.exports = {
         });
       }
     ], function(callback) {
+      console.log("Should be broadcasting");
+      sails.sockets.broadcast(monitor.id, monitor);
       cb(monitor);
     });
   },

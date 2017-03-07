@@ -95,5 +95,30 @@ module.exports = {
         }
       }
     });
-  }
+  },
+
+  /**
+   * Get the last x amount of pings, where x = monitor.movingAverageWindow
+   * @param :: monitor - the monitor to get the pings
+   * @param :: cb - the callback
+   */
+  getMonitoredPings: function(monitor, cb) {
+    Ping.find({
+      where: {
+        monitorID: monitor.id
+      },
+      limit: monitor.movingAverageWindow,
+      sort: {
+        createdAt: 1
+      }
+    }).exec(function(err, pi) {
+      if (err || pi == undefined) {
+        console.log("There was an error finding the pings.");
+        console.log("Error = " + err);
+        res.serverError();
+      } else {
+        cb(pi);
+      }
+    });
+  },
 }

@@ -62,4 +62,9 @@ $(document).ready(function() {
       });
     }
   });
+
+  io.socket.get('/socket/watch/monitor/' + monitorID, function(data, jwers) {
+    console.log(data);
+    console.log(jwers);
+  });
 });

@@ -116,6 +116,11 @@ module.exports.routes = {
     action: 'pings'
   },
 
+  'GET /socket/watch/monitor/:monitorID': {
+    controller: 'monitor',
+    action: 'subscribeToMonitor'
+  },
+
   /***************************************************************************
    *                                                                          *
    * Custom routes here...                                                    *

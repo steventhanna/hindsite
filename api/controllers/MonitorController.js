@@ -182,4 +182,37 @@ module.exports = {
     });
   },
 
+  subscribeToMonitor: function(req, res) {
+    req.validate({
+      monitorID: 'string'
+    });
+
+    if (!req.isSocket) {
+      res.badRequest();
+    } else {
+      // Lookup the monitor to make sure it exists
+      Monitor.findOne({
+        id: req.param('monitorID')
+      }).exec(function(err, monitor) {
+        if (err || monitor == undefined) {
+          console.log("There was an error finding the monitor.");
+          console.log("Error = " + err);
+          res.serverError();
+        } else {
+          sails.sockets.join(req, monitor.id, function(err) {
+            if (err) {
+              console.log("There was an error subscribing to the monitors room.");
+              console.log("Error = " + err);
+              res.serverError();
+            } else {
+              res.send({
+                success: true
+              });
+            }
+          });
+        }
+      });
+    }
+  },
+
 };
