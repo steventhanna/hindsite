@@ -37,7 +37,7 @@ module.exports = {
           if (err || response == undefined) {
             console.log("Handle this");
           } else {
-            pingObj.elapsedTime = response.elapsedTime;
+            pingObj.elapsedTime = parseInt(response.elapsedTime);
             pingObj.status = response.statusCode;
             pingObj.targetURL = monitor.targetURL;
             pingObj.monitorID = monitor.id;

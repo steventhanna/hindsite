@@ -133,7 +133,7 @@ module.exports = {
       },
       function(callback) {
         async.each(pings, function(p, call) {
-          total += p.elapsedTime;
+          total += parseInt(p.elapsedTime);
           call();
         }, function(err) {
           if (err) {
@@ -141,12 +141,15 @@ module.exports = {
             console.log("Error = " + err);
             res.serverError();
           } else {
+            console.log("Total ping mms" + total);
             callback();
           }
         });
       },
       function(callback) {
         monitor.averageResponseTime = total / pings.length;
+        console.log(pings.length);
+        console.log(total / pings.length);
         callback();
       },
       function(callback) {

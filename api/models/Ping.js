@@ -20,7 +20,7 @@ module.exports = {
     },
 
     elapsedTime: {
-      type: 'string'
+      type: 'float'
     },
 
     targetURL: {
