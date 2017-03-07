@@ -148,8 +148,7 @@ module.exports = {
       },
       function(callback) {
         monitor.averageResponseTime = total / pings.length;
-        console.log(pings.length);
-        console.log(total / pings.length);
+        monitor.averageResponseTime = Math.ceil(monitor.averageResponseTime);
         callback();
       },
       function(callback) {
