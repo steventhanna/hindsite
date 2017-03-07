@@ -51,13 +51,49 @@ module.exports = {
         });
       },
       function(callback) {
-        MonitorService.updateAverage(monitor, pingObj, function() {
-          callback();
+        MonitorService.calculateMovingAverage(monitor, function(mon) {
+          mon.save(function(err) {
+            if (err) {
+              console.log("There was an error saving the monitor.");
+              console.log("Error = " + err);
+              res.serverError();
+            } else {
+              callback();
+            }
+          });
         });
       }
     ], function(callback) {
       cb();
     });
-  }
+  },
 
+  /**
+   * Get the last ping object
+   * @param :: monitorID - the monitor to get the last ID from
+   * @param :: cb - the callback to pass through
+   */
+  getLastPing: function(monitorID, cb) {
+    Ping.find({
+      where: {
+        monitorID: monitorID
+      },
+      sort: {
+        createdAt: 1
+      },
+      limit: 1
+    }).exec(function(err, pings) {
+      if (err || pings == undefined) {
+        console.log("There was an error finding the pings.");
+        console.log("Error = " + err);
+        res.serverError();
+      } else {
+        if (pings.length == 0) {
+          cb(undefined);
+        } else {
+          cb(pings[0]);
+        }
+      }
+    });
+  }
 }

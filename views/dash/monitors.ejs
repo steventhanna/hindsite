@@ -81,6 +81,24 @@
             <input id="targetURL" type="text" class="form-control" placeholder="http://hindsite.io" aria-descibredby="url-addon" />
           </div>
           <span id="helpBox" class="help-block"></span>
+          <label for="healthyRange">Healthy Range</label>
+          <div class="input-group">
+            <input class="form-control" id="healthyRange" type="number" value="1000" />
+            <span class="input-group-addon" id="range-addon">ms</span>
+          </div>
+          <span class="help-block">If the average ping is below this, the monitor will report healthy.</span>
+          <label for="rockyRange">Rocky Range</label>
+          <div class="input-group">
+            <input class="form-control" id="rockyRange" type="number" value="2000" />
+            <span class="input-group-addon" id="range-addon">ms</span>
+          </div>
+          <span class="help-block">If the average ping is below this, the monitor will report rocky. Anything above will report sick, in addition if the last ping recieved is not a <em>200</em> or <em>302</em>.</span>
+          <label for="movingAverage">Pings in Average</label>
+          <div class="input-group">
+            <input class="form-control" id="pingsInAverage" type="number" value="100" />
+            <span class="input-group-addon" id="range-addon">pings</span>
+          </div>
+          <span class="help-block">The amount of pings used to calculate the average.</span>
           <label for="cron">Frequency</label>
           <div id="cron">
           </div>

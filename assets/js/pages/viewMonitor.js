@@ -27,6 +27,9 @@ $(document).ready(function() {
     var name = $("#name").val();
     var targetURL = $("#targetURL").val();
     var cron = $("#cron").cron("value");
+    var healthyRange = $("#healthyRange").val();
+    var rockyRange = $("#rockyRange").val();
+    var movingAverageWindow = $("#movingAverageWindow").val();
     if (!validateURL(targetURL)) {
       swal("Uh-Oh", "The target URL is not valid.", "error");
     } else {
@@ -34,7 +37,10 @@ $(document).ready(function() {
         name: name,
         targetURL: targetURL,
         frequency: cron,
-        monitorID: monitorID
+        monitorID: monitorID,
+        healthyRange: healthyRange,
+        rockyRange: rockyRange,
+        movingAverageWindow: movingAverageWindow
       };
 
       $.ajax({
@@ -56,6 +62,4 @@ $(document).ready(function() {
       });
     }
   });
-
-  // $("#cron").cron();
 });

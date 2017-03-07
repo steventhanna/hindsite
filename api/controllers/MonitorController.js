@@ -26,7 +26,10 @@ module.exports = {
           currentHealth: "Healthy",
           averageResponseTime: 0,
           numberOfRequestsSent: 0,
-          canPing: true
+          canPing: true,
+          healthyRange: post.healthyRange,
+          rockyRange: post.rockyRange,
+          movingAverageWindow: post.movingAverageWindow
         };
 
         async.series([
@@ -128,7 +131,28 @@ module.exports = {
               }
               changes = true;
             }
+            if (post.healthyRange != undefined && post.healthyRange != monitor.healthyRange) {
+              monitor.healthyRange = post.healthyRange;
+              changes = true;
+            }
+            if (post.rockyRange != undefined && post.rockyRange != monitor.rockyRange) {
+              monitor.rockyRange = post.rockyRange;
+              changes = true;
+            }
             callback();
+          },
+          function(callback) {
+            if (post.movingAverageWindow != undefined && post.movingAverageWindow != monitor.movingAverageWindow) {
+              monitor.movingAverageWindow = post.movingAverageWindow;
+              changes = true;
+              // Recalculate the moving average
+              MonitorService.calculateMovingAverage(monitor, function(mon) {
+                monitor = mon;
+                callback();
+              });
+            } else {
+              callback();
+            }
           },
           function(callback) {
             if (changes) {

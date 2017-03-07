@@ -55,6 +55,23 @@ module.exports = {
       defaultsTo: true
     },
 
+    // The range that should be considered healthy for a ping
+    healthyRange: {
+      type: 'float',
+      defaultsTo: 1000
+    },
+
+    rockyRange: {
+      type: 'float',
+      defaultsTo: 2000
+    },
+
+    // The number of pings to grab to calculate the moving average
+    movingAverageWindow: {
+      type: 'float',
+      defaultsTo: 100
+    },
+
     // Generate a random ID for the cronID
     beforeCreate: function(monitor, cb) {
       monitor.cronID = uuid.v1();

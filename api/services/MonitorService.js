@@ -101,4 +101,95 @@ module.exports = {
     });
   },
 
+  /**
+   * Calculate the moving average based on the most recent pings
+   * @param :: monitor - the current monitor
+   * @param :: cb - the callback that contains the updated monitor
+   */
+  calculateMovingAverage: function(monitor, cb) {
+    var pings;
+    var total = 0;
+    async.series([
+      function(callback) {
+        // Get the latest amount of pings
+        Ping.find({
+          where: {
+            monitorID: monitor.id
+          },
+          limit: monitor.movingAverageWindow,
+          sort: {
+            createdAt: 1
+          }
+        }).exec(function(err, pi) {
+          if (err || pi == undefined) {
+            console.log("There was an error finding the pings.");
+            console.log("Error = " + err);
+            res.serverError();
+          } else {
+            pings = pi;
+            callback();
+          }
+        });
+      },
+      function(callback) {
+        async.each(pings, function(p, call) {
+          total += p.elapsedTime;
+          call();
+        }, function(err) {
+          if (err) {
+            console.log("There was an error adding everything up.");
+            console.log("Error = " + err);
+            res.serverError();
+          } else {
+            callback();
+          }
+        });
+      },
+      function(callback) {
+        monitor.averageResponseTime = total / pings.length;
+        callback();
+      },
+      function(callback) {
+        MonitorService.determineHealth(monitor, function(mon) {
+          monitor = mon;
+          callback();
+        });
+      }
+    ], function(callback) {
+      cb(monitor);
+    });
+  },
+
+  /**
+   * Determine the health of the given monitor based on the average
+   * @param :: monitor - the monitor to analyze, sends the monitor object back
+   */
+  determineHealth: function(monitor, cb) {
+    var lastPing;
+    async.series([
+      function(callback) {
+        PingService.getLastPing(monitor.id, function(elem) {
+          lastPing = elem;
+          callback();
+        });
+      },
+      function(callback) {
+        if (lastPing.status != "200" || lastPing.status != "302") {
+          monitor.health = "Sick";
+          callback();
+        } else {
+          if (monitor.averageResponseTime < monitor.healthyRange) {
+            monitor.health = "Healthy";
+          } else if (monitor.averageResponseTime < monitor.rockyRange) {
+            monitor.health = "Rocky";
+          } else {
+            monitor.health = "Sick";
+          }
+          callback();
+        }
+      },
+    ], function(callback) {
+      cb(monitor);
+    });
+  }
 }
