@@ -57,8 +57,9 @@ module.exports = {
     var bound10 = (tempResponseTime + (tempResponseTime / 10));
     var bound20 = (tempResponseTime + (tempResponseTime / 20));
     var bound30 = (tempResponseTime + (tempResponseTime / 30));
+    console.log("Average Response Time: " + monitorObj.averageResponseTime);
     if (monitorObj.averageResponseTime > 0) {
-      if (pingObj.elapsedTime < tempResponseTime || pingObj.elaspedTime < bound10) {
+      if (pingObj.elapsedTime < tempResponseTime || pingObj.elapsedTime < bound10) {
         monitorObj.currentHealth = "Healthy";
       }
       // Else if within 20% of bound,
@@ -72,12 +73,20 @@ module.exports = {
         monitorObj.currentHealth = "Sick";
       }
       var old = monitorObj.averageResponseTime * (monitorObj.numberOfRequestsSent - 1);
-      monitorObj.numberOfRequestsSent += 1;
+      monitorObj.numberOfRequestsSent++;
       var newNum = (old + pingObj.elapsedTime) / monitorObj.numberOfRequestsSent;
       monitorObj.averageResponseTime = newNum;
     } else {
-      monitorObj.averageResponseTime = pingObj.elaspedTime;
+      monitorObj.averageResponseTime = pingObj.elapsedTime;
+      monitorObj.numberOfRequestsSent++;
+      if (pingObj.status == "200" || pingObj.status == "302") {
+        monitorObj.currentHealth = "Healthy";
+      } else {
+        monitorObj.currentHealth = "Sick";
+      }
     }
+
+    monitorObj.averageResponseTime = Math.ceil(monitorObj.averageResponseTime);
 
     monitorObj.save(function(err) {
       if (err) {
@@ -85,6 +94,8 @@ module.exports = {
         console.log("Error = " + err);
         res.serverError();
       } else {
+        console.log("Should have saved the monitor");
+        console.log(monitorObj);
         callback();
       }
     });
