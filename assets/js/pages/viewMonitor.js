@@ -63,8 +63,11 @@ $(document).ready(function() {
     }
   });
 
-  io.socket.get('/socket/watch/monitor/' + monitorID, function(data, jwers) {
-    console.log(data);
-    console.log(jwers);
+  io.socket.on('connect', function socketConnected() {
+    console.log("Connected");
+    io.socket.get('/socket/watch/monitor/' + monitorID, function(data, jwers) {
+      console.log(data);
+      console.log(jwers);
+    });
   });
 });

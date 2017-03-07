@@ -64,6 +64,7 @@ module.exports = {
             });
           }
         ], function(callback) {
+          User.subscribe(req, user, 'monitor');
           res.send({
             success: true
           });
