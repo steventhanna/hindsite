@@ -57,7 +57,7 @@ module.exports = {
     var bound10 = (tempResponseTime + (tempResponseTime / 10));
     var bound20 = (tempResponseTime + (tempResponseTime / 20));
     var bound30 = (tempResponseTime + (tempResponseTime / 30));
-    console.log("Average Response Time: " + monitorObj.averageResponseTime);
+    // The average is not right at all
     if (monitorObj.averageResponseTime > 0) {
       if (pingObj.elapsedTime < tempResponseTime || pingObj.elapsedTime < bound10) {
         monitorObj.currentHealth = "Healthy";
