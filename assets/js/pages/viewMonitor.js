@@ -51,7 +51,7 @@ $(document).ready(function() {
           if (data.success == true) {
             window.location.reload();
           } else {
-            swal("Uh-Oh!", "There was an error creating the monitor: " + data.message, "error");
+            swal("Uh-Oh!", "There was an error editing the monitor: " + data.message, "error");
           }
           document.getElementById('editMonitorButton').classList.remove('disabled');
         },
@@ -63,11 +63,30 @@ $(document).ready(function() {
     }
   });
 
+  // var labels = [];
+  var chart;
+  var labels;
+  var d;
+
   io.socket.on('connect', function socketConnected() {
-    console.log("Connected");
     io.socket.get('/socket/watch/monitor/' + monitorID, function(data, jwers) {
-      console.log(data);
-      console.log(jwers);
+      var ctx = document.getElementById("pingChart");
+      labels = data.pings.map(function(a) {
+        return a.createdAt;
+      }).reverse();
+      d = data.pings.map(function(a) {
+        return a.elapsedTime;
+      }).reverse();
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: "Pings",
+            data: d
+          }]
+        }
+      });
     });
 
     io.socket.on(monitorID, function(msg) {
@@ -87,7 +106,15 @@ $(document).ready(function() {
       }
       currentHealth.innerHTML = builder + msg.currentHealth + '</span>';
       document.getElementById('averageResponseTime').innerHTML = msg.averageResponseTime;
-      console.log(msg);
+      // Update the data
+      io.socket.get('/monitors/data/' + monitorID + '/lastPing', function(data, jwers) {
+        // Remove the first element
+        d.splice(0, 1);
+        labels.splice(0, 1);
+        d.push(data.ping.elapsedTime);
+        labels.push(data.ping.createdAt);
+        chart.update();
+      });
     });
   });
 });

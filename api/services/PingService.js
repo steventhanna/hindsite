@@ -7,6 +7,7 @@
  */
 
 var request = require('request');
+var moment = require('moment');
 
 module.exports = {
 
@@ -79,7 +80,7 @@ module.exports = {
         monitorID: monitorID
       },
       sort: {
-        createdAt: 1
+        createdAt: -1
       },
       limit: 1
     }).exec(function(err, pings) {
@@ -88,12 +89,51 @@ module.exports = {
         console.log("Error = " + err);
         res.serverError();
       } else {
+        console.log(pings);
         if (pings.length == 0) {
           cb(undefined);
         } else {
           cb(pings[0]);
         }
       }
+    });
+  },
+
+  /**
+   * Formats one ping into what it should be for a chart
+   * @param :: pingObj - the object of the ping
+   * @return :: obj - the newly formatted object
+   */
+  formatPing: function(pingObj) {
+    // console.log("Formatting: " + JSON.stringify(pingObj));
+    var obj = {
+      elapsedTime: pingObj.elapsedTime,
+      createdAt: moment(pingObj.createdAt).calendar()
+    };
+    return obj;
+  },
+
+  formatPingsChart: function(monitor, cb) {
+    PingService.getMonitoredPings(monitor, function(pings) {
+      var p = [];
+      async.each(pings, function(ping, callback) {
+        p.push(PingService.formatPing(ping));
+        callback();
+      }, function(err) {
+        if (err) {
+          console.log("There was an error iterating over each ping.");
+          console.log("Error = " + err);
+          res.serverError();
+        } else {
+          cb(p);
+        }
+      });
+    });
+  },
+
+  formatLastPing: function(monitor, cb) {
+    PingService.getLastPing(monitor.id, function(ping) {
+      cb(PingService.formatPing(ping));
     });
   },
 
@@ -117,7 +157,6 @@ module.exports = {
         console.log("Error = " + err);
         res.serverError();
       } else {
-        console.log(pi);
         cb(pi);
       }
     });

@@ -192,14 +192,24 @@ module.exports = {
       res.badRequest();
     } else {
       // Lookup the monitor to make sure it exists
-      Monitor.findOne({
-        id: req.param('monitorID')
-      }).exec(function(err, monitor) {
-        if (err || monitor == undefined) {
-          console.log("There was an error finding the monitor.");
-          console.log("Error = " + err);
-          res.serverError();
-        } else {
+      var monitor;
+      async.series([
+        function(callback) {
+          Monitor.findOne({
+            id: req.param('monitorID')
+          }).exec(function(err, mon) {
+            if (err || mon == undefined) {
+              console.log("There was an error finding the monitor.");
+              console.log("Error = " + err);
+              res.serverError();
+            } else {
+              monitor = mon;
+              callback();
+            }
+          });
+        },
+      ], function(callback) {
+        PingService.formatPingsChart(monitor, function(pings) {
           sails.sockets.join(req, monitor.id, function(err) {
             if (err) {
               console.log("There was an error subscribing to the monitors room.");
@@ -207,13 +217,48 @@ module.exports = {
               res.serverError();
             } else {
               res.send({
-                success: true
+                pings: pings
               });
             }
           });
-        }
+        });
       });
     }
+  },
+
+  pings: function(req, res) {
+    req.validate({
+      monitorID: 'string'
+    });
+  },
+
+  lastPing: function(req, res) {
+    req.validate({
+      monitorID: 'string'
+    });
+    var monitor;
+    async.series([
+      function(callback) {
+        Monitor.findOne({
+          id: req.param('monitorID')
+        }).exec(function(err, mon) {
+          if (err || mon == undefined) {
+            console.log("There was an error finding the monitor.");
+            console.log("Error = " + err);
+            res.serverError();
+          } else {
+            monitor = mon;
+            callback();
+          }
+        });
+      },
+    ], function(callback) {
+      PingService.formatLastPing(monitor, function(ping) {
+        res.send({
+          ping: ping
+        });
+      });
+    });
   },
 
 };

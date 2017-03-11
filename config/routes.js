@@ -116,6 +116,11 @@ module.exports.routes = {
     action: 'pings'
   },
 
+  'GET /monitors/data/:monitorID/lastPing': {
+    controller: 'monitor',
+    action: 'lastPing'
+  },
+
   'GET /socket/watch/monitor/:monitorID': {
     controller: 'monitor',
     action: 'subscribeToMonitor'

@@ -42,6 +42,11 @@ var monitorID = "<%= monitor.id %>";
       </center>
     </div>
   </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <canvas id="pingChart" width="500" height="500"></canvas>
+    </div>
+  </div>
   <hr />
 </div>
 
@@ -77,9 +82,9 @@ var monitorID = "<%= monitor.id %>";
             <span class="input-group-addon" id="range-addon">ms</span>
           </div>
           <span class="help-block">If the average ping is below this, the monitor will report rocky. Anything above will report sick, in addition if the last ping recieved is not a <em>200</em> or <em>302</em>.</span>
-          <label for="movingAverage">Pings in Average</label>
+          <label for="movingAverageWindow">Pings in Average</label>
           <div class="input-group">
-            <input class="form-control" id="pingsInAverage" type="number" value="<%= monitor.movingAverageWindow %>" placeholder="100"/>
+            <input class="form-control" id="movingAverageWindow" type="number" value="<%= monitor.movingAverageWindow %>" placeholder="100"/>
             <span class="input-group-addon" id="range-addon">pings</span>
           </div>
           <span class="help-block">The amount of pings used to calculate the average.</span>
@@ -98,6 +103,7 @@ var monitorID = "<%= monitor.id %>";
 </div>
 
 <script src="/js/other/jquery-cron-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>
 <script>
 var cronField = $("#cron").cron();
 cronField.cron("value", '<%= monitor.frequency %>');
