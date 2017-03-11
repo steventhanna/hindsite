@@ -34,7 +34,7 @@
         <div class="col-lg-4">
           <center>
             <h4>Current Health</h4>
-            <h2>
+            <h2 id="<%= monitors[i].id %>-health">
             <% if (monitors[i].currentHealth == "Healthy") { %>
               <span class="has-success">
             <% } else if (monitors[i].currentHealth == "Rocky") { %>
@@ -50,7 +50,7 @@
           <center>
             <h4>Avg. Response Time</h4>
             <h2 class="black">
-              <strong><%= monitors[i].averageResponseTime %></strong> ms
+              <strong id="<%= monitors[i].id %>-art"><%= monitors[i].averageResponseTime %></strong> ms
             </h2>
           </center>
         </div>
@@ -113,4 +113,33 @@
 </div>
 
 <script src="/js/other/jquery-cron-min.js"></script>
+<script src="/js/dependencies/sails.io.js"></script>
+<script>
+io.socket.on('connect', function socketConnected() {
+  console.log("connected");
+  io.socket.get('/socket/watch/monitors', function(data, jwers) {
+
+  });
+
+  <% for(var i = 0; i < monitors.length; i++) { %>
+    io.socket.on('<%= monitors[i].id %>', function(msg) {
+      var currentHealth = document.getElementById('<%= monitors[i].id %>-health');
+      var builder = "";
+      switch (msg.currentHealth) {
+        case "Healthy":
+          builder += '<span class="has-success">';
+          break;
+        case "Rocky":
+          builder += '<span class="has-danger">';
+          break;
+        default:
+          builder += '<span class="has-error">';
+          break;
+      }
+      currentHealth.innerHTML = builder + msg.currentHealth + '</span>';
+      document.getElementById('<%= monitors[i].id %>-art').innerHTML = msg.averageResponseTime;
+    });
+  <% } %>
+});
+</script>
 <script src="/js/pages/monitors.js"></script>

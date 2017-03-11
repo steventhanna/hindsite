@@ -226,6 +226,36 @@ module.exports = {
     }
   },
 
+  subscribeToMonitors: function(req, res) {
+    if (!req.isSocket) {
+      req.badRequest();
+    } else {
+      DashService.getDashElement(function(elem) {
+        async.each(elem.monitors, function(monitor, callback) {
+          sails.sockets.join(req, monitor.id, function(err) {
+            if (err) {
+              console.log("There was an error subscribing to the monitors.");
+              console.log("Error = " + err);
+              res.serverError();
+            } else {
+              callback();
+            }
+          }, function(err) {
+            if (err) {
+              console.log("There was an error finishing the async each.");
+              console.log("Error = " + err);
+              res.serverError();
+            } else {
+              res.send({
+                success: true
+              });
+            }
+          });
+        });
+      });
+    }
+  },
+
   pings: function(req, res) {
     req.validate({
       monitorID: 'string'

@@ -126,6 +126,11 @@ module.exports.routes = {
     action: 'subscribeToMonitor'
   },
 
+  'GET /socket/watch/monitors': {
+    controller: 'monitor',
+    action: 'subscribeToMonitors'
+  },
+
   /***************************************************************************
    *                                                                          *
    * Custom routes here...                                                    *
