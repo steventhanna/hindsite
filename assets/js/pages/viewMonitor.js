@@ -69,5 +69,25 @@ $(document).ready(function() {
       console.log(data);
       console.log(jwers);
     });
+
+    io.socket.on(monitorID, function(msg) {
+      // Update the DOM
+      var currentHealth = document.getElementById('currentHealth');
+      var builder = "";
+      switch (msg.currentHealth) {
+        case "Healthy":
+          builder += '<span class="has-success">';
+          break;
+        case "Rocky":
+          builder += '<span class="has-danger">';
+          break;
+        default:
+          builder += '<span class="has-error">';
+          break;
+      }
+      currentHealth.innerHTML = builder + msg.currentHealth + '</span>';
+      document.getElementById('averageResponseTime').innerHTML = msg.averageResponseTime;
+      console.log(msg);
+    });
   });
 });

@@ -109,7 +109,7 @@ module.exports = {
       },
       limit: monitor.movingAverageWindow,
       sort: {
-        createdAt: 1
+        createdAt: -1
       }
     }).exec(function(err, pi) {
       if (err || pi == undefined) {
@@ -117,6 +117,7 @@ module.exports = {
         console.log("Error = " + err);
         res.serverError();
       } else {
+        console.log(pi);
         cb(pi);
       }
     });

@@ -21,7 +21,7 @@ var monitorID = "<%= monitor.id %>";
     <div class="col-lg-6">
       <center>
         <h3>Current Health</h3>
-        <h2>
+        <h2 id="currentHealth">
         <% if (monitor.currentHealth == "Healthy") { %>
           <span class="has-success">
         <% } else if (monitor.currentHealth == "Rocky") { %>
@@ -37,7 +37,7 @@ var monitorID = "<%= monitor.id %>";
       <center>
         <h4>Avg. Response Time</h4>
         <h2 class="black">
-          <strong><%= monitor.averageResponseTime %></strong> ms
+          <strong id="averageResponseTime"><%= monitor.averageResponseTime %></strong> ms
         </h2>
       </center>
     </div>

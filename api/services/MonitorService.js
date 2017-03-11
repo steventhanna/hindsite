@@ -147,7 +147,7 @@ module.exports = {
       }
     ], function(callback) {
       console.log("Should be broadcasting");
-      sails.sockets.broadcast(monitor.id, monitor);
+      sails.sockets.blast(monitor.id, monitor);
       cb(monitor);
     });
   },
