@@ -69,6 +69,7 @@ module.exports = {
             if (err) {
               console.log("There was an error saving the monitor.");
               console.log("Error = " + err);
+              console.log("ERROR Ping");
               res.serverError();
             } else {
               callback();

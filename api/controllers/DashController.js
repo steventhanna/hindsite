@@ -46,7 +46,6 @@ module.exports = {
             async.each(monitors, function(monitor, cb) {
               PingService.getMonitoredPings(monitor, function(pings) {
                 monitor.monitoredPings = pings;
-                console.log(monitor.monitoredPings);
                 cb();
               });
             }, function(err) {

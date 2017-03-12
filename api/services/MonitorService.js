@@ -19,14 +19,9 @@ module.exports = {
         console.log("Error = " + err);
         res.serverError();
       } else {
-        console.log(monitor.frequency);
-        console.log("Scheduling monitor");
-        console.log(monitor.cronID);
         var scheduled = cron.scheduleJob(monitor.cronID, monitor.frequency, function() {
-          console.log(scheduled);
           PingService.sendPing(monitor.id, function() {});
         });
-        console.log(scheduled);
       }
     });
   },
@@ -84,6 +79,7 @@ module.exports = {
           if (err || mon == undefined) {
             console.log("There was an error saving the monitor.");
             console.log("Error = " + err);
+            console.log("SERVICE 1");
             // res.serverError();
             callback();
           } else {
@@ -135,7 +131,7 @@ module.exports = {
           if (err) {
             console.log("There was an error saving the monitor.");
             console.log("Error = " + err);
-            console.log("ERROR HERE");
+            console.log("ERROR SERVICE 2");
             cb(err, undefined)
           } else {
             DashService.blastDash();
@@ -153,7 +149,7 @@ module.exports = {
         }
       }
     ], function(callback) {
-      cb();
+      cb(monitor);
     });
   },
 }

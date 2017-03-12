@@ -168,6 +168,7 @@ module.exports = {
                 if (err) {
                   console.log("There was an error saving the monitor.");
                   console.log("Error = " + err);
+                  console.log("CONTROLLER 2");
                   res.serverError();
                 } else {
                   callback();
@@ -341,6 +342,7 @@ module.exports = {
               if (err) {
                 console.log("There was an error saving the monitor.");
                 console.log("Error = " + err);
+                console.log("CONTROLLER 1");
                 res.serverError();
               } else {
                 callback();

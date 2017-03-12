@@ -37,7 +37,7 @@ module.exports = {
       },
       function(callback) {
         // Send slack notification
-        var stringBuilder = monitor.name + "'s health has changed to: " + monitor.health;
+        var stringBuilder = monitor.name + "'s health has changed to: " + monitor.health + ". It's average response time is: " + monitor.averageResponseTime + "ms";
         IntegrationService.sendSlackNotification(stringBuilder, dash, function() {
           callback();
         });
