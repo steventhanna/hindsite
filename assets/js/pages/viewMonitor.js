@@ -63,6 +63,31 @@ $(document).ready(function() {
     }
   });
 
+  $("#changeState").click(function() {
+    var postObj = {
+      monitorID: monitorID
+    };
+    document.getElementById('changeState').classList.add('disabled');
+
+    $.ajax({
+      type: 'POST',
+      url: '/monitor/state',
+      data: postObj,
+      success: function(data) {
+        if (data.success == true) {
+          window.location.reload();
+        } else {
+          swal("Uh-Oh!", "There was an error changing the state of the monitor: " + data.message, "error");
+          document.getElementById('changeState').classList.add('disabled');
+        }
+      },
+      error: function(data) {
+        swal("Uh-Oh!", "There was an error changing the state of the monitor: " + data.message, "error");
+        document.getElementById('changeState').classList.add('disabled');
+      }
+    });
+  });
+
   // var labels = [];
   var chart;
   var labels;

@@ -68,13 +68,13 @@ module.exports = {
               currentPage: "dashboard",
               monitors: monitors,
               healthyMonitors: monitors.filter(function(x) {
-                return x.health == "Healthy";
+                return x.health == "Healthy" && x.state;
               }),
               rockyMonitors: monitors.filter(function(x) {
-                return x.health == "Rocky";
+                return x.health == "Rocky" && x.state;
               }),
               sickMonitors: monitors.filter(function(x) {
-                return x.health == "Sick";
+                return x.health == "Sick" && x.state;
               })
             });
           });

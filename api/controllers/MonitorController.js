@@ -293,4 +293,60 @@ module.exports = {
     });
   },
 
+  state: function(req, res) {
+    var post = req.body;
+    User.findOne({
+      id: req.user.id
+    }).populateAll().exec(function(err, user) {
+      if (err || user == undefined) {
+        console.log("There was an error finding the user.");
+        console.log("Error = " + error);
+        res.serverError();
+      } else {
+        var monitor;
+        async.series([
+          function(callback) {
+            Monitor.findOne({
+              id: post.monitorID
+            }).exec(function(err, mon) {
+              if (err || mon == undefined) {
+                console.log("There was an error finding the monitor.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                monitor = mon;
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            if (monitor.state == true) {
+              monitor.state = false;
+              MonitorService.removePing(monitor);
+            } else {
+              monitor.state = true;
+              MonitorService.schedulePing(monitor.id);
+            }
+            callback();
+          },
+          function(callback) {
+            monitor.save(function(err) {
+              if (err) {
+                console.log("There was an error saving the monitor.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                callback();
+              }
+            });
+          },
+        ], function(callback) {
+          res.send({
+            success: true
+          });
+        });
+      }
+    });
+  },
+
 };
