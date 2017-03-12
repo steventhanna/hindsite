@@ -11,15 +11,6 @@ var cron = require('node-schedule');
 module.exports = {
 
   schedulePing: function(monitorID) {
-    // var scheduled = cron.scheduleJob({}, function() {
-    //   console.log("CRON EXECUTE");
-    // })
-    // var scheduled = cron.scheduleJob(monitorObj.cronID, monitorObj.frequency, function() {
-    //   console.log(scheduled);
-    //   PingService.sendPing(monitorObj, function() {
-    //     console.log("Inner schedule");
-    //   });
-    // });
     Monitor.findOne({
       id: monitorID
     }).exec(function(err, monitor) {
@@ -29,10 +20,13 @@ module.exports = {
         res.serverError();
       } else {
         console.log(monitor.frequency);
-        var scheduled = cron.scheduleJob(monitor.frequency, function() {
+        console.log("Scheduling monitor");
+        console.log(monitor.cronID);
+        var scheduled = cron.scheduleJob(monitor.cronID, monitor.frequency, function() {
           console.log(scheduled);
           PingService.sendPing(monitor.id, function() {});
         });
+        console.log(scheduled);
       }
     });
   },

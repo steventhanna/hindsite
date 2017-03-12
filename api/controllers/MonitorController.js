@@ -5,6 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+var uuid = require('node-uuid');
+
 module.exports = {
 
   new: function(req, res) {
@@ -29,7 +31,8 @@ module.exports = {
           state: true,
           healthyRange: post.healthyRange,
           rockyRange: post.rockyRange,
-          movingAverageWindow: post.movingAverageWindow
+          movingAverageWindow: post.movingAverageWindow,
+          cronID: uuid.v1()
         };
 
         async.series([
