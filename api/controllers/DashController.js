@@ -86,6 +86,37 @@ module.exports = {
     });
   },
 
+  integrations: function(req, res) {
+    User.findOne({
+      id: req.user.id
+    }).populateAll().exec(function(err, user) {
+      if (err || user == undefined) {
+        console.log("There was an error finding the user.");
+        console.log("Error = " + error);
+        res.serverError();
+      } else {
+        var dash;
+        async.series([
+          function(callback) {
+            DashService.getDashElement(function(elem) {
+              dash = elem;
+              callback();
+            });
+          },
+        ], function(callback) {
+          DashService.title("Integrations", function(title) {
+            res.view('dash/integrations', {
+              user: user,
+              title: title,
+              dash: dash,
+              currentPage: "Integrations"
+            });
+          });
+        });
+      }
+    });
+  },
+
   // Edit the dash object
   edit: function(req, res) {
     var post = req.body;
@@ -354,5 +385,45 @@ module.exports = {
         });
       });
     }
+  },
+
+  editIntegrations: function(req, res) {
+    var post = req.body;
+    User.findOne({
+      id: req.user.id
+    }).populateAll().exec(function(err, user) {
+      if (err || user == undefined) {
+        console.log("There was an error finding the user.");
+        console.log("Error = " + error);
+        res.serverError();
+      } else {
+        var dash;
+        async.series([
+          function(callback) {
+            DashService.getDashElement(function(elem) {
+              dash = elem;
+              callback();
+            });
+          },
+          function(callback) {
+            dash.slackWebhook = post.slackWebhook;
+            dash.twitterAPIKey = post.twitterAPIKey;
+            dash.save(function(err) {
+              if (err) {
+                console.log("There was an error saving the dash.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                callback();
+              }
+            });
+          },
+        ], function(callback) {
+          res.send({
+            success: true
+          });
+        });
+      }
+    });
   },
 };

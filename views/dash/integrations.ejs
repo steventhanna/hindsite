@@ -1,0 +1,29 @@
+<% include depend %>
+
+<% include sidebar %>
+<div class="col-lg-offset-3 col-lg-9 main-content">
+  <div class="row title">
+    <div class="col-lg-12">
+      <h1>Integrations</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <form>
+        <label for="slackWebhook">Slack Webhook</label>
+        <div class="input-group">
+          <span class="input-group-addon" id="slackWebhook-addon"><i class="fa fa-slack"></i></span>
+          <input id="slackWebhook" type="text" class="form-control" placeholder="Slack Webhook" value="<%= dash.slackWebhook %>" aria-describedby="slackWebhook-addon"/>
+        </div>
+      </form>
+      <label for="twitterAPIKey">Twitter API Key</label>
+      <div class="input-group">
+        <span class="input-group-addon" id="twitterAPIKey-addon"><i class="fa fa-twitter"></i></span>
+        <input id="twitterAPIKey" class="form-control" type="text" placeholder="Twitter API Key" value="<%= dash.twitterAPIKey %>" aria-describedby="twitterAPIKey-addon" />
+      </div>
+      <a href="#" id="saveIntegrations" class="btn btn-success btn-block" style="margin-top: 15px;"><i class="fa fa-save"></i> Save</a>
+    </div>
+  </div>
+</div>
+
+<script src="/js/pages/integrations.js"></script>

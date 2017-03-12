@@ -145,6 +145,11 @@ module.exports = {
             callback();
           },
           function(callback) {
+            MonitorService.determineHealth(monitor, function() {
+              callback();
+            });
+          },
+          function(callback) {
             if (post.movingAverageWindow != undefined && post.movingAverageWindow != monitor.movingAverageWindow) {
               monitor.movingAverageWindow = post.movingAverageWindow;
               changes = true;

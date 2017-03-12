@@ -104,6 +104,7 @@ module.exports = {
    */
   determineHealth: function(monitor, cb) {
     var lastPing;
+    var change = false;
     async.series([
       function(callback) {
         PingService.getLastPing(monitor.id, function(elem) {
@@ -112,8 +113,10 @@ module.exports = {
         });
       },
       function(callback) {
+        var current = monitor.health;
         if (lastPing.status != "200" && lastPing.status != "302") {
           monitor.health = "Sick";
+          change = current != monitor.health;
           callback();
         } else {
           if (monitor.averageResponseTime < monitor.healthyRange) {
@@ -123,20 +126,34 @@ module.exports = {
           } else {
             monitor.health = "Sick";
           }
+          change = current != monitor.health;
           callback();
         }
       },
-    ], function(callback) {
-      monitor.save(function(err) {
-        if (err) {
-          console.log("There was an error saving the monitor.");
-          console.log("Error = " + err);
-          cb(err, undefined)
+      function(callback) {
+        monitor.save(function(err) {
+          if (err) {
+            console.log("There was an error saving the monitor.");
+            console.log("Error = " + err);
+            console.log("ERROR HERE");
+            cb(err, undefined)
+          } else {
+            DashService.blastDash();
+            callback();
+          }
+        });
+      },
+      function(callback) {
+        if (change == true) {
+          IntegrationService.sendNotifications(monitor.id, function() {
+            callback();
+          });
         } else {
-          DashService.blastDash();
-          cb(undefined, monitor);
+          callback();
         }
-      });
+      }
+    ], function(callback) {
+      cb();
     });
   },
 }

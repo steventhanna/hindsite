@@ -139,7 +139,17 @@ module.exports.routes = {
   'GET /socket/watch/monitors/dash': {
     controller: 'dash',
     action: 'subscribe'
-  }
+  },
+
+  'GET /integrations': {
+    controller: 'dash',
+    action: 'integrations'
+  },
+
+  'POST /integrations/edit': {
+    controller: 'dash',
+    action: 'editIntegrations'
+  },
 
   /***************************************************************************
    *                                                                          *

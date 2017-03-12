@@ -26,7 +26,7 @@ module.exports = {
       type: 'string'
     },
 
-    slackAPIKey: {
+    slackWebhook: {
       type: 'string'
     },
 
@@ -39,6 +39,14 @@ module.exports = {
       defaultsTo: 'hindsite',
       required: true
     },
+
+    twitterAPIKey: {
+      type: 'string'
+    },
+
+    slackWebhook: {
+      type: 'string'
+    }
 
   }
 };
