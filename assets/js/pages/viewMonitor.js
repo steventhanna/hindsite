@@ -68,6 +68,11 @@ $(document).ready(function() {
   var labels;
   var d;
 
+
+  function randomColor() {
+    return "rgba(" + Math.floor(Math.random() * 256) + ", " + Math.floor(Math.random() * 256) + ", " + Math.floor(Math.random() * 256) + ", .3)";
+  }
+
   io.socket.on('connect', function socketConnected() {
     io.socket.get('/socket/watch/monitor/' + monitorID, function(data, jwers) {
       var ctx = document.getElementById("pingChart");
@@ -83,7 +88,8 @@ $(document).ready(function() {
           labels: labels,
           datasets: [{
             label: "Pings",
-            data: d
+            data: d,
+            backgroundColor: randomColor()
           }]
         }
       });

@@ -66,7 +66,16 @@ module.exports = {
               dash: dash,
               title: title,
               currentPage: "dashboard",
-              monitors: monitors
+              monitors: monitors,
+              healthyMonitors: monitors.filter(function(x) {
+                return x.health == "Healthy";
+              }),
+              rockyMonitors: monitors.filter(function(x) {
+                return x.health == "Rocky";
+              }),
+              sickMonitors: monitors.filter(function(x) {
+                return x.health == "Sick";
+              })
             });
           });
         });
@@ -318,7 +327,7 @@ module.exports = {
         },
         function(callback) {
           async.each(monitors, function(monitor, cb) {
-            PingService.formatPingChart(monitor, function(pings) {
+            PingService.formatPingsChart(monitor, function(pings) {
               var obj = {
                 name: monitor.name,
                 pings: pings
