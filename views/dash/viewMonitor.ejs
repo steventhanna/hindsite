@@ -22,7 +22,7 @@ var monitorID = "<%= monitor.id %>";
       <div class="col-lg-12">
         <div class="panel panel-danger">
           <div class="panel-body">
-            This monitor is not active
+            This monitor is not active. <a href="#" id="changeState">Click to activate</a>
           </div>
         </div>
       </div>
@@ -40,6 +40,8 @@ var monitorID = "<%= monitor.id %>";
           <span class="has-danger">
         <% } else if (monitor.health == "Sick") { %>
           <span class="has-error">
+        <% } else { %>
+          <span>
         <% } %>
         <%= monitor.health %></span>
         </h2>

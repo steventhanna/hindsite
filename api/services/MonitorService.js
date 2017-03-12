@@ -133,6 +133,7 @@ module.exports = {
           console.log("Error = " + err);
           cb(err, undefined)
         } else {
+          DashService.blastDash();
           cb(undefined, monitor);
         }
       });

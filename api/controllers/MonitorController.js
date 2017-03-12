@@ -322,9 +322,11 @@ module.exports = {
           function(callback) {
             if (monitor.state == true) {
               monitor.state = false;
+              monitor.health = "Offline";
               MonitorService.removePing(monitor);
             } else {
               monitor.state = true;
+              monitor.health = "Online";
               MonitorService.schedulePing(monitor.id);
             }
             callback();
@@ -339,6 +341,12 @@ module.exports = {
                 callback();
               }
             });
+          },
+          function(callback) {
+            // Update the socket
+            sails.sockets.blast(monitor.id, monitor);
+            DashService.blastDash();
+            callback();
           },
         ], function(callback) {
           res.send({

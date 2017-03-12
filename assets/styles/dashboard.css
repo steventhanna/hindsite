@@ -307,3 +307,8 @@ label {
 .main-content .title h3 {
   margin-top: 0px;
 }
+
+.panel-danger {
+  border-color: var(--oc-red-7);
+  background-color: var(--oc-red-1);
+}

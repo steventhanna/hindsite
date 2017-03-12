@@ -66,5 +66,33 @@ module.exports = {
     ], function(callback) {
       cb();
     });
+  },
+
+  // Send a message to the sockets
+  blastDash: function() {
+    Monitor.find().exec(function(err, monitors) {
+      if (err || monitors == undefined) {
+        console.log("There was an error finding the monitors.");
+        console.log("Error = " + err);
+        res.serverError();
+      } else {
+        var obj = {
+          healthyMonitors: monitors.filter(function(x) {
+            return x.health == "Healthy" && x.state;
+          }),
+          rockyMonitors: monitors.filter(function(x) {
+            return x.health == "Rocky" && x.state;
+          }),
+          sickMonitors: monitors.filter(function(x) {
+            return x.health == "Sick" && x.state;
+          }),
+          offlineMonitors: monitors.filter(function(x) {
+            return x.state == false
+          })
+        };
+        console.log(obj.offlineMonitors.length);
+        sails.sockets.blast("dashboard", obj);
+      }
+    });
   }
 }

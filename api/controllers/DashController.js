@@ -75,6 +75,9 @@ module.exports = {
               }),
               sickMonitors: monitors.filter(function(x) {
                 return x.health == "Sick" && x.state;
+              }),
+              offlineMonitors: monitors.filter(function(x) {
+                return x.state == false
               })
             });
           });
