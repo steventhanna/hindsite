@@ -146,15 +146,9 @@ module.exports = {
               monitor.movingAverageWindow = post.movingAverageWindow;
               changes = true;
               // Recalculate the moving average
-              MonitorService.calculateMovingAverage(monitor, function(err, mon) {
-                if (err || monitor == undefined) {
-                  console.log("There was an error calculating the moving average.");
-                  console.log("Error = " + err);
-                  res.serverError();
-                } else {
-                  monitor = mon;
-                  callback();
-                }
+              MonitorService.calculateMovingAverage(monitor, function(mon) {
+                monitor = mon;
+                callback();
               });
             } else {
               callback();
@@ -172,15 +166,14 @@ module.exports = {
                 }
               });
             } else {
-              sails.sockets.blast(monitor.id, monitor);
               res.send({
                 success: false,
                 message: "No changes made."
               });
-              return;
             }
           }
         ], function(callback) {
+          sails.sockets.blast(monitor.id, monitor);
           res.send({
             success: true
           });

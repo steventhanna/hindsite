@@ -18,11 +18,45 @@ module.exports = {
         res.serverError();
       } else {
         var dash;
+        var monitors;
         async.series([
           function(callback) {
             DashService.getDashElement(function(elem) {
               dash = elem;
               callback();
+            });
+          },
+          function(callback) {
+            Monitor.find({
+              sort: {
+                createdAt: -1
+              }
+            }).exec(function(err, mon) {
+              if (err || mon == undefined) {
+                console.log("There was an error finding the monitors.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                monitors = mon;
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            async.each(monitors, function(monitor, cb) {
+              PingService.getMonitoredPings(monitor, function(pings) {
+                monitor.monitoredPings = pings;
+                console.log(monitor.monitoredPings);
+                cb();
+              });
+            }, function(err) {
+              if (err) {
+                console.log("There was an error finding the pings.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                callback();
+              }
             });
           }
         ], function(callback) {
@@ -31,7 +65,8 @@ module.exports = {
               user: user,
               dash: dash,
               title: title,
-              currentPage: "dashboard"
+              currentPage: "dashboard",
+              monitors: monitors
             });
           });
         });
@@ -235,5 +270,77 @@ module.exports = {
         });
       }
     });
+  },
+
+  subscribe: function(req, res) {
+    if (!req.isSocket) {
+      req.badRequest();
+    } else {
+      var monitors;
+      var pingData = [];
+      async.series([
+        function(callback) {
+          Monitor.find({
+            sort: {
+              createdAt: -1
+            }
+          }).exec(function(err, mon) {
+            if (err || mon == undefined) {
+              console.log("There was an error finding the monitor.");
+              console.log("Error = " + err);
+              res.serverError();
+            } else {
+              monitors = mon;
+              callback();
+            }
+          });
+        },
+        function(callback) {
+          async.each(monitors, function(monitor, cb) {
+            sails.sockets.join(req, monitor.id, function(err) {
+              if (err) {
+                console.log("There was an error subscribing to the monitors.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                cb();
+              }
+            });
+          }, function(err) {
+            if (err) {
+              console.log("There was an error subscribing to the monitors.");
+              console.log("Error = " + err);
+              res.serverError();
+            } else {
+              callback();
+            }
+          });
+        },
+        function(callback) {
+          async.each(monitors, function(monitor, cb) {
+            PingService.formatPingChart(monitor, function(pings) {
+              var obj = {
+                name: monitor.name,
+                pings: pings
+              }
+              pingData.push(obj);
+              cb();
+            });
+          }, function(err) {
+            if (err) {
+              console.log("There was an error getting the pings.");
+              console.log("Error = " + err);
+              res.serverError();
+            } else {
+              callback();
+            }
+          });
+        },
+      ], function(callback) {
+        res.send({
+          pingData: pingData
+        });
+      });
+    }
   },
 };

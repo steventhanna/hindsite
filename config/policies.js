@@ -28,7 +28,7 @@ module.exports.policies = {
 
   // '*': true,
 
-  '*': 'isSetUp',
+  '*': ['isSetUp', 'passport'],
 
   'auth': {
     '*': true

@@ -131,6 +131,11 @@ module.exports.routes = {
     action: 'subscribeToMonitors'
   },
 
+  'GET /socket/watch/monitors/dash': {
+    controller: 'dash',
+    action: 'subscribe'
+  }
+
   /***************************************************************************
    *                                                                          *
    * Custom routes here...                                                    *
