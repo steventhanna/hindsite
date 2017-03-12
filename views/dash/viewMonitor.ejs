@@ -21,15 +21,15 @@ var monitorID = "<%= monitor.id %>";
     <div class="col-lg-6">
       <center>
         <h3>Current Health</h3>
-        <h2 id="currentHealth">
-        <% if (monitor.currentHealth == "Healthy") { %>
+        <h2 id="health">
+        <% if (monitor.health == "Healthy") { %>
           <span class="has-success">
-        <% } else if (monitor.currentHealth == "Rocky") { %>
+        <% } else if (monitor.health == "Rocky") { %>
           <span class="has-danger">
-        <% } else if (monitor.currentHealth == "Sick") { %>
+        <% } else if (monitor.health == "Sick") { %>
           <span class="has-error">
         <% } %>
-        <%= monitor.currentHealth %></span>
+        <%= monitor.health %></span>
         </h2>
       </center>
     </div>

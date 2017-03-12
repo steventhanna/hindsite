@@ -91,9 +91,9 @@ $(document).ready(function() {
 
     io.socket.on(monitorID, function(msg) {
       // Update the DOM
-      var currentHealth = document.getElementById('currentHealth');
+      var health = document.getElementById('health');
       var builder = "";
-      switch (msg.currentHealth) {
+      switch (msg.health) {
         case "Healthy":
           builder += '<span class="has-success">';
           break;
@@ -104,7 +104,7 @@ $(document).ready(function() {
           builder += '<span class="has-error">';
           break;
       }
-      currentHealth.innerHTML = builder + msg.currentHealth + '</span>';
+      health.innerHTML = builder + msg.health + '</span>';
       document.getElementById('averageResponseTime').innerHTML = msg.averageResponseTime;
       // Update the data
       io.socket.get('/monitors/data/' + monitorID + '/lastPing', function(data, jwers) {

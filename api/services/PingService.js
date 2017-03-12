@@ -12,8 +12,6 @@ var moment = require('moment');
 module.exports = {
 
   new: function(obj, callback) {
-    console.log("Creating a new ping");
-    console.log(obj);
     Ping.create(obj).exec(function(err, ping) {
       if (err || ping == undefined) {
         console.log("There was an error creating the ping.");
@@ -25,10 +23,24 @@ module.exports = {
     });
   },
 
-  sendPing: function(monitor, cb) {
-    console.log("Sending a ping");
+  sendPing: function(monitorID, cb) {
     var pingObj = {};
+    var monitor;
     async.series([
+      function(callback) {
+        Monitor.findOne({
+          id: monitorID
+        }).exec(function(err, mon) {
+          if (err || mon == undefined) {
+            console.log("There was an error finding the monitor.");
+            console.log("Error = " + err);
+            res.serverError();
+          } else {
+            monitor = mon;
+            callback();
+          }
+        });
+      },
       function(callback) {
         request.get({
           url: monitor.targetURL,
@@ -63,7 +75,7 @@ module.exports = {
             }
           });
         });
-      }
+      },
     ], function(callback) {
       cb();
     });
@@ -89,7 +101,6 @@ module.exports = {
         console.log("Error = " + err);
         res.serverError();
       } else {
-        console.log(pings);
         if (pings.length == 0) {
           cb(undefined);
         } else {

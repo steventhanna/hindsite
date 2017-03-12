@@ -37,7 +37,7 @@ module.exports = {
       defaultsTo: '[]'
     },
 
-    currentHealth: {
+    health: {
       type: 'string'
     },
 
@@ -50,26 +50,23 @@ module.exports = {
     },
 
     // Essentially if the monitor is on or off
-    canPing: {
-      type: 'boolean',
-      defaultsTo: true
+    // True for online, false for offline
+    state: {
+      type: 'boolean'
     },
 
     // The range that should be considered healthy for a ping
     healthyRange: {
-      type: 'float',
-      defaultsTo: 1000
+      type: 'float'
     },
 
     rockyRange: {
-      type: 'float',
-      defaultsTo: 2000
+      type: 'float'
     },
 
     // The number of pings to grab to calculate the moving average
     movingAverageWindow: {
-      type: 'float',
-      defaultsTo: 100
+      type: 'float'
     },
 
     // Generate a random ID for the cronID

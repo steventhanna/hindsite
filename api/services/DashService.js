@@ -12,11 +12,11 @@ module.exports = {
       if (err || dashs == undefined) {
         console.log("There was an error finding the dash.");
         console.log("Error = " + err);
-        res.serverError();
+        callback(err, undefined)
       } else if (dashs.length == 0) {
         console.log("There was an error finding any dashs.");
         console.log("Error = " + err);
-        res.serverError();
+        callback(err, undefined);
       } else {
         callback(dashs[0]);
         // return dashs[0];

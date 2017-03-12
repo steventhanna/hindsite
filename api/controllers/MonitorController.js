@@ -23,10 +23,10 @@ module.exports = {
           targetURL: post.targetURL,
           frequency: post.frequency,
           notificationSettings: [],
-          currentHealth: "Healthy",
+          health: "Healthy",
           averageResponseTime: 0,
           numberOfRequestsSent: 0,
-          canPing: true,
+          state: true,
           healthyRange: post.healthyRange,
           rockyRange: post.rockyRange,
           movingAverageWindow: post.movingAverageWindow
@@ -53,7 +53,7 @@ module.exports = {
               } else {
                 monitor = mon;
                 // Start the monitor
-                MonitorService.schedulePing(monitor);
+                MonitorService.schedulePing(monitor.id);
                 callback();
               }
             });
@@ -64,7 +64,6 @@ module.exports = {
             });
           }
         ], function(callback) {
-          User.subscribe(req, user, 'monitor');
           res.send({
             success: true
           });
@@ -120,13 +119,13 @@ module.exports = {
             if (post.frequency != undefined && post.frequency != monitor.frequency) {
               MonitorService.removePing(monitor);
               monitor.frequency = post.frequency;
-              MonitorService.schedulePing(monitor);
+              MonitorService.schedulePing(monitor.id);
               changes = true;
             }
             if (post.canPing != undefined) {
               monitor.canPing = post.canPing;
               if (monitor.canPing) {
-                MonitorService.schedulePing(monitor);
+                MonitorService.schedulePing(monitor.id);
               } else {
                 MonitorService.removePing(monitor);
               }
@@ -147,9 +146,15 @@ module.exports = {
               monitor.movingAverageWindow = post.movingAverageWindow;
               changes = true;
               // Recalculate the moving average
-              MonitorService.calculateMovingAverage(monitor, function(mon) {
-                monitor = mon;
-                callback();
+              MonitorService.calculateMovingAverage(monitor, function(err, mon) {
+                if (err || monitor == undefined) {
+                  console.log("There was an error calculating the moving average.");
+                  console.log("Error = " + err);
+                  res.serverError();
+                } else {
+                  monitor = mon;
+                  callback();
+                }
               });
             } else {
               callback();
@@ -167,6 +172,7 @@ module.exports = {
                 }
               });
             } else {
+              sails.sockets.blast(monitor.id, monitor);
               res.send({
                 success: false,
                 message: "No changes made."
