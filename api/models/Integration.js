@@ -19,6 +19,11 @@ module.exports = {
 
     state: {
       type: 'boolean'
+    },
+
+    monitors: {
+      type: 'array',
+      defaultsTo: '[]'
     }
 
   }

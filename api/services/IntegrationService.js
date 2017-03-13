@@ -35,7 +35,6 @@ module.exports = {
         });
       },
       function(callback) {
-        // Send slack notification
         var stringBuilder = monitor.name + "'s health has changed to: " + monitor.health + ". It's average response time is: " + monitor.averageResponseTime + "ms";
         // Get all the integrations with an active state
         Integration.find({
@@ -49,9 +48,13 @@ module.exports = {
             res.serverError();
           } else {
             async.each(integrations, function(integration, callb) {
-              IntegrationService.triggerIntegration(integration, stringBuilder, function() {
-                callb();
-              });
+              if (integration.monitors.contains(monitor.id)) {
+                IntegrationService.triggerIntegration(integration, stringBuilder, function() {
+                  callb();
+                });
+              } else {
+                clalb();
+              }
             }, function(err) {
               if (err) {
                 console.log("There was an error async eaching the integrations.");

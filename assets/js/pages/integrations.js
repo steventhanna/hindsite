@@ -27,6 +27,14 @@ $(document).ready(function() {
 
     var name = $("#name").val();
     var webhook = $("#targetURL").val();
+
+    // Get all of the checkboxes
+    var allValues = [];
+    $("#checkboxes :checked").each(function() {
+      allValues.push($(this).val());
+    });
+
+
     if (name == undefined || name == "") {
       swal("Uh-Oh!", "The integration name cannot be left blank.", "error");
     } else if (webhook == undefined || webhook == "") {
@@ -34,7 +42,8 @@ $(document).ready(function() {
     } else {
       var postObj = {
         name: name,
-        webhook: webhook
+        webhook: webhook,
+        monitors: allValues
       };
 
       $.ajax({

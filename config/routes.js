@@ -146,6 +146,11 @@ module.exports.routes = {
     action: 'integrations'
   },
 
+  'GET /integrations/edit/:integrationID': {
+    controller: 'dash',
+    action: 'viewIntegration'
+  },
+
   'POST /integration/new': {
     controller: 'integration',
     action: 'new'

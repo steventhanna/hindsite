@@ -96,6 +96,7 @@ module.exports = {
       } else {
         var dash;
         var integrations;
+        var monitors;
         async.series([
           function(callback) {
             DashService.getDashElement(function(elem) {
@@ -114,15 +115,52 @@ module.exports = {
                 callback();
               }
             });
-          }
+          },
+          function(callback) {
+            Monitor.find().exec(function(err, mons) {
+              if (err || mons == undefined) {
+                console.log("There was an error finding the monitors.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                monitors = mons;
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            async.each(integrations, function(integration, cb) {
+              Monitor.find({
+                id: integration.monitors
+              }).exec(function(err, ints) {
+                if (err || ints == undefined) {
+                  console.log("There was an error finding the monitors.");
+                  console.log("Error = " + err);
+                  res.serverError();
+                } else {
+                  integration.foundMonitor = ints;
+                  cb();
+                }
+              });
+            }, function(err) {
+              if (err) {
+                console.log("There was an error getting the monitors integrations.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                callback();
+              }
+            });
+          },
         ], function(callback) {
           DashService.title("Integrations", function(title) {
             res.view('dash/integrations', {
               user: user,
               title: title,
               dash: dash,
-              currentPage: "Integrations",
-              integrations: integrations
+              currentPage: "integrations",
+              integrations: integrations,
+              monitors: monitors
             });
           });
         });
@@ -386,5 +424,95 @@ module.exports = {
         });
       });
     }
+  },
+
+  viewIntegration: function(req, res) {
+    req.validate({
+      integrationID: 'string'
+    });
+    User.findOne({
+      id: req.user.id
+    }).populateAll().exec(function(err, user) {
+      if (err || user == undefined) {
+        console.log("There was an error finding the user.");
+        console.log("Error = " + error);
+        res.serverError();
+      } else {
+        var dash;
+        var integration;
+        var monitors;
+        async.series([
+          function(callback) {
+            Integration.findOne({
+              id: req.param('integrationID')
+            }).exec(function(err, int) {
+              if (err || integrationID == undefined) {
+                console.log("There was an error finding the integration.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                integration = int;
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            // Get the monitors specific to the integration
+            integration.foundMonitors = [];
+            async.each(integration.monitors, function(monitorID, cb) {
+              Monitor.findOne({
+                id: monitorID
+              }).exec(function(err, monitor) {
+                if (err || monitors == undefined) {
+                  console.log("There was an error finding the monitor.");
+                  console.log("Error = " + err);
+                  res.serverError();
+                } else {
+                  integration.foundMonitors.push(monitor);
+                  cb();
+                }
+              });
+            }, function(err) {
+              if (err) {
+                console.log("There was an error getting the specific monitors for an integration.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            Monitor.find().exec(function(err, mons) {
+              if (err || mons == undefined) {
+                console.log("There was an error finding the monitors.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                monitors = mons;
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            DashService.getDashElement(function(elem) {
+              dash = elem;
+              callback();
+            });
+          }
+        ], function(callback) {
+          DashService.title(integration.name, function(title) {
+            res.view('dash/viewIntegration', {
+              user: user,
+              dash: dash,
+              title: title,
+              currentPage: 'integrations',
+              monitors: monitors,
+              integration: integration
+            });
+          });
+        });
+      }
+    });
   },
 };

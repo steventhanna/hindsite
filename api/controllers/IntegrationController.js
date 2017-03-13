@@ -20,7 +20,8 @@ module.exports = {
         var postObj = {
           name: post.name,
           webhook: post.webhook,
-          state: true
+          state: true,
+          monitors: post.monitors
         };
         Integration.create(postObj).exec(function(err, integration) {
           if (err || postObj == undefined) {

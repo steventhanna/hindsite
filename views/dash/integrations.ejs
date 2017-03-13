@@ -28,6 +28,14 @@
         <div class="col-lg-12">
           <h2><%= integrations[i].name %></h2>
           <code><%= integrations[i].webhook %></code>
+          <h3>Monitors</h3>
+          <ul>
+            <% for (var j = 0; j < integrations[i].foundMonitor.length; j++) { %>
+              <li>
+                <%= integrations[i].foundMonitor[j].name %>
+              </li>
+            <% } %>
+          </ul>
         </div>
       </div>
       <hr />
@@ -55,6 +63,16 @@
             <input id="targetURL" type="text" class="form-control" placeholder="http://hindsite.io" aria-descibredby="url-addon" />
           </div>
           <span id="helpBox" class="help-block"></span>
+          <label>Monitors to Notify</label>
+          <div id="checkboxes">
+            <% for (var i = 0; i < monitors.length; i++) { %>
+              <div class="checkbox" style="margin-top: 0px;">
+                <label>
+                  <input id="check-<%= i %>" value="<%= monitors[i].id %>" type="checkbox" /> <%= monitors[i].name %>
+                </label>
+              </div>
+            <% } %>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
