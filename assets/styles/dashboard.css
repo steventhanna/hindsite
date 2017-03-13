@@ -312,3 +312,7 @@ label {
   border-color: var(--oc-red-7);
   background-color: var(--oc-red-1);
 }
+
+.title .btn {
+  margin-right: 10px;
+}
