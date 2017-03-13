@@ -35,47 +35,26 @@
   <% } %>
 </div>
 
-<div class="modal fade" id="addMonitorModal" tabindex="-1" role="dialog" aria-labbeledby="addMonitorModalLabel">
+<div class="modal fade" id="addIntegrationModal" tabindex="-1" role="dialog" aria-labbeledby="addIntegrationTitle">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="addMonitorModalLabel">Add Monitor</h4>
+        <h4 class="modal-title" id="addIntegrationTitle">Add Integration</h4>
       </div>
       <div class="modal-body">
         <form>
-          <label for="name">Monitor Name</label>
+          <label for="name">Integration Name</label>
           <div class="input-group">
             <span class="input-group-addon" id="name-addon"><i class="fa fa-id-badge"></i></span>
-            <input id="name" type="text" class="form-control" placeholder="API Monitor" aria-describedby="name-addon" />
+            <input id="name" type="text" class="form-control" placeholder="Slack" aria-describedby="name-addon" />
           </div>
-          <label for="targetURL">Target URL</label>
+          <label for="targetURL">Webhook</label>
           <div id="targertULRGroup" class="input-group">
             <span class="input-group-addon" id="url-addon"><i class="fa fa-bullseye"></i></span>
             <input id="targetURL" type="text" class="form-control" placeholder="http://hindsite.io" aria-descibredby="url-addon" />
           </div>
           <span id="helpBox" class="help-block"></span>
-          <label for="healthyRange">Healthy Range</label>
-          <div class="input-group">
-            <input class="form-control" id="healthyRange" type="number" value="1000" />
-            <span class="input-group-addon" id="range-addon">ms</span>
-          </div>
-          <span class="help-block">If the average ping is below this, the monitor will report healthy.</span>
-          <label for="rockyRange">Rocky Range</label>
-          <div class="input-group">
-            <input class="form-control" id="rockyRange" type="number" value="2000" />
-            <span class="input-group-addon" id="range-addon">ms</span>
-          </div>
-          <span class="help-block">If the average ping is below this, the monitor will report rocky. Anything above will report sick, in addition if the last ping recieved is not a <em>200</em> or <em>302</em>.</span>
-          <label for="movingAverage">Pings in Average</label>
-          <div class="input-group">
-            <input class="form-control" id="pingsInAverage" type="number" value="100" />
-            <span class="input-group-addon" id="range-addon">pings</span>
-          </div>
-          <span class="help-block">The amount of pings used to calculate the average.</span>
-          <label for="cron">Frequency</label>
-          <div id="cron">
-          </div>
         </form>
       </div>
       <div class="modal-footer">

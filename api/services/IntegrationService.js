@@ -7,7 +7,6 @@
  */
 
 var request = require('request');
-// var Slack = require('slack-node');
 
 module.exports = {
 
@@ -38,8 +37,31 @@ module.exports = {
       function(callback) {
         // Send slack notification
         var stringBuilder = monitor.name + "'s health has changed to: " + monitor.health + ". It's average response time is: " + monitor.averageResponseTime + "ms";
-        IntegrationService.sendSlackNotification(stringBuilder, dash, function() {
-          callback();
+        // Get all the integrations with an active state
+        Integration.find({
+          where: {
+            state: true
+          }
+        }).exec(function(err, integrations) {
+          if (err || integrations == undefined) {
+            console.log("There was an error finding the integrations.");
+            console.log("Error = " + err);
+            res.serverError();
+          } else {
+            async.each(integrations, function(integration, callb) {
+              IntegrationService.triggerIntegration(integration, stringBuilder, function() {
+                callb();
+              });
+            }, function(err) {
+              if (err) {
+                console.log("There was an error async eaching the integrations.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                callback();
+              }
+            });
+          }
         });
       }
     ], function(callback) {
@@ -47,28 +69,24 @@ module.exports = {
     });
   },
 
-  sendSlackNotification: function(message, dashObj, cb) {
-    if (dashObj.slackWebhook == undefined || dashObj.slackWebhook == "") {
-      cb();
-    } else {
-      var options = {
-        uri: dashObj.slackWebhook,
-        method: 'POST',
-        json: {
-          "text": message
-        }
-      };
-      request.post(options, function(err, httpResponse, body) {
-        if (err) {
-          console.log("There was an error sending the slack message.");
-          console.log("Error = " + err);
-        } else {
-          cb();
-        }
-      });
-    }
-  }
 
-
+  triggerIntegration: function(integrationObj, message, cb) {
+    var options = {
+      uri: integrationObj.webhook,
+      method: 'POST',
+      json: {
+        "value1": message
+      }
+    };
+    request.post(options, function(err, response, body) {
+      if (err) {
+        console.log("There was an error triggering the webhook.");
+        console.log("Error = " + err);
+        res.serverError();
+      } else {
+        cb();
+      }
+    });
+  },
 
 };

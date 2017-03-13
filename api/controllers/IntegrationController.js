@@ -8,6 +8,7 @@
 module.exports = {
 
   new: function(req, res) {
+    var post = req.body;
     User.findOne({
       id: req.user.id
     }).populateAll().exec(function(err, user) {

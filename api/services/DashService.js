@@ -90,7 +90,6 @@ module.exports = {
             return x.state == false
           })
         };
-        console.log(obj.offlineMonitors.length);
         sails.sockets.blast("dashboard", obj);
       }
     });

@@ -79,7 +79,6 @@ module.exports = {
           if (err || mon == undefined) {
             console.log("There was an error saving the monitor.");
             console.log("Error = " + err);
-            console.log("SERVICE 1");
             // res.serverError();
             callback();
           } else {
@@ -131,7 +130,6 @@ module.exports = {
           if (err) {
             console.log("There was an error saving the monitor.");
             console.log("Error = " + err);
-            console.log("ERROR SERVICE 2");
             cb(err, undefined)
           } else {
             DashService.blastDash();
@@ -149,7 +147,7 @@ module.exports = {
         }
       }
     ], function(callback) {
-      cb(monitor);
+      cb(undefined, monitor);
     });
   },
 }

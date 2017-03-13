@@ -14,7 +14,7 @@ module.exports = {
     },
 
     webhook: {
-      type: 'stirng'
+      type: 'string'
     },
 
     state: {

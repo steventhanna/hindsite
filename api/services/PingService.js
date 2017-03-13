@@ -117,7 +117,6 @@ module.exports = {
    * @return :: obj - the newly formatted object
    */
   formatPing: function(pingObj) {
-    // console.log("Formatting: " + JSON.stringify(pingObj));
     var obj = {
       elapsedTime: pingObj.elapsedTime,
       createdAt: moment(pingObj.createdAt).calendar()
