@@ -4,25 +4,84 @@
 <div class="col-lg-offset-3 col-lg-9 main-content">
   <div class="row title">
     <div class="col-lg-12">
-      <h1>Integrations</h1>
+      <h1>Integrations <a href="#" data-toggle="modal" data-target="#addIntegrationModal" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add Integration</a></h1>
     </div>
   </div>
-  <div class="row">
-    <div class="col-lg-12">
-      <form>
-        <label for="slackWebhook">Slack Webhook</label>
-        <div class="input-group">
-          <span class="input-group-addon" id="slackWebhook-addon"><i class="fa fa-slack"></i></span>
-          <input id="slackWebhook" type="text" class="form-control" placeholder="Slack Webhook" value="<%= dash.slackWebhook %>" aria-describedby="slackWebhook-addon"/>
-        </div>
-        <span class="help-block">You must first create an app on <a href="https://api.slack.com/apps">Slack</a>. Make sure <em>Incoming Webhooks</em> are enabled.</span>
-      </form>
-      <label for="twitterAPIKey">Twitter API Key</label>
-      <div class="input-group">
-        <span class="input-group-addon" id="twitterAPIKey-addon"><i class="fa fa-twitter"></i></span>
-        <input id="twitterAPIKey" class="form-control" type="text" placeholder="Twitter API Key" value="<%= dash.twitterAPIKey %>" aria-describedby="twitterAPIKey-addon" />
+
+  <% if (integrations.length == 0) { %>
+    <div class="row">
+      <div class="col-lg-12">
+        <center>
+          <div class="empty">
+            <h1>No Integrations</h1>
+            <p>
+              Create your first integrations to begin recieving updates using <a href="https://ifttt.com/">IFTTT</a>.
+            </p>
+            <a href="#" data-toggle="modal" data-target="#addIntegrationModal" class="btn btn-primary"><i class="fa fa-plus"></i> Add Integration</a>
+          </div>
+        </center>
       </div>
-      <a href="#" id="saveIntegrations" class="btn btn-success btn-block" style="margin-top: 15px;"><i class="fa fa-save"></i> Save</a>
+    </div>
+  <% } else { %>
+    <% for (var i = 0; i < integrations.length; i++) { %>
+      <div class="row monitor">
+        <div class="col-lg-12">
+          <h2><%= integrations[i].name %></h2>
+          <code><%= integrations[i].webhook %></code>
+        </div>
+      </div>
+      <hr />
+    <% } %>
+  <% } %>
+</div>
+
+<div class="modal fade" id="addMonitorModal" tabindex="-1" role="dialog" aria-labbeledby="addMonitorModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addMonitorModalLabel">Add Monitor</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <label for="name">Monitor Name</label>
+          <div class="input-group">
+            <span class="input-group-addon" id="name-addon"><i class="fa fa-id-badge"></i></span>
+            <input id="name" type="text" class="form-control" placeholder="API Monitor" aria-describedby="name-addon" />
+          </div>
+          <label for="targetURL">Target URL</label>
+          <div id="targertULRGroup" class="input-group">
+            <span class="input-group-addon" id="url-addon"><i class="fa fa-bullseye"></i></span>
+            <input id="targetURL" type="text" class="form-control" placeholder="http://hindsite.io" aria-descibredby="url-addon" />
+          </div>
+          <span id="helpBox" class="help-block"></span>
+          <label for="healthyRange">Healthy Range</label>
+          <div class="input-group">
+            <input class="form-control" id="healthyRange" type="number" value="1000" />
+            <span class="input-group-addon" id="range-addon">ms</span>
+          </div>
+          <span class="help-block">If the average ping is below this, the monitor will report healthy.</span>
+          <label for="rockyRange">Rocky Range</label>
+          <div class="input-group">
+            <input class="form-control" id="rockyRange" type="number" value="2000" />
+            <span class="input-group-addon" id="range-addon">ms</span>
+          </div>
+          <span class="help-block">If the average ping is below this, the monitor will report rocky. Anything above will report sick, in addition if the last ping recieved is not a <em>200</em> or <em>302</em>.</span>
+          <label for="movingAverage">Pings in Average</label>
+          <div class="input-group">
+            <input class="form-control" id="pingsInAverage" type="number" value="100" />
+            <span class="input-group-addon" id="range-addon">pings</span>
+          </div>
+          <span class="help-block">The amount of pings used to calculate the average.</span>
+          <label for="cron">Frequency</label>
+          <div id="cron">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i>Cancel</button>
+        <a href="#" id="addIntegrationButton" type="button" class="btn btn-success"><i class="fa fa-save"></i>Add Integration</a>
+      </div>
     </div>
   </div>
 </div>

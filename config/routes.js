@@ -146,9 +146,19 @@ module.exports.routes = {
     action: 'integrations'
   },
 
-  'POST /integrations/edit': {
-    controller: 'dash',
-    action: 'editIntegrations'
+  'POST /integration/new': {
+    controller: 'integration',
+    action: 'new'
+  },
+
+  'POST /integration/edit': {
+    controller: 'integration',
+    action: 'edit'
+  },
+
+  'POST /integration/delete': {
+    controller: "integration",
+    action: 'delete'
   },
 
   /***************************************************************************
