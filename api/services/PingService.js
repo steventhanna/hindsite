@@ -34,7 +34,7 @@ module.exports = {
           if (err || mon == undefined) {
             console.log("There was an error finding the monitor.");
             console.log("Error = " + err);
-            res.serverError();
+            cb(err);
           } else {
             monitor = mon;
             callback();
@@ -70,7 +70,7 @@ module.exports = {
               console.log("There was an error saving the monitor.");
               console.log("Error = " + err);
               console.log("ERROR Ping");
-              res.serverError();
+              cb(err);
             } else {
               callback();
             }

@@ -74,6 +74,13 @@ module.exports = {
               integration.webhook = post.webhook;
               changes = true;
             }
+            if (post.monitors == undefined) {
+              integration.monitors = [];
+              changes = true;
+            } else {
+              integration.monitors = post.monitors;
+              changes = true;
+            }
             callback();
           },
           function(callback) {
@@ -91,56 +98,6 @@ module.exports = {
               callback();
             }
           }
-        ], function(callback) {
-          res.send({
-            success: true
-          });
-        });
-      }
-    });
-  },
-
-  state: function(req, res) {
-    var post = req.body;
-    User.findOne({
-      id: req.user.id
-    }).populateAll().exec(function(err, user) {
-      if (err || user == undefined) {
-        console.log("There was an error finding the user.");
-        console.log("Error = " + error);
-        res.serverError();
-      } else {
-        var integration;
-        async.series([
-          function(callback) {
-            Integration.findOne({
-              id: post.integrationID
-            }).exec(function(err, int) {
-              if (err || int == undefined) {
-                console.log("There was an error finding the integration.");
-                console.log("Error = " + err);
-                res.serverError();
-              } else {
-                integration = int;
-              }
-            });
-          },
-          function(callback) {
-            if (integration.state == true) {
-              integration.state = false;
-            } else {
-              integration.state = true;
-            }
-            integration.save(function(err) {
-              if (err) {
-                console.log("There was an error saving the integration.");
-                console.log("Error = " + err);
-                res.serverError();
-              } else {
-                callback();
-              }
-            });
-          },
         ], function(callback) {
           res.send({
             success: true

@@ -212,6 +212,7 @@ label {
 
 .btn-danger {
   background-color: var(--oc-red-7);
+  border-color: var(--oc-red-7);
 }
 
 .help-block {
@@ -295,6 +296,10 @@ label {
   color: var(--oc-teal-7);
 }
 
+.monitor .btn-default {
+  color: #000;
+}
+
 .monitor h4 {
   font-size: 22px;
   margin-top: 20px;
@@ -315,4 +320,8 @@ label {
 
 .title .btn {
   margin-right: 10px;
+}
+
+.btn i {
+  margin-right: 2px;
 }

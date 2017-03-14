@@ -17,10 +17,6 @@ module.exports = {
       type: 'string'
     },
 
-    state: {
-      type: 'boolean'
-    },
-
     monitors: {
       type: 'array',
       defaultsTo: '[]'

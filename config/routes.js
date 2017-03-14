@@ -106,6 +106,11 @@ module.exports.routes = {
     action: 'edit'
   },
 
+  'POST /monitor/delete': {
+    controller: 'monitor',
+    action: 'delete'
+  },
+
   'POST /monitor/state': {
     controller: 'monitor',
     action: 'state'

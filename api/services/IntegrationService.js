@@ -48,12 +48,12 @@ module.exports = {
             res.serverError();
           } else {
             async.each(integrations, function(integration, callb) {
-              if (integration.monitors.contains(monitor.id)) {
+              if (integration.monitors.indexOf(monitor.id) > -1) {
                 IntegrationService.triggerIntegration(integration, stringBuilder, function() {
                   callb();
                 });
               } else {
-                clalb();
+                callb();
               }
             }, function(err) {
               if (err) {

@@ -32,20 +32,11 @@ module.exports = {
       type: 'string'
     },
 
-    notificationSettings: {
-      type: 'array',
-      defaultsTo: '[]'
-    },
-
     health: {
       type: 'string'
     },
 
     averageResponseTime: {
-      type: 'float'
-    },
-
-    numberOfRequestsSent: {
       type: 'float'
     },
 

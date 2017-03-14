@@ -446,7 +446,7 @@ module.exports = {
             Integration.findOne({
               id: req.param('integrationID')
             }).exec(function(err, int) {
-              if (err || integrationID == undefined) {
+              if (err || int == undefined) {
                 console.log("There was an error finding the integration.");
                 console.log("Error = " + err);
                 res.serverError();
@@ -463,7 +463,7 @@ module.exports = {
               Monitor.findOne({
                 id: monitorID
               }).exec(function(err, monitor) {
-                if (err || monitors == undefined) {
+                if (err || monitor == undefined) {
                   console.log("There was an error finding the monitor.");
                   console.log("Error = " + err);
                   res.serverError();

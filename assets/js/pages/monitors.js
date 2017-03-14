@@ -29,7 +29,7 @@ $(document).ready(function() {
     var cron = $("#cron").cron("value");
     var healthyRange = $("#healthyRange").val();
     var rockyRange = $("#rockyRange").val();
-    var movingAverageWindow = $("#movingAverageWindow").val();
+    var movingAverageWindow = $("#pingsInAverage").val();
     if (!validateURL(targetURL)) {
       swal("Uh-Oh", "The target URL is not valid.", "error");
     } else {

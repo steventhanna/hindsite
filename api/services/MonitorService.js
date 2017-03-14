@@ -20,7 +20,12 @@ module.exports = {
         res.serverError();
       } else {
         var scheduled = cron.scheduleJob(monitor.cronID, monitor.frequency, function() {
-          PingService.sendPing(monitor.id, function() {});
+          PingService.sendPing(monitor.id, function(err) {
+            if (err) {
+              console.log("There was an error sending the ping.");
+              console.log("Error = " + err);
+            }
+          });
         });
       }
     });

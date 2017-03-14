@@ -1,0 +1,58 @@
+<% include depend %>
+
+<% include sidebar %>
+
+<script>
+var integrationID = "<%= integration.id %>";
+</script>
+
+<div class="col-lg-offset-3 col-lg-9 main-content">
+  <div class="row title">
+    <div class="col-lg-12">
+      <h1>Edit Integration <a href="#" id="saveIntegration" class="btn btn-success pull-right"><i class="fa fa-save"></i> Save</a></h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <form>
+        <label for="name">Integration Name</label>
+        <div class="input-group">
+          <span class="input-group-addon" id="name-addon"><i class="fa fa-id-badge"></i></span>
+          <input id="name" type="text" class="form-control" placeholder="Slack" aria-describedby="name-addon" value="<%= integration.name %>"/>
+        </div>
+        <label for="targetURL">Webhook</label>
+        <div id="targertULRGroup" class="input-group">
+          <span class="input-group-addon" id="url-addon"><i class="fa fa-bullseye"></i></span>
+          <input id="targetURL" type="text" class="form-control" placeholder="http://hindsite.io" value="<%= integration.webhook %>" aria-descibredby="url-addon" />
+        </div>
+        <span id="helpBox" class="help-block"></span>
+        <label>Monitors to Notify</label>
+        <div class="row">
+          <div class="col-lg-6">
+            <a href="#" id="checkAll" class="btn btn-primary btn-sm btn-block">Check All</a>
+          </div>
+          <div class="col-lg-6">
+            <a href="#" id="uncheckAll" class="btn btn-default btn-sm btn-block">Uncheck All</a>
+          </div>
+        </div>
+        <div id="checkboxes">
+          <% for (var i = 0; i < monitors.length; i++) { %>
+            <div class="checkbox" style="margin-top: 0px;">
+              <label>
+                <input id="check-<%= i %>" value="<%= monitors[i].id %>" type="checkbox" <% if (integration.monitors.indexOf(monitors[i].id ) > -1) { %> checked <% } %>/> <%= monitors[i].name %>
+              </label>
+            </div>
+          <% } %>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <h3>Danger Zone</h3>
+      <a href="#" class="btn btn-danger btn-block"><i class="fa fa-trash"></i> Delete Integration</a>
+    </div>
+  </div>
+</div>
+
+<script src="/js/pages/viewIntegration.js"></script>

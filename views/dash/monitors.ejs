@@ -7,7 +7,7 @@
 <div class="col-lg-offset-3 col-lg-9 main-content">
   <div class="row title">
     <div class="col-lg-12">
-      <h1>Monitors<a href="#" data-toggle="modal" data-target="#addMonitorModal" class="btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Add Monitor</a></h1>
+      <h1>Monitors<a href="#" data-toggle="modal" data-target="#addMonitorModal" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add Monitor</a></h1>
     </div>
   </div>
   <% if (monitors.length == 0) { %>
@@ -95,7 +95,7 @@
             <span class="input-group-addon" id="range-addon">ms</span>
           </div>
           <span class="help-block">If the average ping is below this, the monitor will report rocky. Anything above will report sick, in addition if the last ping recieved is not a <em>200</em> or <em>302</em>.</span>
-          <label for="movingAverage">Pings in Average</label>
+          <label for="pingsInAverage">Pings in Average</label>
           <div class="input-group">
             <input class="form-control" id="pingsInAverage" type="number" value="100" />
             <span class="input-group-addon" id="range-addon">pings</span>

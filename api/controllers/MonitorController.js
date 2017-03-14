@@ -150,7 +150,7 @@ module.exports = {
             });
           },
           function(callback) {
-            if (post.movingAverageWindow != undefined && post.movingAverageWindow != monitor.movingAverageWindow) {
+            if (post.movingAverageWindow != undefined && post.movingAverageWindow != monitor.movingAverageWindow && post.movingAverageWindow != null) {
               monitor.movingAverageWindow = post.movingAverageWindow;
               changes = true;
               // Recalculate the moving average
@@ -353,6 +353,124 @@ module.exports = {
             DashService.blastDash();
             callback();
           },
+        ], function(callback) {
+          res.send({
+            success: true
+          });
+        });
+      }
+    });
+  },
+
+  delete: function(req, res) {
+    var post = req.body;
+    User.findOne({
+      id: req.user.id
+    }).populateAll().exec(function(err, user) {
+      if (err || user == undefined) {
+        console.log("There was an error finding the user.");
+        console.log("Error = " + error);
+        res.serverError();
+      } else {
+        async.series([
+          function(callback) {
+            // Cancel any cron
+            Monitor.findOne({
+              id: post.monitorID
+            }).exec(function(err, mon) {
+              if (err || mon == undefined) {
+                console.log("There was an error finding the monitor.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                MonitorService.removePing(mon);
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            Monitor.destroy({
+              id: post.monitorID
+            }).exec(function(err) {
+              if (err) {
+                console.log("There was an error deleting the monitor.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            Ping.destroy({
+              where: {
+                monitorID: post.monitorID
+              }
+            }).exec(function(err) {
+              if (err) {
+                console.log("There was an error deleting the pings.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            // Look through all the integrations and remove the monitor
+            Integration.find().exec(function(err, integrations) {
+              if (err || integrations == undefined) {
+                console.log("There was an error finding the integrations.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                async.each(integrations, function(integration, cb) {
+                  var index = integration.monitors.indexOf(post.monitorID);
+                  if (index > -1) {
+                    integration.monitors.splice(index, 1);
+                    integration.save(function(err) {
+                      if (err) {
+                        console.log("There was an error saving the integration.");
+                        console.log("Error = " + err);
+                        res.serverError();
+                      } else {
+                        cb();
+                      }
+                    });
+                  } else {
+                    cb();
+                  }
+                }, function(err) {
+                  if (err) {
+                    console.log("There was an error completing the async each.");
+                    console.log("Error = " + err);
+                    res.serverError();
+                  } else {
+                    callback();
+                  }
+                });
+              }
+            });
+          },
+          function(callback) {
+            DashService.getDashElement(function(dash) {
+              var index = dash.monitors.indexOf(post.monitorID);
+              if (index > -1) {
+                dash.monitors.splice(index, 1);
+                dash.save(function(err) {
+                  if (err) {
+                    console.log("There was an error saving the dash.");
+                    console.log("Error = " + err);
+                    res.serverError();
+                  } else {
+                    callback();
+                  }
+                });
+              } else {
+                callback();
+              }
+            });
+          }
         ], function(callback) {
           res.send({
             success: true

@@ -22,6 +22,40 @@ $(document).ready(function() {
     return pattern.test(url);
   }
 
+  $("#deleteMonitor").click(function() {
+    document.getElementById('deleteMonitor').classList.add('disabled');
+    swal({
+        title: "Are you sure?",
+        text: "You will not be able to recover this monitor!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        closeOnConfirm: false
+      },
+      function() {
+        var postObj = {
+          monitorID: monitorID
+        };
+
+        $.ajax({
+          type: 'POST',
+          url: '/monitor/delete',
+          data: postObj,
+          success: function(data) {
+            if (data.success == true) {
+              window.location.href = "/monitors";
+            } else {
+              swal("Uh-Oh!", "There was an error deleting the monitor.", "error");
+            }
+          },
+          error: function(data) {
+            swal("Uh-Oh!", "There was an error deleting the monitor.", "error");
+          }
+        });
+        document.getElementById('deleteMonitor').classList.remove('disabled');
+      });
+  });
+
   $("#editMonitorButton").click(function() {
     document.getElementById('editMonitorButton').classList.add('disabled');
     var name = $("#name").val();
