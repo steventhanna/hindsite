@@ -76,4 +76,38 @@ $(document).ready(function() {
       });
     }
   });
+
+  $("#deleteIntegration").click(function() {
+    document.getElementById('deleteIntegration').classList.add('disabled');
+    swal({
+        title: "Are you sure?",
+        text: "You will not be able to recover this integration!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        closeOnConfirm: false
+      },
+      function() {
+        var postObj = {
+          integrationID: integrationID
+        };
+
+        $.ajax({
+          type: 'POST',
+          url: '/integration/delete',
+          data: postObj,
+          success: function(data) {
+            if (data.success == true) {
+              window.location.href = "/integrations";
+            } else {
+              swal("Uh-Oh!", "There was an error deleting the integration.", "error");
+            }
+          },
+          error: function(data) {
+            swal("Uh-Oh!", "There was an error deleting the integration.", "error");
+          }
+        });
+        document.getElementById('deleteIntegration').classList.remove('disabled');
+      });
+  });
 });

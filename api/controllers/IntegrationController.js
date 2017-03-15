@@ -120,7 +120,7 @@ module.exports = {
         Integration.destroy({
           id: post.integrationID
         }).exec(function(err) {
-          if (err || integration == undefined) {
+          if (err) {
             console.log("There was an error destroying the integration.");
             console.log("Error = " + err);
             res.serverError();

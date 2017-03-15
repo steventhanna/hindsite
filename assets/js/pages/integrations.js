@@ -17,6 +17,18 @@ $(document).ready(function() {
     }
   });
 
+  $("#checkAll").click(function() {
+    $("input:checkbox:not(:checked)").each(function() {
+      $(this).prop("checked", true);
+    });
+  });
+
+  $("#uncheckAll").click(function() {
+    $("#checkboxes :checked").each(function() {
+      $(this).prop("checked", false);
+    });
+  });
+
   function validateURL(url) {
     var pattern = new RegExp(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
     return pattern.test(url);
