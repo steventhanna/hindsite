@@ -135,19 +135,25 @@ $(document).ready(function() {
   io.socket.on('connect', function socketConnected() {
     io.socket.get('/socket/watch/monitor/' + monitorID, function(data, jwers) {
       var ctx = document.getElementById("pingChart");
+      var dd = [];
+      var ll = [];
       labels = data.pings.map(function(a) {
-        return a.createdAt;
+        if (a != undefined) {
+          ll.push(a.createdAt);
+        }
       }).reverse();
       d = data.pings.map(function(a) {
-        return a.elapsedTime;
+        if (a != undefined) {
+          dd.push(a.elapsedTime);
+        }
       }).reverse();
       chart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: labels,
+          labels: ll,
           datasets: [{
             label: "Pings",
-            data: d,
+            data: dd,
             backgroundColor: randomColor()
           }]
         }
