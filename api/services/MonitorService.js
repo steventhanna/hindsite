@@ -114,19 +114,24 @@ module.exports = {
       },
       function(callback) {
         var current = monitor.health;
-        if (lastPing.status != "200" && lastPing.status != "302") {
-          monitor.health = "Sick";
-          change = current != monitor.health;
-          callback();
-        } else {
-          if (monitor.averageResponseTime < monitor.healthyRange) {
-            monitor.health = "Healthy";
-          } else if (monitor.averageResponseTime < monitor.rockyRange) {
-            monitor.health = "Rocky";
-          } else {
+        if (lastPing != undefined) {
+          if (lastPing.status != "200" && lastPing.status != "302") {
             monitor.health = "Sick";
+            change = current != monitor.health;
+            callback();
+          } else {
+            if (monitor.averageResponseTime < monitor.healthyRange) {
+              monitor.health = "Healthy";
+            } else if (monitor.averageResponseTime < monitor.rockyRange) {
+              monitor.health = "Rocky";
+            } else {
+              monitor.health = "Sick";
+            }
+            change = current != monitor.health;
+            callback();
           }
-          change = current != monitor.health;
+        } else {
+          console.log("The last ping was undefined... Possible that there was no last ping");
           callback();
         }
       },
