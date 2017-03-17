@@ -117,11 +117,14 @@ module.exports = {
    * @return :: obj - the newly formatted object
    */
   formatPing: function(pingObj) {
-    var obj = {
-      elapsedTime: pingObj.elapsedTime,
-      createdAt: moment(pingObj.createdAt).calendar()
-    };
-    return obj;
+    if (pingObj != undefined) {
+      var obj = {
+        elapsedTime: pingObj.elapsedTime,
+        createdAt: moment(pingObj.createdAt).calendar()
+      };
+    } else {
+      return undefined;
+    }
   },
 
   formatPingsChart: function(monitor, cb) {
