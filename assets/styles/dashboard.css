@@ -22,7 +22,7 @@ body {
 /* Handle body padding for navbar-fixed-top */
 @media (max-width: 768px) {
   body {
-    padding-top: 40px;
+    padding-top: 50px;
     width: 94%;
     padding-right: 0px;
   }
@@ -291,6 +291,10 @@ label {
   color: #000;
 }
 
+code {
+  word-wrap: break-word;
+}
+
 .monitor h2 a {
   text-decoration: none;
   color: var(--oc-teal-7);
@@ -320,7 +324,29 @@ label {
 
 .title .btn {
   margin-right: 10px;
+  float: right;
 }
+
+@media (max-width: 768px) {
+  .title .btn, .modal-footer .btn {
+    margin-left: 0px;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
+    float: none !important;
+  }
+
+  .modal-footer .btn+.btn {
+    margin-left: 0px;
+  }
+
+  .modal-footer .btn {
+    margin-top: 5px;
+  }
+}
+
+
+
 
 .btn i {
   margin-right: 2px;
