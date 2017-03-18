@@ -140,15 +140,11 @@ $(document).ready(function() {
       labels = data.pings.map(function(a) {
         if (a != undefined) {
           return a.createdAt;
-        } else {
-          console.log("undefined - label");
         }
       }).reverse();
       d = data.pings.map(function(a) {
         if (a != undefined) {
           return a.elapsedTime;
-        } else {
-          console.log("undefined - data");
         }
       }).reverse();
       chart = new Chart(ctx, {
