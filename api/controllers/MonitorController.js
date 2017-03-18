@@ -223,6 +223,7 @@ module.exports = {
               console.log("Error = " + err);
               res.serverError();
             } else {
+              console.log(pings);
               res.send({
                 pings: pings
               });

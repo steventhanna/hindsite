@@ -122,6 +122,7 @@ module.exports = {
         elapsedTime: pingObj.elapsedTime,
         createdAt: moment(pingObj.createdAt).calendar()
       };
+      return obj;
     } else {
       return undefined;
     }
@@ -130,6 +131,7 @@ module.exports = {
   formatPingsChart: function(monitor, cb) {
     PingService.getMonitoredPings(monitor, function(pings) {
       var p = [];
+      console.log(pings);
       async.each(pings, function(ping, callback) {
         p.push(PingService.formatPing(ping));
         callback();
