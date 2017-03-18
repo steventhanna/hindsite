@@ -139,21 +139,25 @@ $(document).ready(function() {
       var ll = [];
       labels = data.pings.map(function(a) {
         if (a != undefined) {
-          ll.push(a.createdAt);
+          return a.createdAt;
+        } else {
+          console.log("undefined - label");
         }
       }).reverse();
       d = data.pings.map(function(a) {
         if (a != undefined) {
-          dd.push(a.elapsedTime);
+          return a.elapsedTime;
+        } else {
+          console.log("undefined - data");
         }
       }).reverse();
       chart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ll,
+          labels: labels,
           datasets: [{
             label: "Pings",
-            data: dd,
+            data: d,
             backgroundColor: randomColor()
           }]
         }
