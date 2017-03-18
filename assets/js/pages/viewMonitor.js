@@ -136,10 +136,14 @@ $(document).ready(function() {
     io.socket.get('/socket/watch/monitor/' + monitorID, function(data, jwers) {
       var ctx = document.getElementById("pingChart");
       labels = data.pings.map(function(a) {
-        return a.createdAt;
+        if (a != undefined) {
+          return a.createdAt;
+        }
       }).reverse();
       d = data.pings.map(function(a) {
-        return a.elapsedTime;
+        if (a != undefined) {
+          return a.elapsedTime;
+        }
       }).reverse();
       chart = new Chart(ctx, {
         type: 'line',
