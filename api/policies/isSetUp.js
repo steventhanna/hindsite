@@ -12,7 +12,8 @@ module.exports = function(req, res, next) {
       var dashObj = {
         monitors: [],
         signupkey: 'hindsite',
-        name: 'Hindsite'
+        name: 'Hindsite',
+        frontend: false
       };
       Dash.create(dashObj).exec(function(err, dash) {
         if (err || dash == undefined) {

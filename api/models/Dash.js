@@ -22,30 +22,17 @@ module.exports = {
       defaultsTo: 'Hindsite'
     },
 
-    twitterAPIKey: {
-      type: 'string'
-    },
-
-    slackWebhook: {
-      type: 'string'
-    },
-
-    postmarkAPIKey: {
-      type: 'string'
-    },
-
     signupkey: {
       type: 'string',
       defaultsTo: 'hindsite',
       required: true
     },
 
-    twitterAPIKey: {
-      type: 'string'
-    },
-
-    slackWebhook: {
-      type: 'string'
+    // If true, enable the front end reporting
+    // Otherwise redirect to the login
+    frontend: {
+      type: 'boolean',
+      required: true
     }
 
   }

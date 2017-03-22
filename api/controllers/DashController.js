@@ -198,6 +198,10 @@ module.exports = {
               dash.signupkey = post.signupkey;
               changes = true;
             }
+            if (post.frontend != undefined && post.frontend != dash.frontend) {
+              dash.frontend = post.frontend;
+              changes = true;
+            }
             callback();
           },
           function(callback) {
