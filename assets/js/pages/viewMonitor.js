@@ -135,6 +135,8 @@ $(document).ready(function() {
   io.socket.on('connect', function socketConnected() {
     io.socket.get('/socket/watch/monitor/' + monitorID, function(data, jwers) {
       var ctx = document.getElementById("pingChart");
+      var dd = [];
+      var ll = [];
       labels = data.pings.map(function(a) {
         if (a != undefined) {
           return a.createdAt;

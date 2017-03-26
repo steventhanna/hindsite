@@ -131,6 +131,7 @@ module.exports = {
             callback();
           }
         } else {
+
           console.log("The last ping was undefined. It is possible that there was no last ping");
           callback();
         }

@@ -131,6 +131,7 @@ module.exports = {
   formatPingsChart: function(monitor, cb) {
     PingService.getMonitoredPings(monitor, function(pings) {
       var p = [];
+      console.log(pings);
       async.each(pings, function(ping, callback) {
         p.push(PingService.formatPing(ping));
         callback();
