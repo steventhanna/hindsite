@@ -47,8 +47,8 @@ $(document).ready(function() {
         username: email,
         firstName: firstName,
         lastName: lastName,
-        password: password,
-      }
+        password: password
+      };
 
       $.ajax({
         type: 'POST',
@@ -71,10 +71,12 @@ $(document).ready(function() {
 
     var name = $("#appName").val();
     var signupkey = $("#secretKey").val();
+    var frontend = document.getElementById('frontend').checked;
     var postObj = {
       name: name,
-      signupkey: signupkey
-    }
+      signupkey: signupkey,
+      frontend: frontend
+    };
 
     $.ajax({
       type: 'POST',

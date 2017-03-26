@@ -4,7 +4,7 @@
 <div class="col-lg-offset-3 col-lg-9 main-content">
   <div class="row title">
     <div class="col-lg-12">
-      <h1>Integrations <a href="#" data-toggle="modal" data-target="#addIntegrationModal" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add Integration</a><a href="#" data-toggle="modal" data-target="#helpModal" class="btn btn-warning pull-right"><i class="fa fa-question"></i> Help</a></h1>
+      <h1><a href="#" data-toggle="modal" data-target="#addIntegrationModal" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add Integration</a><a href="#" data-toggle="modal" data-target="#helpModal" class="btn btn-warning pull-right"><i class="fa fa-question"></i> Help</a>Integrations</h1>
     </div>
   </div>
 
@@ -27,7 +27,7 @@
       <div class="row monitor">
         <div class="col-lg-12">
           <h2><%= integrations[i].name %><a href="/integrations/edit/<%= integrations[i].id %>" class="btn btn-default pull-right"><i class="fa fa-edit"></i>Edit</a></h2>
-          <code><%= integrations[i].webhook %></code>
+          <code max-width="100%"><%= integrations[i].webhook %></code>
           <h3>Monitors</h3>
           <ul>
             <% for (var j = 0; j < integrations[i].foundMonitor.length; j++) { %>

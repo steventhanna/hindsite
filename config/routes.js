@@ -33,7 +33,8 @@ module.exports.routes = {
    ***************************************************************************/
 
   'GET /': {
-    view: 'homepage'
+    controller: 'front',
+    action: 'home'
   },
 
   'POST /user/edit': {

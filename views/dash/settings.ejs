@@ -56,6 +56,12 @@
             <span class="input-group-addon" id="confirmPassword-addon"><i class="fa fa-user-secret"></i></span>
             <input id="secretKey" type="text" class="form-control" value="<%= dash.signupkey %>" aria-describedby="confirmPassword-addon" />
           </div>
+          <div class="checkbox">
+            <label>
+              <input id="frontend" type="checkbox" <% if (dash.frontend == undefined || !dash.frontend) { %>un<% } %>checked> Front End Reporting
+            </label>
+          </div>
+          <span class="help-block">Enable the front end for reporting status to customers and other end users. Otherwise, it will automatically redirect to the dashboard if logged in.</span>
           <a href="#" id="appSaveButton" class="btn btn-success btn-block" style="margin-top: 15px;"><i class="fa fa-save"></i> Save</a>
         </form>
       </div>
