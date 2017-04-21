@@ -18,8 +18,12 @@ module.exports = {
         console.log("Error = " + err);
         callback(err, undefined);
       } else {
-        callback(dashs[0]);
-        // return dashs[0];
+        // If not in production, do not send through the tracking code
+        var elem = dashs[0];
+        if (sails.config.enviornment != "production") {
+          elem.trackingCode = undefined;
+        }
+        callback(elem);
       }
     });
   },

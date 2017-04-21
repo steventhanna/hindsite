@@ -13,7 +13,8 @@ module.exports = function(req, res, next) {
         monitors: [],
         signupkey: 'hindsite',
         name: 'Hindsite',
-        frontend: false
+        frontend: false,
+        trackingCode: ""
       };
       Dash.create(dashObj).exec(function(err, dash) {
         if (err || dash == undefined) {

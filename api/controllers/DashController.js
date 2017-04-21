@@ -202,6 +202,10 @@ module.exports = {
               dash.frontend = post.frontend;
               changes = true;
             }
+            if (post.trackingCode != undefined && post.trackingCode != dash.trackingCode) {
+              dash.trackingCode = post.trackingCode;
+              changes = true;
+            }
             callback();
           },
           function(callback) {

@@ -20,6 +20,12 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <!-- The Open Color Stylesheet -->
     <link rel="stylesheet" href="/styles/open-color.css">
+
+    <!-- If applicable, inject the tracking code -->
+    <% if (typeof dash.trackingCode != 'undefined' && dash.trackingCode != '') { %>
+      <%- dash.trackingCode %>
+    <% } %>
+
     <!--
         Stylesheets and Preprocessors
         ==============================
@@ -42,7 +48,7 @@
     -->
 
     <!--STYLES-->
-    
+
     <!--STYLES END-->
   </head>
 
@@ -71,7 +77,7 @@
     -->
 
     <!--TEMPLATES-->
-    
+
     <!--TEMPLATES END-->
 
     <!--

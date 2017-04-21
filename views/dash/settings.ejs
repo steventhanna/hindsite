@@ -56,6 +56,10 @@
             <span class="input-group-addon" id="confirmPassword-addon"><i class="fa fa-user-secret"></i></span>
             <input id="secretKey" type="text" class="form-control" value="<%= dash.signupkey %>" aria-describedby="confirmPassword-addon" />
           </div>
+          <label for="trackingCode">Tracking Code</label>\
+          <div class="input-group">
+            
+          </div>
           <div class="checkbox">
             <label>
               <input id="frontend" type="checkbox" <% if (dash.frontend == undefined || !dash.frontend) { %>un<% } %>checked> Front End Reporting

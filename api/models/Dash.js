@@ -33,6 +33,13 @@ module.exports = {
     frontend: {
       type: 'boolean',
       required: true
+    },
+
+    // Website tracking code to be injected near the top of the page
+    // Content inside of this code will not be escaped, and will be injected
+    // direclty into the page
+    trackingCode: {
+      type: 'string'
     }
 
   }
