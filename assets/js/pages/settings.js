@@ -72,10 +72,12 @@ $(document).ready(function() {
     var name = $("#appName").val();
     var signupkey = $("#secretKey").val();
     var frontend = document.getElementById('frontend').checked;
+    var textArea = $("#trackingCode").val();
     var postObj = {
       name: name,
       signupkey: signupkey,
-      frontend: frontend
+      frontend: frontend,
+      trackingCode: trackingCode
     };
 
     $.ajax({
@@ -98,4 +100,6 @@ $(document).ready(function() {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
+
+
 });

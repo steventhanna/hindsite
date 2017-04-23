@@ -28,8 +28,9 @@ module.exports = {
             console.log("Error = " + err);
             console.log(user);
             res.serverError();
-            return;
           } else {
+            console.log("successful");
+            console.log(user);
             res.send({
               user: user,
               success: true,
@@ -38,6 +39,9 @@ module.exports = {
           }
         });
       } else {
+        console.log("Something happened here");
+        console.log(err);
+        console.log(user);
         res.serverError();
       }
     })(req, res);

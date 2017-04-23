@@ -44,7 +44,7 @@ module.exports.session = {
    *                                                                          *
    ***************************************************************************/
 
-  adapter: 'connect-redis',
+  // adapter: 'connect-redis',
 
   /***************************************************************************
    *                                                                          *
@@ -62,7 +62,7 @@ module.exports.session = {
   // pass: <redis auth password>,
   // prefix: 'sess:',
 
-  url: process.env.REDIS_URL,
+  // url: process.env.REDIS_URL,
 
 
   /***************************************************************************

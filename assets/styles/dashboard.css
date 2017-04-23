@@ -345,9 +345,15 @@ code {
   }
 }
 
-
-
-
 .btn i {
   margin-right: 2px;
+}
+
+textarea {
+  display: block !important;
+  border-radius: 4px !important;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075) !important;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075) !important;
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s !important;
+  transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s !important;
 }
