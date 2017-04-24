@@ -60,6 +60,11 @@ module.exports = {
       type: 'float'
     },
 
+    includeInFrontendReporting: {
+      type: 'boolean',
+      defaultsTo: false
+    },
+
     // Generate a random ID for the cronID
     beforeCreate: function(monitor, cb) {
       monitor.cronID = uuid.v1();

@@ -32,7 +32,8 @@ module.exports = {
           healthyRange: post.healthyRange,
           rockyRange: post.rockyRange,
           movingAverageWindow: post.movingAverageWindow,
-          cronID: uuid.v1()
+          cronID: uuid.v1(),
+          includeInFrontendReporting: post.includeFront
         };
 
         async.series([
@@ -107,16 +108,20 @@ module.exports = {
               monitor.name = post.name;
               changes = true;
             }
-            if (post.targetURL != undefined && post.targetURL != monitor.targetURL && UtilityService.validateURL(post.targetURL)) {
-              monitor.targetURL = post.targetURL;
+            if (post.frontendReporting != undefined && post.frontendReporting != monitor.includeInFrontendReporting) {
+              monitor.includeInFrontendReporting = post.frontendReporting;
               changes = true;
-            } else {
-              if (post.targetURL != monitor.targetURL) {
+            }
+            if (post.targetURL != undefined && post.targetURL != monitor.targetURL) {
+              if (!UtilityService.validateURL(post.targetURL)) {
                 res.send({
                   success: false,
                   message: "Not a valid URL"
                 });
                 return;
+              } else {
+                monitor.targetURL = post.targetURL;
+                changes = true;
               }
             }
             if (post.frequency != undefined && post.frequency != monitor.frequency) {
