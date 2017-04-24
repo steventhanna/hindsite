@@ -307,6 +307,7 @@ code {
 .monitor h4 {
   font-size: 22px;
   margin-top: 20px;
+  overflow-wrap: break-word;
 }
 
 .black {
