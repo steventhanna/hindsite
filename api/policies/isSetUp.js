@@ -14,7 +14,8 @@ module.exports = function(req, res, next) {
         signupkey: 'hindsite',
         name: 'Hindsite',
         frontend: false,
-        trackingCode: ""
+        trackingCode: "",
+        timezone: '0'
       };
       Dash.create(dashObj).exec(function(err, dash) {
         if (err || dash == undefined) {
