@@ -40,6 +40,11 @@ module.exports = {
     // direclty into the page
     trackingCode: {
       type: 'string'
+    },
+
+    // The set timezone
+    timezone: {
+      type: 'string'
     }
 
   }
