@@ -104,4 +104,66 @@ module.exports = {
     });
   },
 
+  delete: function(req, res) {
+    var post = req.body;
+    User.findOne({
+      id: req.user.id
+    }).populateAll().exec(function(err, user) {
+      if (err || user == undefined) {
+        console.log("There was an error finding the user.");
+        console.log("Error = " + error);
+        res.serverError();
+      } else {
+        var incident;
+        async.series([
+          function(callback) {
+            Incident.findOne({
+              id: post.incidentID
+            }).exec(function(err, inc) {
+              if (err || inc == undefined) {
+                console.log("There was an error finding the incident.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                incident = inc;
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            // Delete all of the messages associated with the incident
+            Message.destroy({
+              id: incident.messages
+            }).exec(function(err) {
+              if (err) {
+                console.log("There was an error destroying all of the messages.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            Incident.destroy({
+              id: incident.id
+            }).exec(function(err) {
+              if (err) {
+                console.log("There was an error destroying the incident.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                callback();
+              }
+            });
+          },
+        ], function(callback) {
+          res.send({
+            success: true
+          });
+        });
+      }
+    });
+  },
+
 };

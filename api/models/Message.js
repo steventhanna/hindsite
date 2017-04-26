@@ -15,12 +15,6 @@ module.exports = {
 
     body: {
       type: 'string'
-    },
-
-    // The monitors the message is about
-    monitors: {
-      type: 'array',
-      defaultsTo: []
     }
 
   }

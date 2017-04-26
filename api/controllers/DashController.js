@@ -295,7 +295,7 @@ module.exports = {
                 monitors = mons;
                 callback();
               }
-            })
+            });
           }
         ], function(callback) {
           DashService.title("Monitors", function(title) {
