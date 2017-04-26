@@ -59,8 +59,9 @@
           </div>
           <label for="trackingCode">Tracking Code</label>
           <div class="input-group">
-            <textarea id="trackingCode" class="form-control" rows="3"><% if (dash.trackingCode != undefined) { %><%= dash.trackingCode %><% } %></textarea>
+            <textarea id="trackingCode" class="form-control" rows="3" columns="3"><% if (dash.trackingCode != undefined) { %><%= dash.trackingCode %><% } %></textarea>
           </div>
+          <span class="help-block">Inject a tracking code such as Google Analytics, into all pages</span>
           <div class="checkbox">
             <label>
               <input id="frontend" type="checkbox" <% if (dash.frontend == undefined || !dash.frontend) { %>un<% } %>checked> Front End Reporting
