@@ -72,7 +72,7 @@ $(document).ready(function() {
     var name = $("#appName").val();
     var signupkey = $("#secretKey").val();
     var frontend = document.getElementById('frontend').checked;
-    var textArea = $("#trackingCode").val();
+    var trackingCode = $("#trackingCode").val();
     var postObj = {
       name: name,
       signupkey: signupkey,

@@ -20,9 +20,7 @@ module.exports = {
       } else {
         // If not in production, do not send through the tracking code
         var elem = dashs[0];
-        if (sails.config.enviornment != "production") {
-          elem.trackingCode = undefined;
-        }
+        // elem.trackingCode = undefined;
         callback(elem);
       }
     });
