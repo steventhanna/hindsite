@@ -172,6 +172,42 @@ module.exports.routes = {
     action: 'delete'
   },
 
+  'GET /incidents': {
+    controller: "dash",
+    action: 'incidents'
+  },
+
+  'POST /incident/new': {
+    controller: 'incident',
+    action: 'new'
+  },
+
+  'POST /incident/edit': {
+    controller: 'incident',
+    action: 'edit'
+  },
+
+  'POST /incident/delete': {
+    controller: 'incident',
+    action: 'delete'
+  },
+
+  'POST /message/new': {
+    controller: 'message',
+    action: 'new'
+  },
+
+  'POST /message/edit': {
+    controller: 'message',
+    action: 'edit'
+  },
+
+  'POST /message/delete': {
+    controller: 'message',
+    action: 'delete'
+  },
+
+
   /***************************************************************************
    *                                                                          *
    * Custom routes here...                                                    *

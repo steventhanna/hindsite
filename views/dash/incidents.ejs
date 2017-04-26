@@ -1,0 +1,68 @@
+<% include depend %>
+
+<% include sidebar %>
+
+<link rel="stylesheet" href="/styles/jquery-cron.css">
+
+<div class="col-lg-offset-3 col-lg-9 main-content">
+  <div class="row title">
+    <div class="col-lg-12">
+      <h1><a href="#" data-toggle="modal" data-target="#addIncidentModal" class="btn btn-primary"><i class="fa fa-plus"></i> New Incident</a>Incidents</h1>
+    </div>
+  </div>
+  <% if (typeof incidents == 'undefined' || incidents.length == 0) { %>
+    <div class="row">
+      <div class="col-lg-12">
+        <center>
+          <div class="empty">
+            <h1>No Incidents</h1>
+            <p>
+              Create a new incident to keep your team and your customers informed.
+            </p>
+            <a href="#" data-toggle="modal" data-target="#addIncidentModal" class="btn btn-primary"><i class="fa fa-plus"></i> New Incident</a>
+          </div>
+        </center>
+      </div>
+    </div>
+  <% } else { %>
+    <% for (var i = 0; i < incidents.length; i++) { %>
+    <% } %>
+  <% } %>
+</div>
+
+<!-- Add Monitor Modal -->
+<div class="modal fade" id="addIncidentModal" tabindex="-1" role="dialog" aria-labbeledby="addIncidentModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addIncidentModalLabel">New Incident</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <label for="title">Incident Title</label>
+          <div class="input-group">
+            <span class="input-group-addon" id="name-addon"><i class="fa fa-id-badge"></i></span>
+            <input id="name" type="text" class="form-control" placeholder="Service Interruption" aria-describedby="name-addon" />
+          </div>
+          <label for="status">Incident Status</label>
+          <select class="form-control">
+            <option value="identified">Identified</option>
+            <option value="monitoring">Monitoring</option>
+            <option value="resolved">Resolved</option>
+            <option value="update">Update</option>
+            <option value="scheduled">Scheduled</option>
+            <option disabled="disabled"></option>
+            <option value="none">None</option>
+          </select>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i>Cancel</button>
+        <a href="#" id="createIncidentButton" type="button" class="btn btn-success"><i class="fa fa-save"></i>Create Incident</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/pages/incidents.js"></script>

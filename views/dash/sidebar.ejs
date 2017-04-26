@@ -26,6 +26,9 @@
           Monitors</a>
       </li>
       <br /><br />
+      <li <% if (currentPage == "incidents") { %> class="active" <% } %>>
+        <a id="incidents" href="/incidents"><i class="fa fa-exclamation-circle"></i> Incidents</a>
+      </li>
       <li <% if (currentPage == "integrations") { %> class="active" <% } %>>
         <a id="integrations" href="/integrations"><i class="fa fa-code-fork"></i> Integrations</a>
       </li>
@@ -63,6 +66,9 @@
           </li>
           <li id="monitors" <% if (currentPage == "monitors") { %>class="active" <% } %>>
             <a href="/monitors"><i class="fa fa-feed"></i> Monitors</a>
+          </li>
+          <li <% if (currentPage == "incidents") { %> class="active" <% } %>>
+            <a id="incidents" href="/incidents"><i class="fa fa-exclamation-circle"></i> Incidents</a>
           </li>
           <li id="integrations" <% if (currentPage == "integrations") { %>class="active" <% } %>>
             <a href="/integrations"><i class="fa fa-code-fork"></i> Integrations</a>

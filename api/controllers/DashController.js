@@ -523,4 +523,48 @@ module.exports = {
       }
     });
   },
+
+  incidents: function(req, res) {
+    User.findOne({
+      id: req.user.id
+    }).populateAll().exec(function(err, user) {
+      if (err || user == undefined) {
+        console.log("There was an error finding the user.");
+        console.log("Error = " + error);
+        res.serverError();
+      } else {
+        var incidents;
+        var dash;
+        async.series([
+          function(callback) {
+            Incident.find().exec(function(err, incid) {
+              if (err || incid == undefined) {
+                console.log("There was an error finding the incidents.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                incidents = incid;
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            DashService.getDashElement(function(elem) {
+              dash = elem;
+              callback();
+            });
+          }
+        ], function(callback) {
+          DashService.title("Incidents", function(title) {
+            res.view('dash/incidents', {
+              user: user,
+              dash: dash,
+              title: title,
+              currentPage: "incidents"
+            });
+          });
+        });
+      }
+    });
+  },
 };
