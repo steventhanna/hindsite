@@ -1,5 +1,4 @@
 // Determine if the system has been set up yet
-
 module.exports = function(req, res, next) {
   Dash.find().limit(1).exec(function(err, dash) {
     if (err) {
@@ -14,8 +13,7 @@ module.exports = function(req, res, next) {
         signupkey: 'hindsite',
         name: 'Hindsite',
         frontend: false,
-        trackingCode: "",
-        timezone: '0'
+        trackingCode: ""
       };
       Dash.create(dashObj).exec(function(err, dash) {
         if (err || dash == undefined) {

@@ -42,10 +42,5 @@ module.exports = {
       type: 'string'
     },
 
-    // The set timezone
-    timezone: {
-      type: 'string'
-    }
-
   }
 };
