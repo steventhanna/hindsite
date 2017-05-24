@@ -139,7 +139,7 @@ $(document).ready(function() {
       var ll = [];
       labels = data.pings.map(function(a) {
         if (a != undefined) {
-          return a.createdAt;
+          return moment.tz(a.createdAt, moment.tz.guess()).calendar();
         }
       }).reverse();
       d = data.pings.map(function(a) {
@@ -183,7 +183,7 @@ $(document).ready(function() {
         d.splice(0, 1);
         labels.splice(0, 1);
         d.push(data.ping.elapsedTime);
-        labels.push(data.ping.createdAt);
+        labels.push(moment.tz(data.ping.createdAt, moment.tz.guess()).calendar());
         chart.update();
       });
     });

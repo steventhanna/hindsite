@@ -125,4 +125,8 @@ var monitorID = "<%= monitor.id %>";
 var cronField = $("#cron").cron();
 cronField.cron("value", '<%= monitor.frequency %>');
 </script>
+<!-- Moment Dependencies for converting timezones -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data.min.js"></script>
 <script src="/js/pages/viewMonitor.js"></script>

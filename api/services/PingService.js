@@ -120,7 +120,7 @@ module.exports = {
     if (pingObj != undefined) {
       var obj = {
         elapsedTime: pingObj.elapsedTime,
-        createdAt: moment(pingObj.createdAt).calendar()
+        createdAt: pingObj.createdAt
       };
       return obj;
     } else {
