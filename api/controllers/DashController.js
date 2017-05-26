@@ -535,6 +535,7 @@ module.exports = {
       } else {
         var incidents;
         var dash;
+        var monitors;
         async.series([
           function(callback) {
             Incident.find().exec(function(err, incid) {
@@ -553,6 +554,18 @@ module.exports = {
               dash = elem;
               callback();
             });
+          },
+          function(callback) {
+            Monitor.find().exec(function(err, mons) {
+              if (err || mons == undefined) {
+                console.log("There was an error finding the monitors.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                monitors = mons;
+                callback();
+              }
+            });
           }
         ], function(callback) {
           DashService.title("Incidents", function(title) {
@@ -560,6 +573,8 @@ module.exports = {
               user: user,
               dash: dash,
               title: title,
+              monitors: monitors,
+              incidents: incidents,
               currentPage: "incidents"
             });
           });

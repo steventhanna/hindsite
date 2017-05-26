@@ -347,7 +347,7 @@ code {
 }
 
 .btn i {
-  margin-right: 2px;
+  margin-right: 2px !important;
 }
 
 .input-group {

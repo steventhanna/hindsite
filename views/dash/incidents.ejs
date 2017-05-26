@@ -42,24 +42,42 @@
         <form>
           <label for="title">Incident Title</label>
           <div class="input-group">
-            <span class="input-group-addon" id="name-addon"><i class="fa fa-id-badge"></i></span>
-            <input id="name" type="text" class="form-control" placeholder="Service Interruption" aria-describedby="name-addon" />
+            <span class="input-group-addon" id="title-addon"><i class="fa fa-id-badge"></i></span>
+            <input id="title" type="text" class="form-control" placeholder="Service Interruption" aria-describedby="title-addon" />
           </div>
           <label for="status">Incident Status</label>
-          <select class="form-control">
-            <option value="identified">Identified</option>
-            <option value="monitoring">Monitoring</option>
-            <option value="resolved">Resolved</option>
-            <option value="update">Update</option>
-            <option value="scheduled">Scheduled</option>
+          <select id="status" class="form-control">
+            <option value="Identified">Identified</option>
+            <option value="Monitoring">Monitoring</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Update">Update</option>
+            <option value="Scheduled">Scheduled</option>
             <option disabled="disabled"></option>
-            <option value="none">None</option>
+            <option value="None">None</option>
           </select>
+          <label>Affected Monitors</label>
+          <div class="row">
+            <div class="col-lg-6">
+              <a href="#" id="checkAll" class="btn btn-primary btn-sm btn-block">Check All</a>
+            </div>
+            <div class="col-lg-6">
+              <a href="#" id="uncheckAll" class="btn btn-default btn-sm btn-block">Uncheck All</a>
+            </div>
+          </div>
+          <div id="checkboxes">
+            <% for (var i = 0; i < monitors.length; i++) { %>
+              <div class="checkbox" style="margin-top: 0px;">
+                <label>
+                  <input id="check-<%= i %>" value="<%= monitors[i].id %>" type="checkbox" /> <%= monitors[i].name %>
+                </label>
+              </div>
+            <% } %>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i>Cancel</button>
-        <a href="#" id="createIncidentButton" type="button" class="btn btn-success"><i class="fa fa-save"></i>Create Incident</a>
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+        <a href="#" id="createIncidentButton" type="button" class="btn btn-success"><i class="fa fa-save"></i> Create Incident</a>
       </div>
     </div>
   </div>
