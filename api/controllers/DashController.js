@@ -545,6 +545,7 @@ module.exports = {
                 res.serverError();
               } else {
                 incidents = incid;
+                console.log(incidents);
                 callback();
               }
             });
@@ -563,6 +564,33 @@ module.exports = {
                 res.serverError();
               } else {
                 monitors = mons;
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            // Avoid another DB lookup to get the associated monitor objects
+            // with the IDs
+            async.each(incidents, function(incident, cb) {
+              for (var i = 0; i < incident.monitors.length; i++) {
+                console.log(incident);
+                // console.log(monitors.indexOf(incident.monitors[i]));
+                // console.log(monitors[monitors.indexOf(incident.monitors[i])]);
+                var loc = monitors.map(function(e) {
+                  return e.id;
+                }).indexOf(incident.monitors[i]);
+                incident.monitors[i] = monitors[loc];
+                if (i + 1 == incident.monitors.length) {
+                  console.log(incident.monitors);
+                  cb();
+                }
+              }
+            }, function(err) {
+              if (err) {
+                console.log("There was an error matching the monitors with the IDs.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
                 callback();
               }
             });

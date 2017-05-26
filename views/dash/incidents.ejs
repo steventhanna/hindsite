@@ -26,6 +26,21 @@
     </div>
   <% } else { %>
     <% for (var i = 0; i < incidents.length; i++) { %>
+      <div class="row incident">
+        <div class="col-lg-12">
+          <div class="title">
+            <h1><%= incidents[i].title %></h1>
+            <h3><%= incidents[i].status %></h3>
+          </div>
+          <div class="content">
+            <h3>Affected Monitors</h3>
+            <% for (var j = 0; j < incidents[i].monitors.length; j++) { %>
+              <%= incidents[i].monitors[j].name %>
+            <% } %>
+          </div>
+        </div>
+      </div>
+      <hr />
     <% } %>
   <% } %>
 </div>

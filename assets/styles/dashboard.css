@@ -363,3 +363,16 @@ textarea {
   -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s !important;
   transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s !important;
 }
+
+.incident {
+  margin-bottom: 20px;
+
+}
+
+.incident .title h1 {
+  font-size: 32px;
+}
+
+.incident .title h3 {
+  color: var(--oc-gray-7);
+}
