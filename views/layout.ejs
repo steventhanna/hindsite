@@ -21,7 +21,7 @@
     <!-- The Open Color Stylesheet -->
     <link rel="stylesheet" href="/styles/open-color.css">
 
-    <% if (typeof dash.trackingCode != 'undefined' && dash.trackingCode != '') { %>
+    <% if (typeof dash != 'undefined' && typeof dash.trackingCode != 'undefined' && dash.trackingCode != '') { %>
       <!-- If applicable, inject the tracking code -->
       <%- dash.trackingCode %>
     <% } %>
@@ -48,7 +48,7 @@
     -->
 
     <!--STYLES-->
-    
+
     <!--STYLES END-->
   </head>
 
@@ -77,7 +77,7 @@
     -->
 
     <!--TEMPLATES-->
-    
+
     <!--TEMPLATES END-->
 
     <!--
