@@ -207,6 +207,11 @@ module.exports.routes = {
     action: 'delete'
   },
 
+  'GET /incidents/:incidentID/edit': {
+    controller: 'dash',
+    aciton: 'editIncident'
+  },
+
 
   /***************************************************************************
    *                                                                          *

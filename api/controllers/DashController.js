@@ -5,7 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-module.exports = {
+Incmodule.exports = {
 
   // Render the dashboard view
   dashboard: function(req, res) {
@@ -572,18 +572,18 @@ module.exports = {
             // Avoid another DB lookup to get the associated monitor objects
             // with the IDs
             async.each(incidents, function(incident, cb) {
-              for (var i = 0; i < incident.monitors.length; i++) {
-                console.log(incident);
-                // console.log(monitors.indexOf(incident.monitors[i]));
-                // console.log(monitors[monitors.indexOf(incident.monitors[i])]);
-                var loc = monitors.map(function(e) {
-                  return e.id;
-                }).indexOf(incident.monitors[i]);
-                incident.monitors[i] = monitors[loc];
-                if (i + 1 == incident.monitors.length) {
-                  console.log(incident.monitors);
-                  cb();
+              if (incident.monitors > 0) {
+                for (var i = 0; i < incident.monitors.length; i++) {
+                  var loc = monitors.map(function(e) {
+                    return e.id;
+                  }).indexOf(incident.monitors[i]);
+                  incident.monitors[i] = monitors[loc];
+                  if (i + 1 == incident.monitors.length) {
+                    cb();
+                  }
                 }
+              } else {
+                cb();
               }
             }, function(err) {
               if (err) {
@@ -603,6 +603,86 @@ module.exports = {
               title: title,
               monitors: monitors,
               incidents: incidents,
+              currentPage: "incidents"
+            });
+          });
+        });
+      }
+    });
+  },
+
+  editIncident: function(req, res) {
+    req.validate({
+      incidentID: 'string'
+    });
+    User.findOne({
+      id: req.user.id
+    }).populateAll().exec(function(err, user) {
+      if (err || user == undefined) {
+        console.log("There was an error finding the user.");
+        console.log("Error = " + error);
+        res.serverError();
+      } else {
+        var incident;
+        var monitors;
+        var dash;
+        async.series([
+          function(callback) {
+            Incident.findOne({
+              id: req.param('incidentID')
+            }).exec(function(err, inc) {
+              if (err || inc == undefined) {
+                console.log("There was an error finding the incident.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                incident = inc;
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            DashService.getDashElement(function(elem) {
+              dash = elem;
+              callback();
+            });
+          },
+          function(callback) {
+            Monitor.find().exec(function(err, mons) {
+              if (err || mons == undefined) {
+                console.log("There was an error finding the monitors.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                monitors = mons;
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            // Avoid another DB lookup to get the associated monitor objects
+            if (incident.monitors != undefined && incident.monitors.length > 0) {
+              for (var i = 0; i < incident.monitors.length; i++) {
+                var loc = monitors.map(function(e) {
+                  return e.id;
+                }).indexOf(incident.monitors[i]);
+                incident.monitors[i] = monitors[loc];
+                if (i + 1 == incident.monitors.length) {
+                  callback();
+                }
+              }
+            } else {
+              callback();
+            }
+          }
+        ], function(callback) {
+          DashService.title("Edit Incident", function(title) {
+            res.view('dash/editIncident', {
+              user: user,
+              dash: dash,
+              title: title,
+              monitors: monitors,
+              incident: incident,
               currentPage: "incidents"
             });
           });
