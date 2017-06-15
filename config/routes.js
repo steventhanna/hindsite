@@ -209,7 +209,7 @@ module.exports.routes = {
 
   'GET /incidents/:incidentID/edit': {
     controller: 'dash',
-    aciton: 'editIncident'
+    action: 'editIncident'
   },
 
 

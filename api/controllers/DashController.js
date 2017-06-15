@@ -5,7 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-Incmodule.exports = {
+module.exports = {
 
   // Render the dashboard view
   dashboard: function(req, res) {
