@@ -17,6 +17,7 @@ body {
   background-color: #fbfbfb;
   /*padding-right: 20px;*/
   width: 100%;
+  padding-top: 50px;
 }
 
 /* Handle body padding for navbar-fixed-top */
@@ -140,7 +141,7 @@ body {
     padding-bottom: 25px;
   }
   body {
-    padding-top: 0px;
+    /*padding-top: 0px;*/
   }
 }
 
@@ -152,8 +153,8 @@ body {
 
 @media (min-width: 1200px) {
   .main-content {
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 14px;
+    /*padding-right: 50px;*/
   }
 }
 
@@ -317,6 +318,24 @@ code {
   color: #000 !important;
 }
 
+.main-content .title h1 {
+  margin-left: 50px;
+  margin-right: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  font-size: 32px;
+  color: #4a4a4a;
+}
+
+.btn-primary {
+  background-color: var(--oc-blue-5);
+  border-color: var(--oc-blue-5);
+}
+
+.main-content .title h1 .btn {
+  border-radius: 15px;
+}
+
 .main-content .title h3 {
   margin-top: 0px;
 }
@@ -326,12 +345,25 @@ code {
   background-color: var(--oc-red-1);
 }
 
+
 .title .btn {
   margin-right: 10px;
   float: right;
 }
 
 @media (max-width: 768px) {
+  .main-content .title h1 {
+    margin-left: 0px;
+    width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .main-content .title h1 .btn {
+    margin-top: 10px;
+    width: 100%;
+  }
+
   .title .btn, .modal-footer .btn {
     margin-left: 0px;
     text-align: center;
@@ -384,4 +416,11 @@ textarea {
   background-color: #ffffff;
   border-radius: 0px;
   margin-bottom: 0px;
+}
+
+.bordered {
+  border-radius: 0px;
+  border-color: #eaeaec;
+  border-width: 1px;
+  border-style: solid;
 }
