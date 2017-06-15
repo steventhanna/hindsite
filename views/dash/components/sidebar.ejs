@@ -3,18 +3,11 @@
 </div>
 
 <div class="col-lg-3 sidebar hidden-xs">
-  <div class="title">
-    <a id="heading" href="/dashboard">
-      <h1><%= dash.name %></h1>
-    </a>
-    <p>
-      Uptime and Statistics
-    </p>
-  </div>
   <br />
   <br />
   <div class="sections">
     <ul class="nav nav-pills nav-stacked">
+      <h3>MONITOR</h3>
       <li <% if (currentPage == "dashboard") { %> class="active" <% } %>>
         <a id="dashboard" href="/dashboard">
           <i class="fa fa-tachometer"></i>
@@ -25,24 +18,19 @@
           <i class="fa fa-feed"></i>
           Monitors</a>
       </li>
-      <br /><br />
+      <h3>REPORT</h3>
       <li <% if (currentPage == "incidents") { %> class="active" <% } %>>
         <a id="incidents" href="/incidents"><i class="fa fa-exclamation-circle"></i> Incidents</a>
       </li>
       <li <% if (currentPage == "integrations") { %> class="active" <% } %>>
         <a id="integrations" href="/integrations"><i class="fa fa-code-fork"></i> Integrations</a>
       </li>
+      <h3>ALTER</h3>
       <li <% if (currentPage == "settings") { %> class="active" <% } %>>
         <a id="settings" href="/settings">
           <i class="fa fa-gear"></i>
           Settings</a>
       </li>
-      <br /><br />
-      <li>
-        <a id="logout" href="/logout">
-          <i class="fa fa-power-off"></i>
-          Logout</a>
-        </li>
     </ul>
   </div>
 </div>

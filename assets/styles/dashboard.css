@@ -14,7 +14,7 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color: #fff;
+  background-color: #fbfbfb;
   /*padding-right: 20px;*/
   width: 100%;
 }
@@ -37,8 +37,8 @@ body {
   z-index: 10;
   height: 100%;
   overflow-y: auto;
-  background-color: var(--oc-gray-2);
-  padding-left: 40px;
+  background-color: #ffffff;
+  padding-left: 20px;
   padding-right: 20px;
   border-right-style: solid;
   border-right-color: #eaf1f5;
@@ -69,22 +69,20 @@ body {
 
 .nav > li > a {
   /* TODO :: Pick a color for here */
-  color: #000;
+  color: #8c8c8c;
   font-size: 15px;
 }
 
 .sections i {
-  color: var(--oc-teal-7);
+  color: #8c8c8c;
 }
 
-.nav-pills > li .active > a {
-  color: #000;
-  /* TODO :: Pick a color for here */
-  background-color: #fff;
-  border-width: 1px;
-  border-style: solid;
-  /* TODO :: Pick a color for here **SAME** */
-  border-color: var(--oc-gray-5);
+.sections h3 {
+  color: var(--oc-teal-7);
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 400;
+  margin-left: 15px;
 }
 
 .nav-pills > li .active > a:focus, .nav-pills > li .active > a:hover {
@@ -100,13 +98,18 @@ body {
   margin-top: 20px;
 }
 
-.nav-pills>li.active>a {
-  background-color: #fff;
-  color: #000;
-  border-color: var(--oc-gray-5);
-  -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.19);
-  -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.19);
-  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.19);
+.nav-pills > li.active > a > i {
+  color: var(--oc-teal-8);
+}
+
+.nav-pills > li.active > a {
+  background-color: #fff;;
+  color: var(--oc-teal-8);
+  font-weight: 500;
+  /*border-color: var(--oc-gray-5);*/
+  /*-webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.19);*/
+  /*-moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.19);*/
+  /*box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.19);*/
 }
 
 .nav-pills>li.active>a:hover {
@@ -173,9 +176,9 @@ body {
   color: var(--oc-teal-7);
 }
 
-.navbar-default .navbar-nav>li>a>i {
+/*.navbar-default .navbar-nav>li>a>i {
   color: var(--oc-teal-7);
-}
+}*/
 
 .main-content h2 {
   color: var(--oc-teal-8);
@@ -375,4 +378,10 @@ textarea {
 
 .incident .title h3 {
   color: var(--oc-gray-7);
+}
+
+.navbar-default {
+  background-color: #ffffff;
+  border-radius: 0px;
+  margin-bottom: 0px;
 }
