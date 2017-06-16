@@ -326,6 +326,8 @@ module.exports = {
       } else {
         var monitor;
         var dash;
+        var amountOfPings = 0;
+        var amountOfFailedPings = 0;
         async.series([
           function(callback) {
             Monitor.findOne({
