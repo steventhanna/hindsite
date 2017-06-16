@@ -313,11 +313,14 @@ code {
   color: #000 !important;
 }
 
-.main-content .title h1 {
-  margin-left: 70px;
-  margin-right: 70px;
+.main-content .title .heading {
+  padding-left: 70px;
+  padding-right: 70px;
   padding-top: 50px;
   padding-bottom: 50px;
+}
+
+.main-content .title .heading h1 {
   font-size: 32px;
   color: #4a4a4a;
 }
@@ -352,14 +355,14 @@ code {
 }
 
 @media (max-width: 768px) {
-  .main-content .title h1 {
+  .main-content .title .heading {
     margin-left: 0px;
     width: 100%;
     margin-left: 0px;
     margin-right: 0px;
   }
 
-  .main-content .title h1 .btn {
+  .main-content .title .heading .btn {
     margin-top: 10px;
     width: 100%;
   }
@@ -457,4 +460,31 @@ textarea {
 
 .monitor hr {
   width: 100%;
+}
+
+.heading .panel {
+  margin-bottom: 0px;
+}
+
+.monitor-tab {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+  text-align: center;
+  /* Override the left and top border to prevent overlap */
+  border-left: none !important;
+  border-top: none !important;
+}
+
+.monitor-tab h3 {
+  color: #8b8b8b;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.monitor-tab h1 {
+  color: #000;
+  font-size: 24px;
+  font-weight: 500;
 }
