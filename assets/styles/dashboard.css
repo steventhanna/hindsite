@@ -290,11 +290,6 @@ label {
   margin-right: 5px;
 }
 
-.monitor h2 {
-  margin-top: 15px;
-  color: #000;
-}
-
 code {
   word-wrap: break-word;
 }
@@ -319,8 +314,8 @@ code {
 }
 
 .main-content .title h1 {
-  margin-left: 50px;
-  margin-right: 50px;
+  margin-left: 70px;
+  margin-right: 70px;
   padding-top: 50px;
   padding-bottom: 50px;
   font-size: 32px;
@@ -330,6 +325,11 @@ code {
 .btn-primary {
   background-color: var(--oc-blue-5);
   border-color: var(--oc-blue-5);
+}
+
+.btn-primary:hover {
+  background-color: var(--oc-blue-7);
+  border-color: var(--oc-blue-7);
 }
 
 .main-content .title h1 .btn {
@@ -423,4 +423,38 @@ textarea {
   border-color: #eaeaec;
   border-width: 1px;
   border-style: solid;
+}
+
+.monitor-header {
+  text-align: center;
+  background-color: #ffffff;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.monitor-header h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.monitor {
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: -1px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.monitor h3 {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.monitor h3 a {
+  text-decoration: none;
+  color: var(--oc-teal-7);
+}
+
+.monitor hr {
+  width: 100%;
 }
