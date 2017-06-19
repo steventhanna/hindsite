@@ -128,6 +128,12 @@ module.exports = {
     }
   },
 
+  /**
+   * Get and format the last x amount of pings, where x = monitor.movingAverageWindow
+   * Also determine the amount of pings that have most recently failed
+   * @param :: monitor - the monitor to get format the pings for
+   * @param :: cb - the callback
+   */
   formatPingsChart: function(monitor, cb) {
     PingService.getMonitoredPings(monitor, function(pings) {
       var p = [];
@@ -141,7 +147,9 @@ module.exports = {
           console.log("Error = " + err);
           res.serverError();
         } else {
-          cb(p);
+          cb(p, pings.filter(function(pp) {
+            return pp.status != "200" && pp.status != "302";
+          }).length);
         }
       });
     });

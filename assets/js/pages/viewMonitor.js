@@ -158,6 +158,9 @@ $(document).ready(function() {
           }]
         }
       });
+      var amountOfFailedPings = document.getElementById("amountOfFailedPings");
+      console.log(data);
+      amountOfFailedPings.innerHTML = data.amountOfFailedPings;
     });
 
     io.socket.on(monitorID, function(msg) {
@@ -180,11 +183,15 @@ $(document).ready(function() {
       // Update the data
       io.socket.get('/monitors/data/' + monitorID + '/lastPing', function(data, jwers) {
         // Remove the first element
-        d.splice(0, 1);
-        labels.splice(0, 1);
+        if (data.splice == true) {
+          d.splice(0, 1);
+          labels.splice(0, 1);
+        }
         d.push(data.ping.elapsedTime);
         labels.push(moment.tz(data.ping.createdAt, moment.tz.guess()).calendar());
         chart.update();
+        var amountOfFailedPings = document.getElementById('amountOfFailedPings');
+        amountOfFailedPings.innerHTML = data.amountOfFailedPings;
       });
     });
   });

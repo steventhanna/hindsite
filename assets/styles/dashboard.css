@@ -475,6 +475,7 @@ textarea {
   /* Override the left and top border to prevent overlap */
   border-left: none !important;
   border-top: none !important;
+  background-color: #fff;
 }
 
 .monitor-tab h3 {

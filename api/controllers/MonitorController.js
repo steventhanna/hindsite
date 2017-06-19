@@ -221,7 +221,7 @@ module.exports = {
           });
         },
       ], function(callback) {
-        PingService.formatPingsChart(monitor, function(pings) {
+        PingService.formatPingsChart(monitor, function(pings, failedAmount) {
           sails.sockets.join(req, monitor.id, function(err) {
             if (err) {
               console.log("There was an error subscribing to the monitors room.");
@@ -229,7 +229,8 @@ module.exports = {
               res.serverError();
             } else {
               res.send({
-                pings: pings
+                pings: pings,
+                amountOfFailedPings: failedAmount
               });
             }
           });
@@ -279,6 +280,8 @@ module.exports = {
       monitorID: 'string'
     });
     var monitor;
+    var failedPings;
+    var splice = false;
     async.series([
       function(callback) {
         Monitor.findOne({
@@ -294,10 +297,21 @@ module.exports = {
           }
         });
       },
+      function(callback) {
+        PingService.getMonitoredPings(monitor, function(pings) {
+          splice = pings.length > monitor.movingAverageWindow;
+          failedPings = pings.filter(function(p) {
+            return p.status != "200" && p.status != "302";
+          }).length;
+          callback();
+        });
+      }
     ], function(callback) {
       PingService.formatLastPing(monitor, function(ping) {
         res.send({
-          ping: ping
+          ping: ping,
+          amountOfFailedPings: failedPings,
+          splice: splice
         });
       });
     });
