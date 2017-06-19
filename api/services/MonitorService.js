@@ -62,7 +62,7 @@ module.exports = {
       },
       function(callback) {
         async.each(pings, function(p, call) {
-          total += parseInt(p.elapsedTime);
+          total += Math.abs(parseInt(p.elapsedTime));
           call();
         }, function(err) {
           if (err) {
