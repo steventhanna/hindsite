@@ -54,6 +54,7 @@ module.exports = {
             pingObj.status = response.statusCode;
             pingObj.targetURL = monitor.targetURL;
             pingObj.monitorID = monitor.id;
+            pingObj.rawResponse = response;
             // If failed ping, negate elaspsed time
             if (pingObj.status != 200 && pingObj.status != 302) {
               pingObj.elapsedTime = -Math.abs(pingObj.elapsedTime);

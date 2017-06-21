@@ -27,5 +27,9 @@ module.exports = {
       type: 'string'
     },
 
+    rawResponse: {
+      type: 'string'
+    }
+
   }
 };
