@@ -773,7 +773,7 @@ module.exports = {
             });
           }
         ], function(callback) {
-          DashService.title(monitor.name + " | Ping Details", function(title) {
+          DashService.title(monitor.name + " Ping Details", function(title) {
             res.view('dash/pingDetails', {
               user: user,
               currentPage: 'monitors',
@@ -844,6 +844,7 @@ module.exports = {
                 res.serverError();
               } else {
                 ping = pingObj;
+                ping.createdAt = moment(ping.createdAt).calendar();
                 callback();
               }
             });

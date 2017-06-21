@@ -32,13 +32,13 @@ var monitorID = "<%= monitor.id %>";
   <% for (var i = 0; i < pings.length; i++) { %>
     <div class="row monitor bordered">
       <div class="col-lg-3 col-xs-3">
-        <h3><%= pings[i].createdAt %></h3>
+        <h3><a href="/monitors/view/<%= monitor.id %>/details/ping/<%= pings[i].id %>"><%= pings[i].createdAt %></a></h3>
       </div>
       <div class="col-lg-3 col-xs-3">
         <h3><%= pings[i].status %></h3>
       </div>
       <div class="col-lg-3 col-xs-3">
-        <h3><%= pings[i].elapsedTime %></h3>
+        <h3><%= pings[i].elapsedTime %> ms</h3>
       </div>
       <div class="col-lg-3 col-xs-3">
         <h3><a href="<%= pings[i].targetURL %>"><%= pings[i].targetURL %></a></h3>

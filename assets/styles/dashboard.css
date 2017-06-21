@@ -518,3 +518,7 @@ textarea {
   border-radius: 15px;
   margin-bottom: 15px;
 }
+
+.monitor-tab a {
+  color: var(--oc-teal-7);
+}
