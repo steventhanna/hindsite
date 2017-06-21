@@ -146,7 +146,6 @@ module.exports = {
         cb(err, undefined, undefined);
       } else {
         var p = [];
-        console.log(pings);
         async.each(pings, function(ping, callback) {
           p.push(PingService.formatPing(ping));
           callback();
