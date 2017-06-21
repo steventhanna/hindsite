@@ -5,6 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+var moment = require('moment');
+
 module.exports = {
 
   // Render the dashboard view
@@ -743,6 +745,23 @@ module.exports = {
                 res.serverError();
               } else {
                 pings = ps;
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            // Format the dates
+            async.map(pings, function(ping, doneCallback) {
+              ping.createdAt = moment(ping.createdAt).calendar();
+              doneCallback(null, ping)
+            }, function(err, results) {
+              if (err || results == undefined) {
+                console.log("There was an error mapping the createdAt pings.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                pings = results;
+                console.log(results);
                 callback();
               }
             });

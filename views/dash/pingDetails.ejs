@@ -1,0 +1,49 @@
+<% include components/depend %>
+
+<% include components/navbar %>
+
+<% include components/sidebar %>
+
+<script>
+var monitorID = "<%= monitor.id %>";
+</script>
+
+<div class="col-lg-offset-3 col-lg-9 main-content">
+  <div class="row title">
+    <div class="col-lg-12 heading bordered">
+      <h1><%= monitor.name %> Pings</h1>
+    </div>
+  </div>
+
+  <div class="row monitor-header">
+    <div class="col-lg-3 col-xs-3">
+      <h3>Date</h3>
+    </div>
+    <div class="col-lg-3 col-xs-3">
+      <h3>Status</h3>
+    </div>
+    <div class="col-lg-3 col-xs-3">
+      <h3>Response Time</h3>
+    </div>
+    <div class="col-lg-3 col-xs-3">
+      <h3>Target URL</h3>
+    </div>
+  </div>
+  <% for (var i = 0; i < pings.length; i++) { %>
+    <div class="row monitor bordered">
+      <div class="col-lg-3 col-xs-3">
+        <h3><%= pings[i].createdAt %></h3>
+      </div>
+      <div class="col-lg-3 col-xs-3">
+        <h3><%= pings[i].status %></h3>
+      </div>
+      <div class="col-lg-3 col-xs-3">
+        <h3><%= pings[i].elapsedTime %></h3>
+      </div>
+      <div class="col-lg-3 col-xs-3">
+        <h3><a href="<%= pings[i].targetURL %>"><%= pings[i].targetURL %></a></h3>
+      </div>
+    </div>
+  <% } %>
+
+</div>

@@ -18,6 +18,7 @@ body {
   /*padding-right: 20px;*/
   width: 100%;
   padding-top: 50px;
+  word-break: normal;
 }
 
 /* Handle body padding for navbar-fixed-top */
@@ -396,6 +397,14 @@ code {
   .heading .btn-primary {
     margin-top: 20px !important;
   }
+
+  .monitor-header, .monitor {
+    margin-right: -7%;
+  }
+
+  .monitor, .monitor-header {
+    font-size: 4vw;
+  }
 }
 
 .btn i {
@@ -465,6 +474,7 @@ textarea {
 .monitor h3 {
   font-size: 20px;
   font-weight: 400;
+  word-break: break-all;
 }
 
 .monitor h3 a {
