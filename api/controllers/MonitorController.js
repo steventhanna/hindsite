@@ -221,19 +221,25 @@ module.exports = {
           });
         },
       ], function(callback) {
-        PingService.formatPingsChart(monitor, function(pings, failedAmount) {
-          sails.sockets.join(req, monitor.id, function(err) {
-            if (err) {
-              console.log("There was an error subscribing to the monitors room.");
-              console.log("Error = " + err);
-              res.serverError();
-            } else {
-              res.send({
-                pings: pings,
-                amountOfFailedPings: failedAmount
-              });
-            }
-          });
+        PingService.formatPingsChart(monitor, function(err, pings, failedAmount) {
+          if (err) {
+            console.log("There was an error formating the pings.");
+            console.log("Error = " + err);
+            res.serverError();
+          } else {
+            sails.sockets.join(req, monitor.id, function(err) {
+              if (err) {
+                console.log("There was an error subscribing to the monitors room.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                res.send({
+                  pings: pings,
+                  amountOfFailedPings: failedAmount
+                });
+              }
+            });
+          }
         });
       });
     }
@@ -298,12 +304,18 @@ module.exports = {
         });
       },
       function(callback) {
-        PingService.getMonitoredPings(monitor, function(pings) {
-          splice = pings.length > monitor.movingAverageWindow;
-          failedPings = pings.filter(function(p) {
-            return p.status != "200" && p.status != "302";
-          }).length;
-          callback();
+        PingService.getMonitoredPings(monitor, function(err, pings) {
+          if (err) {
+            console.log("There was an error getting the pings.");
+            console.log("Error = " + err);
+            res.serverError();
+          } else {
+            splice = pings.length > monitor.movingAverageWindow;
+            failedPings = pings.filter(function(p) {
+              return p.status != "200" && p.status != "302";
+            }).length;
+            callback();
+          }
         });
       }
     ], function(callback) {

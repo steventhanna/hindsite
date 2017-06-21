@@ -55,9 +55,16 @@ module.exports = {
     async.series([
       function(callback) {
         // Get the latest amount of pings
-        PingService.getMonitoredPings(monitor, function(elem) {
-          pings = elem;
-          callback();
+        PingService.getMonitoredPings(monitor, function(err, elem) {
+          if (err) {
+            console.log("There was an error finding the user.");
+            console.log("Error = " + err);
+            // TODO :: Pass this up the chain of command
+            callback();
+          } else {
+            pings = elem;
+            callback();
+          }
         });
       },
       function(callback) {

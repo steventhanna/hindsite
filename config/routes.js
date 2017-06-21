@@ -122,6 +122,11 @@ module.exports.routes = {
     action: 'viewMonitor'
   },
 
+  'GET /monitors/view/:monitorID/details': {
+    controller: 'dash',
+    action: 'viewPingDetails'
+  },
+
   'GET /monitors/data/:monitorID/pings': {
     controller: 'monitor',
     action: 'pings'

@@ -44,9 +44,15 @@ module.exports = {
           },
           function(callback) {
             async.each(monitors, function(monitor, cb) {
-              PingService.getMonitoredPings(monitor, function(pings) {
-                monitor.monitoredPings = pings;
-                cb();
+              PingService.getMonitoredPings(monitor, function(err, pings) {
+                if (err || pings == undefined) {
+                  console.log("There was an error getting the pings.");
+                  console.log("Error = " + err);
+                  res.serverError();
+                } else {
+                  monitor.monitoredPings = pings;
+                  cb();
+                }
               });
             }, function(err) {
               if (err) {
@@ -410,13 +416,19 @@ module.exports = {
         },
         function(callback) {
           async.each(monitors, function(monitor, cb) {
-            PingService.formatPingsChart(monitor, function(pings) {
-              var obj = {
-                name: monitor.name,
-                pings: pings
+            PingService.formatPingsChart(monitor, function(err, pings, failed) {
+              if (err) {
+                console.log("There was an error getting the pings.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                var obj = {
+                  name: monitor.name,
+                  pings: pings
+                }
+                pingData.push(obj);
+                cb();
               }
-              pingData.push(obj);
-              cb();
             });
           }, function(err) {
             if (err) {
@@ -686,6 +698,70 @@ module.exports = {
               monitors: monitors,
               incident: incident,
               currentPage: "incidents"
+            });
+          });
+        });
+      }
+    });
+  },
+
+  viewPingDetails: function(req, res) {
+    req.validate({
+      monitorID: 'string'
+    });
+    User.findOne({
+      id: req.user.id
+    }).populateAll().exec(function(err, user) {
+      if (err || user == undefined) {
+        console.log("There was an error finding the user.");
+        console.log("Error = " + error);
+        res.serverError();
+      } else {
+        var monitor;
+        var pings;
+        var dash;
+        async.series([
+          function(callback) {
+            Monitor.findOne({
+              id: req.param('monitorID')
+            }).exec(function(err, monitorName) {
+              if (err || monitorName == undefined) {
+                console.log("There was an error finding the monitor.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                monitor = monitorName;
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            PingService.getMonitoredPings(monitor, function(err, ps) {
+              if (err || ps == undefined) {
+                console.log("There was an error getting the monitored pings.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                pings = ps;
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            DashService.getDashElement(function(elem) {
+              dash = elem;
+              callback();
+            });
+          }
+        ], function(callback) {
+          DashService.title(monitor.name + " | Ping Details", function(title) {
+            res.view('dash/pingDetails', {
+              user: user,
+              currentPage: 'monitors',
+              monitor: monitor,
+              pings: pings,
+              title: title,
+              dash: dash
             });
           });
         });

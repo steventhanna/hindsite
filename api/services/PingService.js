@@ -139,23 +139,29 @@ module.exports = {
    * @param :: cb - the callback
    */
   formatPingsChart: function(monitor, cb) {
-    PingService.getMonitoredPings(monitor, function(pings) {
-      var p = [];
-      console.log(pings);
-      async.each(pings, function(ping, callback) {
-        p.push(PingService.formatPing(ping));
-        callback();
-      }, function(err) {
-        if (err) {
-          console.log("There was an error iterating over each ping.");
-          console.log("Error = " + err);
-          res.serverError();
-        } else {
-          cb(p, pings.filter(function(pp) {
-            return pp.status != "200" && pp.status != "302";
-          }).length);
-        }
-      });
+    PingService.getMonitoredPings(monitor, function(err, pings) {
+      if (err || pings == undefined) {
+        console.log("There was an error getting the monitored pings.");
+        console.log("Error = " + err);
+        cb(err, undefined, undefined);
+      } else {
+        var p = [];
+        console.log(pings);
+        async.each(pings, function(ping, callback) {
+          p.push(PingService.formatPing(ping));
+          callback();
+        }, function(err) {
+          if (err) {
+            console.log("There was an error iterating over each ping.");
+            console.log("Error = " + err);
+            cb(err, undefined, undefined);
+          } else {
+            cb(undefined, p, pings.filter(function(pp) {
+              return pp.status != "200" && pp.status != "302";
+            }).length);
+          }
+        });
+      }
     });
   },
 
@@ -183,9 +189,9 @@ module.exports = {
       if (err || pi == undefined) {
         console.log("There was an error finding the pings.");
         console.log("Error = " + err);
-        res.serverError();
+        cb(err, undefined)
       } else {
-        cb(pi);
+        cb(undefined, pi);
       }
     });
   },
