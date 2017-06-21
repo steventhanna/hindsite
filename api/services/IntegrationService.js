@@ -29,7 +29,7 @@ module.exports = {
         });
       },
       function(callback) {
-        DashService.getDashElement(function(elem) {
+        DashService.getDashElement(function(err, elem) {
           dash = elem;
           callback();
         });

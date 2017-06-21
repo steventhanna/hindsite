@@ -249,7 +249,7 @@ module.exports = {
     if (!req.isSocket) {
       req.badRequest();
     } else {
-      DashService.getDashElement(function(elem) {
+      DashService.getDashElement(function(err, elem) {
         async.each(elem.monitors, function(monitor, callback) {
           sails.sockets.join(req, monitor.id, function(err) {
             if (err) {

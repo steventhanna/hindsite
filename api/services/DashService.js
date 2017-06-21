@@ -21,19 +21,19 @@ module.exports = {
         // If not in production, do not send through the tracking code
         var elem = dashs[0];
         // elem.trackingCode = undefined;
-        callback(elem);
+        callback(null, elem);
       }
     });
   },
 
   title: function(titleString, callback) {
-    DashService.getDashElement(function(elem) {
+    DashService.getDashElement(function(err, elem) {
       callback(elem.name + " | " + titleString);
     });
   },
 
   getSignupKey: function(callback) {
-    DashService.getDashElement(function(elem) {
+    DashService.getDashElement(function(err, elem) {
       callback(elem.signupkey);
     });
   },
@@ -45,7 +45,7 @@ module.exports = {
     var dash;
     async.series([
       function(callback) {
-        DashService.getDashElement(function(elem) {
+        DashService.getDashElement(function(err, elem) {
           dash = elem;
           callback();
         });

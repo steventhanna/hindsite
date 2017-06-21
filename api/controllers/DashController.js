@@ -23,7 +23,7 @@ module.exports = {
         var monitors;
         async.series([
           function(callback) {
-            DashService.getDashElement(function(elem) {
+            DashService.getDashElement(function(err, elem) {
               dash = elem;
               callback();
             });
@@ -107,7 +107,7 @@ module.exports = {
         var monitors;
         async.series([
           function(callback) {
-            DashService.getDashElement(function(elem) {
+            DashService.getDashElement(function(err, elem) {
               dash = elem;
               callback();
             });
@@ -192,7 +192,7 @@ module.exports = {
         var message = "";
         async.series([
           function(callback) {
-            DashService.getDashElement(function(elem) {
+            DashService.getDashElement(function(err, elem) {
               dash = elem;
               callback();
             });
@@ -254,7 +254,7 @@ module.exports = {
         var dash;
         async.series([
           function(callback) {
-            DashService.getDashElement(function(elem) {
+            DashService.getDashElement(function(err, elem) {
               dash = elem;
               callback();
             });
@@ -286,7 +286,7 @@ module.exports = {
         var monitors = [];
         async.series([
           function(callback) {
-            DashService.getDashElement(function(elem) {
+            DashService.getDashElement(function(err, elem) {
               dash = elem;
               callback();
             });
@@ -352,7 +352,7 @@ module.exports = {
             });
           },
           function(callback) {
-            DashService.getDashElement(function(elem) {
+            DashService.getDashElement(function(err, elem) {
               dash = elem;
               callback();
             });
@@ -519,7 +519,7 @@ module.exports = {
             });
           },
           function(callback) {
-            DashService.getDashElement(function(elem) {
+            DashService.getDashElement(function(err, elem) {
               dash = elem;
               callback();
             });
@@ -567,7 +567,7 @@ module.exports = {
             });
           },
           function(callback) {
-            DashService.getDashElement(function(elem) {
+            DashService.getDashElement(function(err, elem) {
               dash = elem;
               callback();
             });
@@ -658,7 +658,7 @@ module.exports = {
             });
           },
           function(callback) {
-            DashService.getDashElement(function(elem) {
+            DashService.getDashElement(function(err, elem) {
               dash = elem;
               callback();
             });
@@ -767,7 +767,7 @@ module.exports = {
             });
           },
           function(callback) {
-            DashService.getDashElement(function(elem) {
+            DashService.getDashElement(function(err, elem) {
               dash = elem;
               callback();
             });
@@ -780,6 +780,82 @@ module.exports = {
               monitor: monitor,
               pings: pings,
               title: title,
+              dash: dash
+            });
+          });
+        });
+      }
+    });
+  },
+
+  viewSpecificPing: function(req, res) {
+    req.validate({
+      monitorID: 'string',
+      pingID: 'string'
+    });
+    User.findOne({
+      id: req.user.id
+    }).populateAll().exec(function(err, user) {
+      if (err || user == undefined) {
+        console.log("There was an error finding the user.");
+        console.log("Error = " + error);
+        res.serverError();
+      } else {
+        var dash;
+        var ping;
+        var monitor;
+        async.parallel([
+          function(callback) {
+            DashService.getDashElement(function(err, d) {
+              if (err || d == undefined) {
+                console.log("There was an error finding the dash.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                dash = d;
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            Monitor.findOne({
+              id: req.param("monitorID")
+            }).exec(function(err, monitorName) {
+              if (err || monitorName == undefined) {
+                console.log("There was an error finding the monitor.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                monitor = monitorName;
+                callback();
+              }
+            });
+          },
+          function(callback) {
+            Ping.findOne({
+              id: req.param("pingID")
+            }).exec(function(err, pingObj) {
+              if (err || pingObj == undefined) {
+                console.log("There was an error finding the ping.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else if (pingObj.monitorID != req.param("monitorID")) {
+                console.log("The ping obj does not match the requested monitor.");
+                res.serverError();
+              } else {
+                ping = pingObj;
+                callback();
+              }
+            });
+          }
+        ], function(callback) {
+          DashService.title("Ping", function(title) {
+            res.view('dash/specificPing', {
+              user: user,
+              title: title,
+              currentPage: "monitors",
+              monitor: monitor,
+              ping: ping,
               dash: dash
             });
           });

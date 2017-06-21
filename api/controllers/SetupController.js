@@ -61,7 +61,7 @@ module.exports = {
     if (req.user != undefined) {
       res.redirect('/dashboard');
     } else {
-      DashService.getDashElement(function(elem) {
+      DashService.getDashElement(function(err, elem) {
         DashService.title("Signup", function(title) {
           res.view('setup/signup', {
             dash: elem,
@@ -77,7 +77,7 @@ module.exports = {
     if (req.user != undefined) {
       res.redirect('/dashboard');
     } else {
-      DashService.getDashElement(function(elem) {
+      DashService.getDashElement(function(err, elem) {
         DashService.title("Login", function(title) {
           res.view('setup/login', {
             title: title,
