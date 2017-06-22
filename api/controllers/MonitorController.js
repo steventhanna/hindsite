@@ -484,7 +484,7 @@ module.exports = {
             });
           },
           function(callback) {
-            DashService.getDashElement(function(dash) {
+            DashService.getDashElement(function(err, dash) {
               var index = dash.monitors.indexOf(post.monitorID);
               if (index > -1) {
                 dash.monitors.splice(index, 1);

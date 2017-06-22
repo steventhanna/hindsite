@@ -521,4 +521,14 @@ textarea {
 
 .monitor-tab a {
   color: var(--oc-teal-7);
+  font-size: 1.4vw;
+  text-align: center;
+}
+
+.monitor-tab {
+  overflow-x: hidden;
+}
+
+.hljs {
+  background: none !important;
 }

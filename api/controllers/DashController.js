@@ -6,6 +6,7 @@
  */
 
 var moment = require('moment');
+var beautify = require('js-beautify').js_beautify;
 
 module.exports = {
 
@@ -753,6 +754,7 @@ module.exports = {
             // Format the dates
             async.map(pings, function(ping, doneCallback) {
               ping.createdAt = moment(ping.createdAt).calendar();
+              ping.elapsedTime = Math.abs(ping.elapsedTime);
               doneCallback(null, ping)
             }, function(err, results) {
               if (err || results == undefined) {
@@ -845,6 +847,7 @@ module.exports = {
               } else {
                 ping = pingObj;
                 ping.createdAt = moment(ping.createdAt).calendar();
+                ping.rawResponse = beautify(ping.rawResponse);
                 callback();
               }
             });

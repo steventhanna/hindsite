@@ -8,7 +8,7 @@
 module.exports = {
 
   home: function(req, res) {
-    DashService.getDashElement(function(dash) {
+    DashService.getDashElement(function(err, dash) {
       if (dash.frontend == false) {
         res.redirect('/dashboard');
         res.end();

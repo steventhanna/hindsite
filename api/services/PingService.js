@@ -48,12 +48,15 @@ module.exports = {
           timeout: 20000
         }, function(err, response) {
           if (err || response == undefined) {
+            console.log(err);
+            console.log(response);
             console.log("Handle this");
           } else {
             pingObj.elapsedTime = parseInt(response.elapsedTime);
             pingObj.status = response.statusCode;
             pingObj.targetURL = monitor.targetURL;
             pingObj.monitorID = monitor.id;
+            delete response.body;
             pingObj.rawResponse = JSON.stringify(response);
             // If failed ping, negate elaspsed time
             if (pingObj.status != 200 && pingObj.status != 302) {
