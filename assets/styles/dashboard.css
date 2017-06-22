@@ -405,6 +405,14 @@ code {
   .monitor, .monitor-header {
     font-size: 4vw;
   }
+
+  .monitor h3, .monitor-header h3 {
+    font-size: 4vw !important;
+  }
+
+  .monitor-tab {
+    margin-right: -2%;
+  }
 }
 
 .btn i {

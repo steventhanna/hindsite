@@ -196,13 +196,12 @@ module.exports = {
       },
       function(callback) {
         async.filter(pings, function(ping, call) {
-          call(null, (ping.status == 200 || ping.status == 302));
-        }, function(err, results) {
-          if (err || results == undefined) {
+          call((ping.status == 200 || ping.status == 302));
+        }, function(results) {
+          if (results == undefined) {
             console.log("There was an error filtering the results.");
-            console.log("Error = " + err);
             console.log(results);
-            cb(err, undefined);
+            cb(null, undefined);
           } else {
             successfulPings = results.length;
             callback();
@@ -214,7 +213,8 @@ module.exports = {
       if (successfulPings == 0) {
         percentage = 0;
       } else {
-        percentage = Math.ceil((pings.length / successfulPings) * 100);
+        percentage = Math.ceil((successfulPings / pings.length) * 100);
+        console.log(percentage);
       }
       cb(null, percentage)
     });

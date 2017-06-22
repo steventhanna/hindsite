@@ -159,7 +159,6 @@ $(document).ready(function() {
         }
       });
       var amountOfFailedPings = document.getElementById("amountOfFailedPings");
-      console.log(data);
       amountOfFailedPings.innerHTML = data.amountOfFailedPings;
     });
 
@@ -180,6 +179,8 @@ $(document).ready(function() {
       }
       health.innerHTML = builder + msg.health + '</span>';
       document.getElementById('averageResponseTime').innerHTML = msg.averageResponseTime;
+      console.log(msg);
+      document.getElementById('percentUp').innerHTML = msg.percentUp;
       // Update the data
       io.socket.get('/monitors/data/' + monitorID + '/lastPing', function(data, jwers) {
         // Remove the first element

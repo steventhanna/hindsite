@@ -51,6 +51,7 @@ module.exports = {
             console.log(err);
             console.log(response);
             console.log("Handle this");
+            callback();
           } else {
             pingObj.elapsedTime = parseInt(response.elapsedTime);
             pingObj.status = response.statusCode;
