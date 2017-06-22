@@ -337,7 +337,7 @@ module.exports = {
         var dash;
         var amountOfPings = 0;
         var amountOfFailedPings = 0;
-        async.series([
+        async.parallel([
           function(callback) {
             Monitor.findOne({
               id: req.param('monitorID')

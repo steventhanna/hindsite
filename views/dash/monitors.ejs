@@ -29,28 +29,31 @@
     </div>
   <% } else { %>
     <div class="row monitor-header">
-      <div class="col-lg-3 col-xs-3">
+      <div class="col-lg-2 col-xs-2">
         <h3>Monitor Name</h3>
       </div>
-      <div class="col-lg-3 col-xs-3">
+      <div class="col-lg-4 col-xs-4">
         <h3>URL</h3>
       </div>
-      <div class="col-lg-3 col-xs-3">
+      <div class="col-lg-2 col-xs-2">
         <h3>Health</h3>
       </div>
-      <div class="col-lg-3 col-xs-3">
-        <h3>Response Time</h3>
+      <div class="col-lg-2 col-xs-2">
+        <h3>Avg. Response Time</h3>
+      </div>
+      <div class="col-lg-2 col-xs-2">
+        <h3>Percent Uptime</h3>
       </div>
     </div>
     <% for (var i = 0; i < monitors.length; i++) { %>
       <div class="row monitor bordered">
-        <div class="col-lg-3 col-xs-3">
+        <div class="col-lg-2 col-xs-2">
           <h3><a href="/monitors/view/<%= monitors[i].id %>"><%= monitors[i].name %></a></h3>
         </div>
-        <div class="col-lg-3 col-xs-3">
+        <div class="col-lg-4 col-xs-4">
           <h3><a href="<%= monitors[i].targetURL %>"><%= monitors[i].targetURL %></a></h3>
         </div>
-        <div class="col-lg-3 col-xs-3">
+        <div class="col-lg-2 col-xs-2">
           <h3 id="<%= monitors[i].id %>-health">
           <% if (monitors[i].health == "Healthy") { %>
             <span class="has-success">
@@ -64,9 +67,14 @@
           <%= monitors[i].health %></span>
         </h3>
         </div>
-        <div class="col-lg-3 col-xs-3">
+        <div class="col-lg-2 col-xs-2">
           <h3 class="black">
             <strong id="<%= monitors[i].id %>-art"><%= monitors[i].averageResponseTime %></strong> ms
+          </h3>
+        </div>
+        <div class="col-lg-2 col-xs-2">
+          <h3 class="black">
+            <span id="<%= monitors[i].id %>-uptime"><%= monitors[i].percentUp %></span>%
           </h3>
         </div>
       </div>

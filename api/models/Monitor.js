@@ -60,6 +60,11 @@ module.exports = {
       type: 'float'
     },
 
+    // The uptime percentage
+    percentUp: {
+      type: 'float'
+    },
+
     includeInFrontendReporting: {
       type: 'boolean',
       defaultsTo: false

@@ -39,8 +39,6 @@ module.exports = {
     var scheduled = cron.scheduledJobs[monitorObj.cronID];
     if (scheduled != undefined) {
       scheduled.cancel();
-    } else {
-      console.log("Failed to cancel");
     }
   },
 
@@ -138,10 +136,21 @@ module.exports = {
             callback();
           }
         } else {
-
           console.log("The last ping was undefined. It is possible that there was no last ping");
           callback();
         }
+      },
+      function(callback) {
+        MonitorService.calculateUptimePercentage(monitor, function(err, percent) {
+          if (err || percent == undefined) {
+            console.log("There was an error calculating the uptime percentage.");
+            console.log("Error = " + err);
+            cb(err, undefined);
+          } else {
+            monitor.percentUp = percent;
+            callback();
+          }
+        });
       },
       function(callback) {
         monitor.save(function(err) {
@@ -165,7 +174,49 @@ module.exports = {
         }
       }
     ], function(callback) {
-      cb(undefined, monitor);
+      cb(null, monitor);
     });
   },
+
+  calculateUptimePercentage: function(monitor, cb) {
+    var pings;
+    var successfulPings = 0;
+    async.series([
+      function(callback) {
+        PingService.getMonitoredPings(monitor, function(err, ping) {
+          if (err || ping == undefined) {
+            console.log("There was an error finding the pings.");
+            console.log("Error = " + err);
+            cb(err, undefined);
+          } else {
+            pings = ping;
+            callback();
+          }
+        });
+      },
+      function(callback) {
+        async.filter(pings, function(ping, call) {
+          call(null, (ping.status == 200 || ping.status == 302));
+        }, function(err, results) {
+          if (err || results == undefined) {
+            console.log("There was an error filtering the results.");
+            console.log("Error = " + err);
+            console.log(results);
+            cb(err, undefined);
+          } else {
+            successfulPings = results.length;
+            callback();
+          }
+        });
+      },
+    ], function(callback) {
+      var percentage = 0;
+      if (successfulPings == 0) {
+        percentage = 0;
+      } else {
+        percentage = Math.ceil((pings.length / successfulPings) * 100);
+      }
+      cb(null, percentage)
+    });
+  }
 }

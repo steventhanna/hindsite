@@ -33,7 +33,8 @@ module.exports = {
           rockyRange: post.rockyRange,
           movingAverageWindow: post.movingAverageWindow,
           cronID: uuid.v1(),
-          includeInFrontendReporting: post.includeFront
+          includeInFrontendReporting: post.includeFront,
+          percentUp: 100
         };
 
         async.series([
