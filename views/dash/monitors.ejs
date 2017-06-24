@@ -48,7 +48,9 @@
     <% for (var i = 0; i < monitors.length; i++) { %>
       <div class="row monitor bordered">
         <div class="col-lg-2 col-xs-3">
-          <h3><a href="/monitors/view/<%= monitors[i].id %>"><%= monitors[i].name %></a></h3>
+          <h3>
+            <a id="<%= monitors[i].id %>-button" class="btn btn-outline-<% if (monitors[i].state == false) { %>black<% } else if (monitors[i].health == "Healthy") { %>success<% } else if (monitors[i].health == "Rocky") { %>danger<% } else if (monitors[i].health == "Sick") { %>error<% } else { %>black<% } %>" href="/monitors/view/<%= monitors[i].id %>"><%= monitors[i].name %></a>
+          </h3>
         </div>
         <div class="col-lg-4 hidden-xs">
           <h3><a href="<%= monitors[i].targetURL %>"><%= monitors[i].targetURL %></a></h3>
@@ -147,15 +149,23 @@ io.socket.on('connect', function socketConnected() {
     io.socket.on('<%= monitors[i].id %>', function(msg) {
       var health = document.getElementById('<%= monitors[i].id %>-health');
       var builder = "";
+      var button = document.getElementById('<%= monitors[i].id %>-button');
       switch (msg.health) {
         case "Healthy":
           builder += '<span class="has-success">';
+          button.className = 'btn-outline-success';
           break;
         case "Rocky":
           builder += '<span class="has-danger">';
+          button.className = 'btn-outline-danger';
+          break;
+        case "Sick":
+          builder += '<span class="has-error">';
+          button.className = 'btn-outline-error';
           break;
         default:
-          builder += '<span class="has-error">';
+          builder += '<span>';
+          button.className = 'btn-outline-black';
           break;
       }
       health.innerHTML = builder + msg.health + '</span>';

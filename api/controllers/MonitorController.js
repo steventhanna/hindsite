@@ -361,12 +361,21 @@ module.exports = {
               monitor.state = false;
               monitor.health = "Offline";
               MonitorService.removePing(monitor);
+              callback();
             } else {
               monitor.state = true;
-              monitor.health = "Online";
-              MonitorService.schedulePing(monitor.id);
+              MonitorService.determineHealth(monitor, function(err, mon) {
+                if (err || mon == undefined) {
+                  console.log("There was an error deteremining the health of the monitor.");
+                  console.log("Error = " + err);
+                  res.serverError();
+                } else {
+                  monitor = mon;
+                  MonitorService.schedulePing(monitor.id);
+                  callback();
+                }
+              });
             }
-            callback();
           },
           function(callback) {
             monitor.save(function(err) {

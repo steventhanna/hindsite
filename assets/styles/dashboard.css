@@ -480,7 +480,7 @@ textarea {
 }
 
 .monitor h3 {
-  font-size: 20px;
+  /*font-size: 20px;*/
   font-weight: 400;
   word-break: break-all;
 }
@@ -529,7 +529,7 @@ textarea {
 
 .monitor-tab a {
   color: var(--oc-teal-7);
-  font-size: 1.4vw;
+  /*font-size: 1.4vw;*/
   text-align: center;
 }
 
@@ -539,4 +539,60 @@ textarea {
 
 .hljs {
   background: none !important;
+}
+
+.btn-outline-error {
+  background-color: transparent;
+  border-color: var(--oc-red-7);
+  color: var(--oc-red-7);
+  margin-top: -5px;
+  border-radius: 15px;
+}
+
+.btn-outline-error:hover {
+  background-color: var(--oc-red-7);
+  color: #fff;
+}
+
+.btn-outline-danger {
+  background-color: transparent;
+  border-color: var(--oc-yellow-7);
+  color: var(--oc-yellow-7);
+  margin-top: -5px;
+  border-radius: 15px;
+}
+
+.btn-outline-danger:hover {
+  background-color: var(--oc-yellow-7);
+  color: #fff;
+}
+
+.btn-outline-success {
+  background-color: transparent;
+  border-color: var(--oc-teal-7);
+  color: var(--oc-teal-7);
+  margin-top: -5px;
+  border-radius: 15px;
+}
+
+.btn-outline-success:hover {
+  color: #fff;
+  background-color: var(--oc-teal-7);
+}
+
+.btn-outline-black {
+  background-color: transparent;
+  border-color: #000;
+  color: #000;
+  margin-top: -5px;
+  border-radius: 15px;
+}
+
+.btn-outline-black:hover {
+  color: #fff;
+  background-color: #000;
+}
+
+h3 .btn-outline-success {
+  font-size: 20px;
 }
