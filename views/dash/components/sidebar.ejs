@@ -7,7 +7,6 @@
   <br />
   <div class="sections">
     <ul class="nav nav-pills nav-stacked">
-      <h3>MONITOR</h3>
       <li <% if (currentPage == "dashboard") { %> class="active" <% } %>>
         <a id="dashboard" href="/dashboard">
           <i class="fa fa-tachometer"></i>
@@ -18,14 +17,12 @@
           <i class="fa fa-feed"></i>
           Monitors</a>
       </li>
-      <h3>REPORT</h3>
       <li <% if (currentPage == "incidents") { %> class="active" <% } %>>
         <a id="incidents" href="/incidents"><i class="fa fa-exclamation-circle"></i> Incidents</a>
       </li>
       <li <% if (currentPage == "integrations") { %> class="active" <% } %>>
         <a id="integrations" href="/integrations"><i class="fa fa-code-fork"></i> Integrations</a>
       </li>
-      <h3>ALTER</h3>
       <li <% if (currentPage == "settings") { %> class="active" <% } %>>
         <a id="settings" href="/settings">
           <i class="fa fa-gear"></i>

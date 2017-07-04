@@ -72,7 +72,13 @@ body {
 .nav > li > a {
   /* TODO :: Pick a color for here */
   color: #8c8c8c;
-  font-size: 15px;
+  font-size: 16px;
+  border-top-color: #eaeaec;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  padding-bottom: 0px;
 }
 
 .sections i {
@@ -544,27 +550,27 @@ textarea {
 .btn-outline-error {
   background-color: transparent;
   border-color: var(--oc-red-7);
-  color: var(--oc-red-7);
+  color: var(--oc-red-7) !important;
   margin-top: -5px;
   border-radius: 15px;
 }
 
 .btn-outline-error:hover {
   background-color: var(--oc-red-7);
-  color: #fff;
+  color: #fff !important;
 }
 
 .btn-outline-danger {
   background-color: transparent;
   border-color: var(--oc-yellow-7);
-  color: var(--oc-yellow-7);
+  color: var(--oc-yellow-7) !important;
   margin-top: -5px;
   border-radius: 15px;
 }
 
 .btn-outline-danger:hover {
   background-color: var(--oc-yellow-7);
-  color: #fff;
+  color: #fff !important;
 }
 
 .btn-outline-success {
@@ -593,6 +599,6 @@ textarea {
   background-color: #000;
 }
 
-h3 .btn-outline-success {
+h3 .btn-outline-success, h3 .btn-outline-danger, h3 .btn-outline-error {
   font-size: 20px;
 }

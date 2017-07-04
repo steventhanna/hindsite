@@ -32,9 +32,7 @@ var monitorID = "<%= monitor.id %>";
   <% for (var i = 0; i < pings.length; i++) { %>
     <div class="row monitor bordered">
       <div class="col-lg-3 col-xs-3">
-        <h3><a class="btn btn-outline-<% if (pings[i].status != 200 && pings[i].status != 302) { %>
-           error
-        <% } else { %>success<% } %>" href="/monitors/view/<%= monitor.id %>/details/ping/<%= pings[i].id %>"><%= pings[i].createdAt %></a></h3>
+        <h3><a class="btn btn-outline-<% if (pings[i].status != 200 && pings[i].status != 302) { %>error<% } else { %>success<% } %>" href="/monitors/view/<%= monitor.id %>/details/ping/<%= pings[i].id %>"><%= pings[i].createdAt %></a></h3>
       </div>
       <div class="col-lg-3 col-xs-3">
         <h3><%= pings[i].status %></h3>
@@ -43,9 +41,7 @@ var monitorID = "<%= monitor.id %>";
         <h3><%= pings[i].elapsedTime %> ms</h3>
       </div>
       <div class="col-lg-3 col-xs-3">
-        <h3><a <% if (pings[i].status != 200 && pings[i].status != 302) { %>
-          class="has-error"
-        <% } %>href="<%= pings[i].targetURL %>"><%= pings[i].targetURL %></a></h3>
+        <h3><a <% if (pings[i].status != 200 && pings[i].status != 302) { %>class="has-error"<% } %> href="<%= pings[i].targetURL %>"><%= pings[i].targetURL %></a></h3>
       </div>
     </div>
   <% } %>
