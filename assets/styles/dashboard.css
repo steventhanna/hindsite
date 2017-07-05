@@ -76,9 +76,8 @@ body {
   border-top-color: #eaeaec;
   border-top-style: solid;
   border-top-width: 1px;
-  border-top-right-radius: 0px;
-  border-top-left-radius: 0px;
-  padding-bottom: 0px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .sections i {
@@ -102,8 +101,13 @@ body {
   border-width: 1px;
 }
 
+.nav-stacked > li {
+  margin-top: 0px;
+  margin-bottom: -2px;
+}
+
 .nav-stacked > li + li {
-  margin-top: 20px;
+  /*margin-top: 20px;*/
 }
 
 .nav-pills > li.active > a > i {

@@ -14,12 +14,31 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a href="#"><i class="fa fa-bell"></i></a>
+        <li class="dropdown-menu" <% if (currentPage == "monitors") { %> active" <% } else { %>"<% } %>>
+          <a id="monitors" href="/monitors" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            Monitors <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <% for (var i = 0; i < monitors.length; i++) { %>
+                <li>
+                  <a href="/monitors/view/<%= monitors[i].id %>"><%= monitors[i].name %></a>
+                </li>
+              <% } %>
+            </ul>
+        </li>
+        <li <% if (currentPage == "incidents") { %> class="active" <% } %>>
+          <a id="incidents" href="/incidents">Incidents</a>
+        </li>
+        <li <% if (currentPage == "integrations") { %> class="active" <% } %>>
+          <a id="integrations" href="/integrations">Integrations</a>
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= user.fullName %> <span class="caret"></span></a>
           <ul class="dropdown-menu">
+            <li <% if (currentPage == "settings") { %> class="active" <% } %>>
+              <a id="settings" href="/settings">
+                <i class="fa fa-gear"></i>
+                Settings</a>
+            </li>
             <li><a href="/logout"><i class="fa fa-power-off"></i> Sign Out</a></li>
           </ul>
         </li>
