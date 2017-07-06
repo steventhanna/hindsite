@@ -16,9 +16,9 @@ module.exports = {
       if (err || ping == undefined) {
         console.log("There was an error creating the ping.");
         console.log("Error = " + err);
-        res.serverError();
+        callback(err);
       } else {
-        callback();
+        callback(null);
       }
     });
   },
@@ -68,8 +68,14 @@ module.exports = {
         });
       },
       function(callback) {
-        PingService.new(pingObj, function() {
-          callback();
+        PingService.new(pingObj, function(err) {
+          if (err) {
+            console.log("There was an error creating the ping.");
+            console.log("Error = " + err);
+            res.serverError();
+          } else {
+            callback();
+          }
         });
       },
       function(callback) {
