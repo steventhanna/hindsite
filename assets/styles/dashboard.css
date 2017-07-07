@@ -15,10 +15,14 @@
 body {
   font-family: 'Open Sans', sans-serif;
   background-color: #fbfbfb;
-  /*padding-right: 20px;*/
   width: 100%;
   padding-top: 50px;
   word-break: normal;
+}
+
+.container-fluid {
+  padding-right: 30px;
+  padding-left: 30px;
 }
 
 /* Handle body padding for navbar-fixed-top */
@@ -73,11 +77,19 @@ body {
   /* TODO :: Pick a color for here */
   color: #8c8c8c;
   font-size: 16px;
-  border-top-color: #eaeaec;
-  border-top-style: solid;
-  border-top-width: 1px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  /*border-top-color: #eaeaec;*/
+  /*border-top-style: solid;*/
+  /*border-top-width: 1px;*/
+  /*padding-top: 20px;*/
+  /*padding-bottom: 20px;*/
+}
+
+.dropdown-menu {
+  border-radius: 0px;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  border: none;
+  margin-top: 0px;
 }
 
 .sections i {
@@ -180,9 +192,9 @@ body {
 .navbar-default .navbar-nav > .active > a {
   color: #000;
   background-color: #fff;
-  -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.19);
-  -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.19);
-  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.19);
+  border-bottom-color: var(--oc-teal-7);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
 }
 
 .navbar-default .navbar-nav > .active > a i {

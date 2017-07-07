@@ -11,87 +11,92 @@ var beautify = require('js-beautify').js_beautify;
 module.exports = {
 
   // Render the dashboard view
+  // dashboard: function(req, res) {
+  //   User.findOne({
+  //     id: req.user.id
+  //   }).populateAll().exec(function(err, user) {
+  //     if (err || user == undefined) {
+  //       console.log("There was an error finding the user.");
+  //       console.log("Error = " + error);
+  //       res.serverError();
+  //     } else {
+  //       var dash;
+  //       var monitors;
+  //       async.series([
+  //         function(callback) {
+  //           DashService.getDashElement(function(err, elem) {
+  //             dash = elem;
+  //             callback();
+  //           });
+  //         },
+  //         function(callback) {
+  //           Monitor.find({
+  //             sort: {
+  //               createdAt: -1
+  //             }
+  //           }).exec(function(err, mon) {
+  //             if (err || mon == undefined) {
+  //               console.log("There was an error finding the monitors.");
+  //               console.log("Error = " + err);
+  //               res.serverError();
+  //             } else {
+  //               monitors = mon;
+  //               callback();
+  //             }
+  //           });
+  //         },
+  //         function(callback) {
+  //           async.each(monitors, function(monitor, cb) {
+  //             PingService.getMonitoredPings(monitor, function(err, pings) {
+  //               if (err || pings == undefined) {
+  //                 console.log("There was an error getting the pings.");
+  //                 console.log("Error = " + err);
+  //                 res.serverError();
+  //               } else {
+  //                 monitor.monitoredPings = pings;
+  //                 cb();
+  //               }
+  //             });
+  //           }, function(err) {
+  //             if (err) {
+  //               console.log("There was an error finding the pings.");
+  //               console.log("Error = " + err);
+  //               res.serverError();
+  //             } else {
+  //               callback();
+  //             }
+  //           });
+  //         }
+  //       ], function(callback) {
+  //         DashService.title("Dashboard", function(title) {
+  //           res.view('dash/dashboard', {
+  //             user: user,
+  //             dash: dash,
+  //             title: title,
+  //             currentPage: "dashboard",
+  //             monitors: monitors,
+  //             healthyMonitors: monitors.filter(function(x) {
+  //               return x.health == "Healthy" && x.state;
+  //             }),
+  //             rockyMonitors: monitors.filter(function(x) {
+  //               return x.health == "Rocky" && x.state;
+  //             }),
+  //             sickMonitors: monitors.filter(function(x) {
+  //               return x.health == "Sick" && x.state;
+  //             }),
+  //             offlineMonitors: monitors.filter(function(x) {
+  //               return x.state == false
+  //             })
+  //           });
+  //         });
+  //       });
+  //     }
+  //   });
+  // },
+  // Temporary redirect
   dashboard: function(req, res) {
-    User.findOne({
-      id: req.user.id
-    }).populateAll().exec(function(err, user) {
-      if (err || user == undefined) {
-        console.log("There was an error finding the user.");
-        console.log("Error = " + error);
-        res.serverError();
-      } else {
-        var dash;
-        var monitors;
-        async.series([
-          function(callback) {
-            DashService.getDashElement(function(err, elem) {
-              dash = elem;
-              callback();
-            });
-          },
-          function(callback) {
-            Monitor.find({
-              sort: {
-                createdAt: -1
-              }
-            }).exec(function(err, mon) {
-              if (err || mon == undefined) {
-                console.log("There was an error finding the monitors.");
-                console.log("Error = " + err);
-                res.serverError();
-              } else {
-                monitors = mon;
-                callback();
-              }
-            });
-          },
-          function(callback) {
-            async.each(monitors, function(monitor, cb) {
-              PingService.getMonitoredPings(monitor, function(err, pings) {
-                if (err || pings == undefined) {
-                  console.log("There was an error getting the pings.");
-                  console.log("Error = " + err);
-                  res.serverError();
-                } else {
-                  monitor.monitoredPings = pings;
-                  cb();
-                }
-              });
-            }, function(err) {
-              if (err) {
-                console.log("There was an error finding the pings.");
-                console.log("Error = " + err);
-                res.serverError();
-              } else {
-                callback();
-              }
-            });
-          }
-        ], function(callback) {
-          DashService.title("Dashboard", function(title) {
-            res.view('dash/dashboard', {
-              user: user,
-              dash: dash,
-              title: title,
-              currentPage: "dashboard",
-              monitors: monitors,
-              healthyMonitors: monitors.filter(function(x) {
-                return x.health == "Healthy" && x.state;
-              }),
-              rockyMonitors: monitors.filter(function(x) {
-                return x.health == "Rocky" && x.state;
-              }),
-              sickMonitors: monitors.filter(function(x) {
-                return x.health == "Sick" && x.state;
-              }),
-              offlineMonitors: monitors.filter(function(x) {
-                return x.state == false
-              })
-            });
-          });
-        });
-      }
-    });
+    res.redirect('/monitors');
+    res.end();
   },
 
   integrations: function(req, res) {
@@ -253,6 +258,7 @@ module.exports = {
         res.serverError();
       } else {
         var dash;
+        var monitors;
         async.series([
           function(callback) {
             DashService.getDashElement(function(err, elem) {
@@ -260,13 +266,26 @@ module.exports = {
               callback();
             });
           },
+          function(callback) {
+            Monitor.find().exec(function(err, mon) {
+              if (err || mon == undefined) {
+                console.log("There was an error finding the monitors.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                monitors = mon;
+                callback();
+              }
+            });
+          }
         ], function(callback) {
           DashService.title("Settings", function(title) {
             res.view('dash/settings', {
               currentPage: 'settings',
               title: title,
               user: user,
-              dash: dash
+              dash: dash,
+              monitors: monitors
             });
           });
         });
@@ -337,6 +356,7 @@ module.exports = {
         var dash;
         var amountOfPings = 0;
         var amountOfFailedPings = 0;
+        var monitors;
         async.parallel([
           function(callback) {
             Monitor.findOne({
@@ -358,6 +378,18 @@ module.exports = {
               callback();
             });
           },
+          function(callback) {
+            Monitor.find().exec(function(err, mon) {
+              if (err || mon == undefined) {
+                console.log("There was an error finding the monitors.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                monitors = mon;
+                callback();
+              }
+            });
+          }
         ], function(callback) {
           DashService.title(monitor.name, function(title) {
             res.view('dash/viewMonitor', {
@@ -365,7 +397,8 @@ module.exports = {
               title: title,
               currentPage: "monitors",
               dash: dash,
-              monitor: monitor
+              monitor: monitor,
+              monitors: monitors
             });
           });
         });
@@ -723,6 +756,7 @@ module.exports = {
         var monitor;
         var pings;
         var dash;
+        var monitors;
         async.series([
           function(callback) {
             Monitor.findOne({
@@ -773,6 +807,18 @@ module.exports = {
               dash = elem;
               callback();
             });
+          },
+          function(callback) {
+            Monitor.find().exec(function(err, mon) {
+              if (err || mon == undefined) {
+                console.log("There was an error finding the monitors.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                monitors = mon;
+                callback();
+              }
+            });
           }
         ], function(callback) {
           DashService.title(monitor.name + " Ping Details", function(title) {
@@ -782,7 +828,8 @@ module.exports = {
               monitor: monitor,
               pings: pings,
               title: title,
-              dash: dash
+              dash: dash,
+              monitors: monitors
             });
           });
         });
@@ -806,6 +853,7 @@ module.exports = {
         var dash;
         var ping;
         var monitor;
+        var monitors;
         async.parallel([
           function(callback) {
             DashService.getDashElement(function(err, d) {
@@ -851,6 +899,18 @@ module.exports = {
                 callback();
               }
             });
+          },
+          function(callback) {
+            Monitor.find().exec(function(err, mon) {
+              if (err || mon == undefined) {
+                console.log("There was an error finding the monitors.");
+                console.log("Error = " + err);
+                res.serverError();
+              } else {
+                monitors = mon;
+                callback();
+              }
+            });
           }
         ], function(callback) {
           DashService.title("Ping", function(title) {
@@ -860,7 +920,8 @@ module.exports = {
               currentPage: "monitors",
               monitor: monitor,
               ping: ping,
-              dash: dash
+              dash: dash,
+              monitors: monitors
             });
           });
         });
